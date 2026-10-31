@@ -167,10 +167,15 @@
   };
   var clip = document.getElementById("hero-clip");
   var caption = document.getElementById("clip-caption");
-  var radios = Array.prototype.slice.call(document.querySelectorAll(".moment-list [role=radio]"));
+  var radios = Array.prototype.slice.call(document.querySelectorAll(".dock [role=radio]"));
+  /* Until the visitor picks one, the dock moves on by itself when each recording ends. */
+  var auto = !reduced;
+  var current = radios[0];
+  if (clip) clip.loop = !auto;
   function choose(btn, focus) {
     var name = btn.getAttribute("data-clip");
-    radios.forEach(function (r) { var on = r === btn; r.setAttribute("aria-checked", on ? "true" : "false"); r.tabIndex = on ? 0 : -1; });
+    current = btn;
+    radios.forEach(function (r) { var on = r === btn; r.setAttribute("aria-checked", on ? "true" : "false"); r.tabIndex = on ? 0 : -1; r.style.setProperty("--p", 0); });
     if (focus) btn.focus();
     if (!clip) return;
     clip.classList.add("swap");
@@ -183,16 +188,33 @@
       clip.classList.remove("swap");
     }, reduced ? 0 : 200);
   }
+  function pick(btn, focus) {
+    if (auto) { auto = false; if (clip) clip.loop = true; }
+    choose(btn, focus);
+    sendEvent("notch_preview_select", { moment: btn.getAttribute("data-clip") });
+  }
+  if (clip) {
+    clip.addEventListener("ended", function () {
+      if (auto) choose(radios[(radios.indexOf(current) + 1) % radios.length], false);
+    });
+    (function tick() {
+      if (clip.duration && current) current.style.setProperty("--p", Math.min(1, clip.currentTime / clip.duration));
+      requestAnimationFrame(tick);
+    })();
+  }
   radios.forEach(function (r, i) {
     r.tabIndex = r.getAttribute("aria-checked") === "true" ? 0 : -1;
-    r.addEventListener("click", function () { choose(r, false); });
+    r.addEventListener("click", function () { pick(r, false); });
     r.addEventListener("keydown", function (e) {
       var k = e.key, n = null;
       if (k === "ArrowRight" || k === "ArrowDown") n = radios[(i + 1) % radios.length];
       if (k === "ArrowLeft" || k === "ArrowUp") n = radios[(i - 1 + radios.length) % radios.length];
-      if (n) { e.preventDefault(); choose(n, true); }
+      if (n) { e.preventDefault(); pick(n, true); }
     });
   });
+  /* The notch's glow turns like the app's; it holds still for reduced motion. */
+  var shape = document.querySelector(".notch-shape");
+  if (reduced && shape && shape.pauseAnimations) shape.pauseAnimations();
 
   /* The video loads only when asked, then reports when it really starts playing. */
   var VIDEO_ID = "n1G_pY94t-M";

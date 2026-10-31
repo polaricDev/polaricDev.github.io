@@ -1,5 +1,5 @@
 /* Polaric website. One motif: the notch (flat top, rounded bottom) shapes the hero, the pictures,
-   the buttons and the bullets. One ground, one ink, one accent. */
+   the buttons and the bullets. Colour is the app's own Berry theme: #F472B6 → #C026D3 → #7E22CE. */
 
 @font-face {
   font-family: "Bricolage Grotesque";
@@ -16,8 +16,13 @@
   --black: #000;
   --ink: #f4f5f7;
   --soft: #a9adb7;
-  --accent: #1f66dd;
-  --accent-hover: #2b72e8;
+  --berry-a: #F472B6;
+  --berry-b: #C026D3;
+  --berry-c: #7E22CE;
+  --berry: linear-gradient(120deg, var(--berry-a) 0%, var(--berry-b) 50%, var(--berry-c) 100%);
+  --berry-deep: linear-gradient(120deg, var(--berry-b) 0%, var(--berry-c) 100%);
+  --accent: #C026D3;
+  --accent-hover: #F472B6;
   --m: clamp(20px, 4.4vw, 64px);
   --gap: clamp(96px, 12vw, 200px);
   --notch: 6px 6px 22px 22px;      /* the motif at button size */
@@ -75,8 +80,9 @@ p { margin: 0; }
   transition: background-color .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
 }
 .btn:active { transform: translateY(1px) scale(.98); }
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { background: var(--accent-hover); }
+.btn-primary { background: var(--berry-deep); color: #fff; box-shadow: 0 0 0 rgba(192, 38, 211, 0); transition: box-shadow .25s var(--ease), transform .18s var(--ease), filter .25s var(--ease); }
+.btn-primary:hover { box-shadow: 0 10px 34px rgba(192, 38, 211, .45); filter: brightness(1.08); }
+.btn-star { fill: currentColor; margin-right: 10px; }
 .btn-quiet { background: var(--field); color: var(--ink); }
 .btn-quiet:hover { background: #2a2e37; }
 .btn-big { min-height: 60px; font-size: var(--t-body); padding: 0 32px; }
@@ -86,7 +92,7 @@ p { margin: 0; }
 .dots li { position: relative; padding-left: 28px; }
 .dots li::before {
   content: ""; position: absolute; left: 0; top: .52em;
-  width: 16px; height: 9px; background: var(--accent); border-radius: 1px 1px 6px 6px;
+  width: 16px; height: 9px; background: var(--berry); border-radius: 1px 1px 6px 6px;
 }
 
 /* ---------- Hero ---------- */
@@ -96,7 +102,12 @@ p { margin: 0; }
   display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px;
   padding: 0 var(--m);
   overflow: hidden;
+  background:
+    radial-gradient(48% 56% at 78% 26%, rgba(192, 38, 211, .26), transparent 70%),
+    radial-gradient(40% 50% at 8% 92%, rgba(244, 114, 182, .12), transparent 70%),
+    radial-gradient(36% 40% at 98% 96%, rgba(126, 34, 206, .2), transparent 70%);
 }
+.berry-text { background: var(--berry); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hero-copy {
   grid-column: 1 / span 5; align-self: center;
   position: relative; z-index: 2;
@@ -111,19 +122,6 @@ p { margin: 0; }
 .hero-count strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .fine { margin-top: 16px; font-size: var(--t-small); color: var(--soft); }
 
-.moments { margin: 40px 0 0; padding: 0; border: 0; }
-.moments legend { font-size: var(--t-small); color: var(--soft); margin-bottom: 12px; padding: 0; }
-.moment-list { display: flex; flex-wrap: wrap; gap: 8px; }
-.moment-list button {
-  font-family: inherit; font-weight: 500; font-size: var(--t-small); line-height: 1;
-  min-height: 44px; padding: 0 18px; border: 0; cursor: pointer;
-  border-radius: var(--notch); background: var(--field); color: var(--ink);
-  transition: background-color .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
-}
-.moment-list button:hover { background: #2a2e37; }
-.moment-list button:active { transform: scale(.97); }
-.moment-list button[aria-checked="true"] { background: var(--ink); color: var(--ground); }
-
 /* The giant notch, hanging from the top edge on the right */
 .hero-notch {
   position: absolute; top: 0; right: calc(var(--m) * -1 + 0px);
@@ -132,14 +130,39 @@ p { margin: 0; }
   clip-path: inset(0 0 0 0);
 }
 .notch-shape { position: absolute; inset: 0; width: 100%; height: 100%; }
-.notch-shape path { fill: var(--black); }
+.notch-shape { overflow: visible; }
+.notch-body { fill: var(--black); }
+.notch-glow { fill: none; stroke: url(#berry); stroke-width: 22; opacity: .85; vector-effect: non-scaling-stroke; }
+.notch-edge { fill: none; stroke: url(#berry); stroke-width: 2.5; vector-effect: non-scaling-stroke; }
 .notch-screen {
-  position: absolute; left: 9%; right: 9%; bottom: 13%; top: 22%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  position: absolute; left: 9%; right: 9%; bottom: 10%; top: 22%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
 }
 .hero-clip { width: 100%; height: auto; max-height: 72%; object-fit: contain; transition: opacity .25s var(--ease); }
 .hero-clip.swap { opacity: 0; }
-.clip-caption { font-size: var(--t-small); color: var(--soft); text-align: center; }
+.clip-caption { font-size: var(--t-small); color: var(--soft); text-align: center; min-height: 1.55em; }
+
+/* The dock: what the notch shows, picked like a page of the app. It moves on by itself until chosen. */
+.dock { margin-top: 8px; width: 100%; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.dock button {
+  position: relative; display: grid; justify-items: center; gap: 10px;
+  padding: 14px 4px 16px; border: 0; cursor: pointer; background: transparent; color: var(--soft);
+  font-family: inherit; font-size: var(--t-small); font-weight: 600; line-height: 1;
+  border-radius: 16px; transition: background-color .2s var(--ease), color .2s var(--ease), transform .2s var(--ease);
+}
+.dock button:hover { background: rgba(255, 255, 255, .05); color: var(--ink); }
+.dock button:active { transform: scale(.96); }
+.dock-icon {
+  display: grid; place-items: center; width: 52px; height: 52px; border-radius: var(--notch);
+  background: var(--field); color: var(--ink);
+  transition: box-shadow .3s var(--ease), transform .3s var(--ease);
+}
+.dock-icon svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.dock button[aria-checked="true"] { color: var(--ink); }
+.dock button[aria-checked="true"] .dock-icon { background: var(--berry); color: #fff; box-shadow: 0 8px 28px rgba(192, 38, 211, .55); transform: translateY(-2px); }
+.dock-progress { width: 60%; height: 3px; border-radius: 3px; background: rgba(255, 255, 255, .08); overflow: hidden; opacity: 0; transition: opacity .2s; }
+.dock-progress i { display: block; height: 100%; background: var(--berry); transform-origin: left; transform: scaleX(var(--p, 0)); }
+.dock button[aria-checked="true"] .dock-progress { opacity: 1; }
 
 /* ---------- Video ---------- */
 .video { padding: var(--gap) var(--m) 0; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 40px; }
@@ -155,10 +178,10 @@ p { margin: 0; }
 .play-mark {
   position: absolute; left: 50%; top: 50%; translate: -50% -50%;
   width: 96px; height: 64px; display: grid; place-items: center;
-  background: var(--accent); color: #fff; border-radius: var(--notch);
+  background: var(--berry); color: #fff; border-radius: var(--notch); box-shadow: 0 10px 40px rgba(192, 38, 211, .5);
   transition: transform .2s var(--ease), background-color .2s;
 }
-.video-play:hover .play-mark { transform: scale(1.08); background: var(--accent-hover); }
+.video-play:hover .play-mark { transform: scale(1.08); }
 .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
 /* ---------- Features ---------- */
@@ -170,7 +193,7 @@ p { margin: 0; }
   display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 32px; align-items: center;
   padding: clamp(56px, 7vw, 104px) var(--m);
 }
-.feature.alt { background: var(--ground-deep); }
+.feature.alt { background: radial-gradient(60% 80% at 0% 50%, rgba(192, 38, 211, .1), transparent 70%), var(--ground-deep); }
 .feature-text { grid-column: 1 / span 5; display: grid; gap: 20px; align-content: start; }
 .stage {
   grid-column: 7 / span 6; background: var(--black); border-radius: var(--notch-big);
@@ -198,11 +221,11 @@ p { margin: 0; }
 .download { padding: var(--gap) var(--m) 0; }
 .download-lede { margin-top: 24px; max-width: 36em; }
 .download-grid { margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-.get { background: var(--black); border-radius: var(--notch-big); padding: clamp(28px, 3.4vw, 52px); display: grid; gap: 20px; align-content: start; justify-items: start; }
+.get { background: radial-gradient(90% 60% at 100% 0%, rgba(192, 38, 211, .22), transparent 70%), var(--black); border-radius: var(--notch-big); padding: clamp(28px, 3.4vw, 52px); display: grid; gap: 20px; align-content: start; justify-items: start; }
 .get h3 { font-size: var(--t-h2); letter-spacing: -0.03em; line-height: 1; }
 .get-meta { color: var(--soft); font-size: var(--t-small); }
 .tally { margin-top: 40px; font-size: var(--t-body); color: var(--soft); }
-.tally strong { display: block; font-size: var(--t-display); font-weight: 800; letter-spacing: -0.04em; line-height: .9; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tally strong { display: block; width: fit-content; font-size: var(--t-display); font-weight: 800; letter-spacing: -0.04em; line-height: .95; font-variant-numeric: tabular-nums; background: var(--berry); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .get-count strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .guides, .whatsnew { margin-top: 56px; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 16px; }
 .guides h3, .whatsnew h3 { grid-column: 1 / span 4; }
@@ -213,7 +236,7 @@ p { margin: 0; }
 .support {
   position: relative; display: block; margin-top: var(--gap);
   min-height: clamp(420px, 38vw, 560px); padding: 28px var(--m) 24px;
-  background: var(--accent); color: #fff; text-decoration: none;
+  background: linear-gradient(115deg, var(--berry-c) 0%, var(--berry-b) 52%, var(--berry-a) 100%); color: #fff; text-decoration: none;
   border-radius: 0 0 0 0;
   transition: background-color .15s, color .15s;
   overflow: hidden;
@@ -241,7 +264,7 @@ p { margin: 0; }
   transition: background-color .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
 }
 .stars button svg { width: 34px; height: 34px; fill: currentColor; }
-.stars button.lit { background: var(--black); color: #ffc93c; }
+.stars button.lit { background: var(--berry); color: #fff; box-shadow: 0 8px 26px rgba(192, 38, 211, .4); }
 .stars button:active { transform: translateY(1px) scale(.96); }
 .stars[aria-disabled="true"] button { cursor: default; }
 .rate-status { font-size: var(--t-body); }
@@ -259,7 +282,7 @@ p { margin: 0; }
 .mail:hover { color: var(--accent-hover); }
 
 /* ---------- Footer ---------- */
-.foot { margin-top: var(--gap); background: var(--ground-deep); padding: clamp(56px, 7vw, 104px) var(--m) 40px; }
+.foot { margin-top: var(--gap); background: radial-gradient(50% 70% at 85% 100%, rgba(126, 34, 206, .22), transparent 70%), var(--ground-deep); padding: clamp(56px, 7vw, 104px) var(--m) 40px; }
 .foot-mark { display: flex; align-items: center; gap: clamp(16px, 2.4vw, 36px); }
 .foot-mark img { width: clamp(72px, 11vw, 160px); height: auto; border-radius: 22%; }
 .foot-mark span { font-weight: 800; font-size: clamp(64px, 15.6vw, 280px); letter-spacing: -0.05em; line-height: .85; }
@@ -279,7 +302,7 @@ p { margin: 0; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero-notch, .hero-notch .notch-screen { animation: none; }
-  .btn, .moment-list button, .stars button, .video-play img, .play-mark { transition: none; }
+  .btn, .dock button, .dock-icon, .stars button, .video-play img, .play-mark { transition: none; }
 }
 
 /* ---------- Tablet ---------- */
@@ -302,8 +325,10 @@ p { margin: 0; }
   .hero h1 { font-size: 15.5vw; }
   .lede { margin-top: 24px; }
   .hero-actions .btn { flex: 1 1 100%; }
-  .hero-notch { position: relative; width: calc(100% + var(--m) * 2); margin: 0 calc(var(--m) * -1); height: 92vw; right: auto; }
-  .notch-screen { left: 8%; right: 8%; top: 16%; bottom: 10%; }
+  .hero-notch { position: relative; width: calc(100% + var(--m) * 2); margin: 0 calc(var(--m) * -1); height: 138vw; right: auto; }
+  .notch-screen { left: 8%; right: 8%; top: 9%; bottom: 10%; gap: 14px; }
+  .dock { grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .dock button { padding: 10px 2px 12px; }
   .more-list { grid-template-columns: 1fr; }
   .platform-grid, .download-grid { grid-template-columns: 1fr; }
   .guides h3, .guides p, .guide-links, .whatsnew h3, .whatsnew ul { grid-column: 1 / -1; }

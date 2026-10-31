@@ -48,35 +48,41 @@
 <!-- Hero: a giant notch hangs from the top of the page and plays Polaric's real states -->
 <section class="hero" id="top" aria-labelledby="hero-title">
   <div class="hero-copy">
-    <h1 id="hero-title">Your Notch, Alive.</h1>
+    <h1 id="hero-title">Your Notch, <span class="berry-text">Alive.</span></h1>
     <p class="lede">Polaric turns the top of your screen into a living notch: music with synced lyrics, your meetings, email and chats at a glance, files to your phone and a small mascot that keeps you company. Free for macOS and Windows.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" data-download="macos" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Notch-1.1.0.dmg">Download for macOS</a>
       <a class="btn btn-quiet" data-download="windows" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Setup-1.1.0.exe">Download for Windows</a>
     </div>
     <p class="fine">Version 1.1.0 · macOS 14 or later · Windows 10 and 11<span class="hero-count" hidden> · <strong data-count="total"></strong> <span data-count-label="total">downloads</span></span></p>
-    <p class="hero-links"><a data-youtube href="https://youtu.be/n1G_pY94t-M" target="_blank" rel="noopener">Watch the video on YouTube</a><a data-github="hero" href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener">View on GitHub</a></p>
+    <p class="hero-links"><a data-youtube href="https://youtu.be/n1G_pY94t-M" target="_blank" rel="noopener">Watch the video on YouTube</a><a data-star href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener">★ Rate us on GitHub</a></p>
 
-    <fieldset class="moments">
-      <legend>See it live</legend>
-      <div class="moment-list" role="radiogroup" aria-label="Show a moment in the notch">
-        <button type="button" role="radio" aria-checked="true" data-clip="lyrics">Lyrics</button>
-        <button type="button" role="radio" aria-checked="false" data-clip="email">Email</button>
-        <button type="button" role="radio" aria-checked="false" data-clip="meeting">Meeting</button>
-        <button type="button" role="radio" aria-checked="false" data-clip="open-music">Music</button>
-        <button type="button" role="radio" aria-checked="false" data-clip="share">ShareZone</button>
-        <button type="button" role="radio" aria-checked="false" data-clip="timer">Timer</button>
-      </div>
-    </fieldset>
   </div>
 
   <div class="hero-notch" aria-hidden="false">
-    <svg class="notch-shape" viewBox="0 0 1000 720" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,0 H1000 Q956,0 956,44 V560 Q956,720 796,720 H204 Q44,720 44,560 V44 Q44,0 0,0 Z"/>
+    <svg class="notch-shape" viewBox="0 0 1000 760" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="berry" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#F472B6"/><stop offset=".5" stop-color="#C026D3"/><stop offset="1" stop-color="#7E22CE"/>
+          <animateTransform attributeName="gradientTransform" type="rotate" from="0 .5 .5" to="360 .5 .5" dur="9s" repeatCount="indefinite"/>
+        </linearGradient>
+        <filter id="glow" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="16"/></filter>
+      </defs>
+      <path class="notch-glow" d="M0,0 Q44,0 44,44 V560 Q44,720 204,720 H796 Q956,720 956,560 V44 Q956,0 1000,0" filter="url(#glow)"/>
+      <path class="notch-body" d="M0,0 H1000 Q956,0 956,44 V560 Q956,720 796,720 H204 Q44,720 44,560 V44 Q44,0 0,0 Z"/>
+      <path class="notch-edge" d="M0,0 Q44,0 44,44 V560 Q44,720 204,720 H796 Q956,720 956,560 V44 Q956,0 1000,0"/>
     </svg>
     <div class="notch-screen">
       <video id="hero-clip" class="hero-clip" src="assets/clips/hero-lyrics.mp4" poster="assets/clips/hero-lyrics.jpg" autoplay muted loop playsinline width="1200" height="190" aria-label="Polaric showing synced lyrics in the notch"></video>
       <p class="clip-caption" id="clip-caption">Synced lyrics under the notch, line by line.</p>
+      <div class="dock" role="radiogroup" aria-label="Choose what the notch shows">
+        <button type="button" role="radio" aria-checked="true" data-clip="lyrics"><span class="dock-icon"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span class="dock-label">Lyrics</span><span class="dock-progress" aria-hidden="true"><i></i></span></button>
+        <button type="button" role="radio" aria-checked="false" data-clip="email"><span class="dock-icon"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span><span class="dock-label">Email</span><span class="dock-progress" aria-hidden="true"><i></i></span></button>
+        <button type="button" role="radio" aria-checked="false" data-clip="meeting"><span class="dock-icon"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3z"/></svg></span><span class="dock-label">Meeting</span><span class="dock-progress" aria-hidden="true"><i></i></span></button>
+        <button type="button" role="radio" aria-checked="false" data-clip="open-music"><span class="dock-icon"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><span class="dock-label">Music</span><span class="dock-progress" aria-hidden="true"><i></i></span></button>
+        <button type="button" role="radio" aria-checked="false" data-clip="share"><span class="dock-icon"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M12 15V7m-3 3 3-3 3 3"/></svg></span><span class="dock-label">ShareZone</span><span class="dock-progress" aria-hidden="true"><i></i></span></button>
+        <button type="button" role="radio" aria-checked="false" data-clip="timer"><span class="dock-icon"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></span><span class="dock-label">Timer</span><span class="dock-progress" aria-hidden="true"><i></i></span></button>
+      </div>
     </div>
   </div>
 </section>
@@ -306,7 +312,7 @@
 <section class="rate" id="rate" aria-labelledby="rate-title">
   <div class="rate-head">
     <h2 id="rate-title">Rate Polaric</h2>
-    <p>How is Polaric working for you? Pick one to five stars, then tell us more in a review on GitHub.</p>
+    <p>How is Polaric working for you? Pick one to five stars here, then rate us on GitHub with a star and tell us more in a review.</p>
   </div>
   <div class="rate-body">
     <div class="stars" role="radiogroup" aria-label="Your rating, one to five stars" hidden>
@@ -318,8 +324,8 @@
     </div>
     <p class="rate-status" id="rate-status" aria-live="polite" hidden>Your rating is sent anonymously.</p>
     <div class="rate-links">
-      <a class="btn btn-primary" data-review href="https://github.com/polaricDev/polaricDev.github.io/discussions/1" target="_blank" rel="noopener">Write a review</a>
-      <a class="btn btn-quiet" data-star href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener">Star on GitHub<span class="star-count" hidden></span></a>
+      <a class="btn btn-primary" data-star href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener"><svg class="btn-star" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z"/></svg>Rate us on GitHub<span class="star-count" hidden></span></a>
+      <a class="btn btn-quiet" data-review href="https://github.com/polaricDev/polaricDev.github.io/discussions/1" target="_blank" rel="noopener">Write a review</a>
     </div>
   </div>
 </section>
@@ -346,7 +352,7 @@
       <a href="#features">Features</a>
       <a href="#platforms">Mac &amp; Windows</a>
       <a href="#download">Download</a>
-      <a href="#rate">Rate Polaric</a>
+      <a href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener" data-star>Rate us on GitHub</a>
       <a href="https://sociabuzz.com/polaric_dev/tribe" target="_blank" rel="noopener" data-support>Support us</a>
       <a href="https://youtu.be/n1G_pY94t-M" target="_blank" rel="noopener" data-youtube>YouTube</a>
       <a href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener" data-github="footer">GitHub</a>
