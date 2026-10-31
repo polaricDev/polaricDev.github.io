@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polaric Notch: your notch, alive. For macOS and Windows</title>
+<meta name="description" content="Polaric turns the top of your screen into a living notch: music with synced lyrics, meetings, email and chat at a glance, files to your phone, text capture and a mascot. Free for macOS 14+ and Windows 10 and 11.">
+<meta name="theme-color" content="#16181d">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://polaricdev.github.io/">
+<meta property="og:title" content="Polaric Notch: your notch, alive">
+<meta property="og:description" content="Music with synced lyrics, meetings, messages, files to your phone and a mascot, at the top of your screen. Free for macOS and Windows.">
+<meta property="og:image" content="https://polaricdev.github.io/assets/img/video-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-278K1T67BM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-278K1T67BM', /[?&]ga_debug=1/.test(location.search) ? { debug_mode: true } : {});
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <a class="mark" href="#top" aria-label="Polaric, back to top">
+    <img src="assets/img/polaric-icon.png" width="36" height="36" alt="">
+    <span>Polaric</span>
+  </a>
+  <nav aria-label="Main">
+    <a href="#video">Video</a>
+    <a href="#features">Features</a>
+    <a href="#platforms">Mac &amp; Windows</a>
+    <a class="nav-get" href="#download">Download</a>
+  </nav>
+</header>
+
+<main id="main">
+
+<!-- Hero: a giant notch hangs from the top of the page and plays Polaric's real states -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <h1 id="hero-title">Your Notch, Alive.</h1>
+    <p class="lede">Polaric turns the top of your screen into a living notch: music with synced lyrics, your meetings, email and chats at a glance, files to your phone and a small mascot that keeps you company. Free for macOS and Windows.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" data-download="macos" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Notch-1.1.0.dmg">Download for macOS</a>
+      <a class="btn btn-quiet" data-download="windows" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Setup-1.1.0.exe">Download for Windows</a>
+    </div>
+    <p class="fine">Version 1.1.0 · macOS 14 or later · Windows 10 and 11</p>
+
+    <fieldset class="moments">
+      <legend>See it live</legend>
+      <div class="moment-list" role="radiogroup" aria-label="Show a moment in the notch">
+        <button type="button" role="radio" aria-checked="true" data-clip="lyrics">Lyrics</button>
+        <button type="button" role="radio" aria-checked="false" data-clip="email">Email</button>
+        <button type="button" role="radio" aria-checked="false" data-clip="meeting">Meeting</button>
+        <button type="button" role="radio" aria-checked="false" data-clip="open-music">Music</button>
+        <button type="button" role="radio" aria-checked="false" data-clip="share">ShareZone</button>
+        <button type="button" role="radio" aria-checked="false" data-clip="timer">Timer</button>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="hero-notch" aria-hidden="false">
+    <svg class="notch-shape" viewBox="0 0 1000 720" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,0 H1000 Q956,0 956,44 V560 Q956,720 796,720 H204 Q44,720 44,560 V44 Q44,0 0,0 Z"/>
+    </svg>
+    <div class="notch-screen">
+      <video id="hero-clip" class="hero-clip" src="assets/clips/hero-lyrics.mp4" poster="assets/clips/hero-lyrics.jpg" autoplay muted loop playsinline width="1200" height="190" aria-label="Polaric showing synced lyrics in the notch"></video>
+      <p class="clip-caption" id="clip-caption">Synced lyrics under the notch, line by line.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Introduction video -->
+<section class="video" id="video" aria-labelledby="video-title">
+  <div class="video-head">
+    <h2 id="video-title">Watch Polaric in action</h2>
+    <p>The full tour: every page of the notch, notifications, ShareZone, Text capture, themes and mascots.</p>
+  </div>
+  <div class="video-frame" id="video-frame">
+    <button type="button" class="video-play" id="video-play" aria-label="Play the Polaric introduction video">
+      <img src="assets/img/video-poster.jpg" width="1280" height="720" alt="Polaric Notch introduction video" loading="lazy">
+      <span class="play-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="34" height="34"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+    </button>
+    <noscript><a class="btn btn-primary" href="https://youtu.be/n1G_pY94t-M">Watch on YouTube</a></noscript>
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features" id="features" aria-labelledby="features-title">
+  <div class="features-head">
+    <h2 id="features-title">Everything at the top of your screen</h2>
+    <p>Each feature is a page or a small notice in the notch. Turn any of them off, and reorder the pages, in Settings › Modules.</p>
+  </div>
+
+  <article class="feature">
+    <div class="feature-text">
+      <h3>Music and synced lyrics</h3>
+      <p>Whatever plays, in any app or browser tab, shows in the notch: the service's logo on the left, a dancing mascot on the right, and the sung line right under the notch, in time with the song.</p>
+      <ul class="dots">
+        <li>Spotify, Apple Music, YouTube Music, YouTube, Netflix and more</li>
+        <li>Artwork, play and pause, skip and scrub on the Music page</li>
+        <li>Your own playlist shortcuts when nothing is playing</li>
+      </ul>
+    </div>
+    <div class="stage"><video class="clip" src="assets/clips/lyrics.mp4" poster="assets/clips/lyrics.jpg" muted loop playsinline preload="none" width="798" height="190" aria-label="Lyrics shown under the notch"></video></div>
+  </article>
+
+  <article class="feature alt">
+    <div class="feature-text">
+      <h3>Email and chats at a glance</h3>
+      <p>A small notice slides out beside the notch: who wrote and the subject of an email, or who sent you a message. Never the message itself. Click it and the thread or chat opens.</p>
+      <ul class="dots">
+        <li>Gmail and Outlook, in Chrome or their apps</li>
+        <li>WhatsApp, Telegram, Messenger, Slack, Discord, Teams, LINE and Signal</li>
+        <li>The last 30 notices on the Notifications page, until you clear them</li>
+      </ul>
+    </div>
+    <div class="stage stage-stack">
+      <video class="clip" src="assets/clips/email.mp4" poster="assets/clips/email.jpg" muted loop playsinline preload="none" width="1200" height="114" aria-label="An email notice beside the notch"></video>
+      <video class="clip" src="assets/clips/chat.mp4" poster="assets/clips/chat.jpg" muted loop playsinline preload="none" width="1200" height="122" aria-label="A chat notice beside the notch"></video>
+    </div>
+  </article>
+
+  <article class="feature">
+    <div class="feature-text">
+      <h3>Meetings with one-click Join</h3>
+      <p>A minute before a meeting (you choose how long), the notch grows into an alert with a Join button. Today's meetings sit on the Calendar page.</p>
+      <ul class="dots">
+        <li>Your Mac's Calendar, including Google through Internet Accounts</li>
+        <li>Public calendar links (iCal), on Mac and Windows</li>
+        <li>Meetings you add yourself, with link, place and notes</li>
+      </ul>
+    </div>
+    <div class="stage"><video class="clip" src="assets/clips/meeting.mp4" poster="assets/clips/meeting.jpg" muted loop playsinline preload="none" width="1142" height="354" aria-label="A meeting alert with a Join button"></video></div>
+  </article>
+
+  <article class="feature alt">
+    <div class="feature-text">
+      <h3>ShareZone: files to your phone</h3>
+      <p>Drop files on the notch and send them over Wi-Fi to an Android phone with Quick Share, or to an iPhone. Nothing to install on the phone; both screens show the same four-digit code.</p>
+      <ul class="dots">
+        <li>Android: nearby phones by name, or scan a code</li>
+        <li>iPhone: AirDrop on Mac, a one-time code on Windows</li>
+        <li>Progress in the notch until it says Sent</li>
+      </ul>
+    </div>
+    <div class="stage"><video class="clip" src="assets/clips/share.mp4" poster="assets/clips/share.jpg" muted loop playsinline preload="none" width="1200" height="394" aria-label="ShareZone sending three files to a phone"></video></div>
+  </article>
+
+  <article class="feature">
+    <div class="feature-text">
+      <h3>Text capture</h3>
+      <p>Press ⌥O on a Mac or Alt+O on Windows, drag a box over any text on screen (a picture, a video, a scanned PDF) and it is on your clipboard. A QR code gives you its link. Read on your computer, sent nowhere.</p>
+    </div>
+    <div class="stage"><video class="clip" src="assets/clips/capture.mp4" poster="assets/clips/capture.jpg" muted loop playsinline preload="none" width="1200" height="552" aria-label="Text capture copying text from an image"></video></div>
+  </article>
+
+  <article class="feature alt">
+    <div class="feature-text">
+      <h3>Window Snap and AutoText</h3>
+      <p>Drag any window to the notch and drop it on a layout: halves, quarters, 60/40 and more. Type a shortcut like .daily anywhere and it becomes your text, with the date, time and your own variables filled in.</p>
+      <ul class="dots">
+        <li>Snap by keyboard: ⌃⌥S on Mac, Ctrl+Alt+S on Windows</li>
+        <li>AutoText templates with live preview, import and export</li>
+      </ul>
+    </div>
+    <div class="stage stage-stack">
+      <video class="clip" src="assets/clips/snap.mp4" poster="assets/clips/snap.jpg" muted loop playsinline preload="none" width="1200" height="384" aria-label="Window Snap layouts in the notch"></video>
+      <video class="clip" src="assets/clips/autotext.mp4" poster="assets/clips/autotext.jpg" muted loop playsinline preload="none" width="1200" height="770" aria-label="AutoText writing a daily report"></video>
+    </div>
+  </article>
+
+  <article class="feature">
+    <div class="feature-text">
+      <h3>Timer, to-do and ambient sound</h3>
+      <p>Start a countdown and watch it beside the notch. Add tasks with a reminder time. Play rain, light rain and thunder, ocean, fireplace, forest or white, pink and brown noise, made live on your computer.</p>
+    </div>
+    <div class="stage"><video class="clip" src="assets/clips/pages.mp4" poster="assets/clips/pages.jpg" muted loop playsinline preload="none" width="1200" height="432" aria-label="The Timer, To-do and Calendar pages"></video></div>
+  </article>
+
+  <article class="feature alt">
+    <div class="feature-text">
+      <h3>System alerts, done properly</h3>
+      <p>Volume, brightness, Caps Lock, keyboard language, battery and charging, Wi-Fi with an optional speed test, and your AirPods or other Bluetooth devices with their battery. On a Mac, Polaric can replace the volume and brightness popups.</p>
+    </div>
+    <div class="stage"><video class="clip" src="assets/clips/system.mp4" poster="assets/clips/system.jpg" muted loop playsinline preload="none" width="1200" height="212" aria-label="Volume, brightness, AirPods and Wi-Fi alerts"></video></div>
+  </article>
+
+  <article class="feature">
+    <div class="feature-text">
+      <h3>Make it yours</h3>
+      <p>Forty themes, from Ocean and Aurora to Gold and Noir. Aura Glow in twenty colours around the notch while music plays. Thirty-five mascots beside the camera that dance, react, rest when you're away and wave when you return.</p>
+    </div>
+    <div class="stage stage-stack">
+      <video class="clip" src="assets/clips/themes.mp4" poster="assets/clips/themes.jpg" muted loop playsinline preload="none" width="1200" height="468" aria-label="Polaric themes"></video>
+      <video class="clip" src="assets/clips/mascots.mp4" poster="assets/clips/mascots.jpg" muted loop playsinline preload="none" width="798" height="138" aria-label="Choosing a mascot"></video>
+    </div>
+  </article>
+
+  <div class="more">
+    <h3>And also</h3>
+    <ul class="dots more-list">
+      <li><strong>Clipboard</strong> history of what you copied, kept in memory only</li>
+      <li><strong>AI usage</strong> limits for Claude Code, ChatGPT · Codex and Antigravity</li>
+      <li><strong>Browser-Aware Mode</strong> folds the notch to a thin line over your browser tabs</li>
+      <li><strong>Backup</strong> in one file that restores on Mac and on Windows</li>
+      <li><strong>Private</strong>: no analytics, no tracking in the app; everything stays on your computer</li>
+      <li><strong>Shortcuts</strong> you can change: ⌥⌘N or Ctrl+Alt+N opens the notch</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Mac and Windows -->
+<section class="platforms" id="platforms" aria-labelledby="platforms-title">
+  <h2 id="platforms-title">The same Polaric on Mac and Windows</h2>
+  <p class="platforms-lede">Same features, same settings, and one backup file that moves between them. Here is what differs.</p>
+  <div class="platform-grid">
+    <article class="platform">
+      <img src="assets/img/mac-settings.jpg" width="1200" height="907" alt="Polaric Settings on macOS" loading="lazy">
+      <h3>macOS</h3>
+      <ul class="dots">
+        <li>macOS 14 Sonoma or later, MacBook with or without a notch</li>
+        <li>Shortcuts with ⌥ and ⌘: ⌥⌘N notch, ⌥⌘V clipboard, ⌥O text capture</li>
+        <li>Meetings from the Calendar app, plus calendar links</li>
+        <li>iPhone files go through AirDrop</li>
+        <li>Can replace the macOS volume and brightness popups</li>
+        <li>Needs Accessibility and Screen Recording permission for some features</li>
+      </ul>
+    </article>
+    <article class="platform">
+      <img src="assets/img/win-settings.jpg" width="1200" height="899" alt="Polaric Settings on Windows" loading="lazy">
+      <h3>Windows</h3>
+      <ul class="dots">
+        <li>Windows 10 and 11; the notch sits at the top centre of the screen</li>
+        <li>Shortcuts with Ctrl and Alt: Ctrl+Alt+N notch, Ctrl+Alt+V clipboard, Alt+O text capture</li>
+        <li>Meetings from public calendar links (iCal)</li>
+        <li>iPhone files through a one-time code you scan</li>
+        <li>Adaptive Notch folds to a line when nothing is happening</li>
+        <li>Tray icon with Settings, About, Keep notch expanded and Quit</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<!-- Download -->
+<section class="download" id="download" aria-labelledby="download-title">
+  <h2 id="download-title">Download Polaric 1.1.0</h2>
+  <p class="download-lede">Free. Updates install over the old version and keep your settings and data.</p>
+  <div class="download-grid">
+    <div class="get">
+      <h3>macOS</h3>
+      <p class="get-meta">macOS 14 or later · DMG · 8.7 MB</p>
+      <a class="btn btn-primary btn-big" data-download="macos" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Notch-1.1.0.dmg">Download for macOS</a>
+      <p>Open the DMG and drag Polaric into Applications. The first time, right-click Polaric and choose Open, then turn Polaric on in System Settings › Privacy &amp; Security › Accessibility.</p>
+    </div>
+    <div class="get">
+      <h3>Windows</h3>
+      <p class="get-meta">Windows 10 and 11 · Installer · 94.5 MB</p>
+      <a class="btn btn-primary btn-big" data-download="windows" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Setup-1.1.0.exe">Download for Windows</a>
+      <p>Run the setup. If SmartScreen appears, click More info › Run anyway. Allow Polaric on private networks when Windows Firewall asks.</p>
+    </div>
+  </div>
+  <div class="guides">
+    <h3>User guide</h3>
+    <p>How to set up every permission on Mac and Windows so each feature works, and how to use them all.</p>
+    <div class="guide-links">
+      <a class="btn btn-quiet" data-guide="en" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Notch-User-Guide-EN.docx">User Guide (English)</a>
+      <a class="btn btn-quiet" data-guide="id" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Notch-Panduan-Pengguna-ID.docx">Panduan Pengguna (Indonesia)</a>
+    </div>
+  </div>
+  <div class="whatsnew">
+    <h3>New in 1.1.0</h3>
+    <ul class="dots">
+      <li>ShareZone: send files to Android with Quick Share, or to an iPhone</li>
+      <li>Text capture with ⌥O or Alt+O</li>
+      <li>The same features on Mac and Windows</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Support: the whole band is the link -->
+<a class="support" id="support" href="https://sociabuzz.com/polaric_dev/tribe" target="_blank" rel="noopener" data-support>
+  <span class="support-note">Polaric is free. If you enjoy it, your support helps build new features.</span>
+  <svg class="support-arrow" viewBox="0 0 48 48" width="48" height="48" aria-hidden="true"><path d="M14 34 34 14M18 14h16v16" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square"/></svg>
+  <span class="support-word">Support us</span>
+</a>
+
+<!-- Feedback -->
+<section class="feedback" id="feedback" aria-labelledby="feedback-title">
+  <h2 id="feedback-title">Feedback and suggestions</h2>
+  <div class="feedback-body">
+    <p>Have feedback, an idea, or found a bug? We'd love to hear from you.</p>
+    <a class="mail" href="mailto:polaric.dev@gmail.com?subject=Polaric%20Notch%20feedback">polaric.dev@gmail.com</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-mark" aria-hidden="true">
+    <img src="assets/img/polaric-icon.png" width="160" height="160" alt="">
+    <span>Polaric</span>
+  </div>
+  <div class="foot-row">
+    <nav aria-label="Footer">
+      <a href="#video">Video</a>
+      <a href="#features">Features</a>
+      <a href="#platforms">Mac &amp; Windows</a>
+      <a href="#download">Download</a>
+      <a href="https://sociabuzz.com/polaric_dev/tribe" target="_blank" rel="noopener" data-support>Support us</a>
+      <a href="https://www.youtube.com/@PolaricDev" target="_blank" rel="noopener">YouTube</a>
+    </nav>
+    <p>© 2026 Polaric · Crafted by <a href="mailto:polaric.dev@gmail.com">polaric.dev@gmail.com</a></p>
+  </div>
+</footer>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>
