@@ -101,8 +101,7 @@
         document.querySelectorAll('[data-count="' + k + '"]').forEach(function (el) { el.textContent = fmt(n[k]); });
         document.querySelectorAll('[data-count-label="' + k + '"]').forEach(function (el) { el.textContent = label(k, el); });
       });
-      document.querySelectorAll(".hero-count, .get-count").forEach(function (el) { el.hidden = false; });
-    }).catch(function () {});
+          }).catch(function () {});
     fetchJSON("https://api.github.com/repos/" + REPO, "polaric-repo").then(function (repo) {
       var el = document.querySelector(".star-count");
       if (el && repo.stargazers_count > 0) { el.textContent = "★ " + fmt(repo.stargazers_count); el.hidden = false; }

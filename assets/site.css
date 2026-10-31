@@ -225,7 +225,7 @@ p { margin: 0; }
 .get h3 { font-size: var(--t-h2); letter-spacing: -0.03em; line-height: 1; }
 .get-meta { color: var(--soft); font-size: var(--t-small); }
 .tally {
-  margin-top: 40px; max-width: 520px; padding: 24px 28px 22px; border-radius: 20px;
+  margin-bottom: 40px; max-width: 520px; padding: 24px 28px 22px; border-radius: 20px;
   background: radial-gradient(80% 120% at 100% 0%, rgba(192, 38, 211, .18), transparent 70%), var(--field);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
 }
