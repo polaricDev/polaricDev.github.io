@@ -224,8 +224,20 @@ p { margin: 0; }
 .get { background: radial-gradient(90% 60% at 100% 0%, rgba(192, 38, 211, .22), transparent 70%), var(--black); border-radius: var(--notch-big); padding: clamp(28px, 3.4vw, 52px); display: grid; gap: 20px; align-content: start; justify-items: start; }
 .get h3 { font-size: var(--t-h2); letter-spacing: -0.03em; line-height: 1; }
 .get-meta { color: var(--soft); font-size: var(--t-small); }
-.tally { margin-top: 40px; font-size: var(--t-body); color: var(--soft); }
-.tally strong { display: block; width: fit-content; font-size: var(--t-display); font-weight: 800; letter-spacing: -0.04em; line-height: .95; font-variant-numeric: tabular-nums; background: var(--berry); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.tally {
+  margin-top: 40px; max-width: 520px; padding: 24px 28px 22px; border-radius: 20px;
+  background: radial-gradient(80% 120% at 100% 0%, rgba(192, 38, 211, .18), transparent 70%), var(--field);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
+}
+.tally-kicker { font-size: var(--t-small); color: var(--soft); text-transform: uppercase; letter-spacing: .04em; }
+.tally-main { margin-top: 18px; display: flex; align-items: center; gap: 20px; padding-bottom: 22px; border-bottom: 1px solid rgba(255, 255, 255, .1); }
+.tally-icon { flex: none; fill: none; stroke: var(--berry-a); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.tally-num { font-size: var(--t-h3); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.tally-num strong { font-weight: 800; font-variant-numeric: tabular-nums; }
+.tally-sub { margin-top: 4px; font-size: var(--t-small); color: var(--soft); }
+.tally-foot { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: var(--t-small); color: var(--soft); }
+.tally-foot span { display: inline-flex; align-items: center; gap: 10px; }
+.tally-foot svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .get-count strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .guides, .whatsnew { margin-top: 56px; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 16px; }
 .guides h3, .whatsnew h3 { grid-column: 1 / span 4; }

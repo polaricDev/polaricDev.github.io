@@ -87,12 +87,17 @@
         });
       });
       n.total = n.macos + n.windows;
+      /* The release card always shows the real total; the small counts elsewhere wait for a first download. */
+      var label = function (k, el) { var w = n[k] === 1 ? "download" : "downloads"; return el.hasAttribute("data-cap") ? w.charAt(0).toUpperCase() + w.slice(1) : w; };
+      document.querySelectorAll(".tally [data-count]").forEach(function (el) { el.textContent = fmt(n.total); });
+      document.querySelectorAll(".tally [data-count-label]").forEach(function (el) { el.textContent = label("total", el); });
+      document.querySelectorAll(".tally").forEach(function (el) { el.hidden = false; });
       if (!n.total) return;
       ["total", "macos", "windows"].forEach(function (k) {
         document.querySelectorAll('[data-count="' + k + '"]').forEach(function (el) { el.textContent = fmt(n[k]); });
-        document.querySelectorAll('[data-count-label="' + k + '"]').forEach(function (el) { el.textContent = n[k] === 1 ? "download" : "downloads"; });
+        document.querySelectorAll('[data-count-label="' + k + '"]').forEach(function (el) { el.textContent = label(k, el); });
       });
-      document.querySelectorAll(".tally, .hero-count, .get-count").forEach(function (el) { el.hidden = false; });
+      document.querySelectorAll(".hero-count, .get-count").forEach(function (el) { el.hidden = false; });
     }).catch(function () {});
     fetchJSON("https://api.github.com/repos/" + REPO, "polaric-repo").then(function (repo) {
       var el = document.querySelector(".star-count");
