@@ -50,15 +50,12 @@
     });
   });
 
-  /* Outbound links that open in a new tab: GitHub, YouTube, the promo video file, the review page. */
+  /* Outbound links that open in a new tab: GitHub, YouTube, the review page. */
   document.querySelectorAll("a[data-github]").forEach(function (a) {
     a.addEventListener("click", function () { sendEvent("view_on_github", { link_url: a.href, button_location: a.getAttribute("data-github") }); });
   });
   document.querySelectorAll("a[data-youtube]").forEach(function (a) {
     a.addEventListener("click", function () { sendEvent("youtube_link_click", { link_url: a.href, video_id: "n1G_pY94t-M" }); });
-  });
-  document.querySelectorAll("a[data-video-download]").forEach(function (a) {
-    a.addEventListener("click", function () { sendEvent("download_video", { file_name: a.href.split("/").pop(), link_url: a.href }); });
   });
   document.querySelectorAll("a[data-review]").forEach(function (a) {
     a.addEventListener("click", function () { sendEvent("write_review_click", { link_url: a.href }); });
