@@ -38,6 +38,7 @@
     <a href="#video">Video</a>
     <a href="#features">Features</a>
     <a href="#platforms">Mac &amp; Windows</a>
+    <a href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener" data-github="header">View on GitHub</a>
     <a class="nav-get" href="#download">Download</a>
   </nav>
 </header>
@@ -53,7 +54,8 @@
       <a class="btn btn-primary" data-download="macos" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Notch-1.1.0.dmg">Download for macOS</a>
       <a class="btn btn-quiet" data-download="windows" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Setup-1.1.0.exe">Download for Windows</a>
     </div>
-    <p class="fine">Version 1.1.0 · macOS 14 or later · Windows 10 and 11</p>
+    <p class="fine">Version 1.1.0 · macOS 14 or later · Windows 10 and 11<span class="hero-count" hidden> · <strong data-count="total"></strong> <span data-count-label="total">downloads</span></span></p>
+    <p class="hero-links"><a data-youtube href="https://youtu.be/n1G_pY94t-M" target="_blank" rel="noopener">Watch the video on YouTube</a><a data-github="hero" href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener">View on GitHub</a></p>
 
     <fieldset class="moments">
       <legend>See it live</legend>
@@ -84,6 +86,11 @@
   <div class="video-head">
     <h2 id="video-title">Watch Polaric in action</h2>
     <p>The full tour: every page of the notch, notifications, ShareZone, Text capture, themes and mascots.</p>
+    <div class="video-links">
+      <a class="btn btn-primary" data-youtube href="https://youtu.be/n1G_pY94t-M" target="_blank" rel="noopener">Watch on YouTube</a>
+      <a class="btn btn-quiet" data-github="video" href="https://github.com/polaricDev/polaricDev.github.io/releases/latest" target="_blank" rel="noopener">View on GitHub</a>
+    </div>
+    <a class="video-get" data-video-download href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-1.1.0-Promo.mp4">Download the video (MP4, 33.9 MB)</a>
   </div>
   <div class="video-frame" id="video-frame">
     <button type="button" class="video-play" id="video-play" aria-label="Play the Polaric introduction video">
@@ -255,16 +262,17 @@
 <section class="download" id="download" aria-labelledby="download-title">
   <h2 id="download-title">Download Polaric 1.1.0</h2>
   <p class="download-lede">Free. Updates install over the old version and keep your settings and data.</p>
+  <p class="tally" hidden><strong data-count="total"></strong> <span data-count-label="total">downloads</span> so far</p>
   <div class="download-grid">
     <div class="get">
       <h3>macOS</h3>
-      <p class="get-meta">macOS 14 or later · DMG · 8.7 MB</p>
+      <p class="get-meta">macOS 14 or later · DMG · 8.7 MB<span class="get-count" hidden> · <strong data-count="macos"></strong> <span data-count-label="macos">downloads</span></span></p>
       <a class="btn btn-primary btn-big" data-download="macos" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Notch-1.1.0.dmg">Download for macOS</a>
       <p>Open the DMG and drag Polaric into Applications. The first time, right-click Polaric and choose Open, then turn Polaric on in System Settings › Privacy &amp; Security › Accessibility.</p>
     </div>
     <div class="get">
       <h3>Windows</h3>
-      <p class="get-meta">Windows 10 and 11 · Installer · 94.5 MB</p>
+      <p class="get-meta">Windows 10 and 11 · Installer · 94.5 MB<span class="get-count" hidden> · <strong data-count="windows"></strong> <span data-count-label="windows">downloads</span></span></p>
       <a class="btn btn-primary btn-big" data-download="windows" href="https://github.com/polaricDev/polaricDev.github.io/releases/download/v1.1.0/Polaric-Setup-1.1.0.exe">Download for Windows</a>
       <p>Run the setup. If SmartScreen appears, click More info › Run anyway. Allow Polaric on private networks when Windows Firewall asks.</p>
     </div>
@@ -294,6 +302,28 @@
   <span class="support-word">Support us</span>
 </a>
 
+<!-- Rate -->
+<section class="rate" id="rate" aria-labelledby="rate-title">
+  <div class="rate-head">
+    <h2 id="rate-title">Rate Polaric</h2>
+    <p>How is Polaric working for you? Pick one to five stars, then tell us more in a review on GitHub.</p>
+  </div>
+  <div class="rate-body">
+    <div class="stars" role="radiogroup" aria-label="Your rating, one to five stars" hidden>
+      <button type="button" role="radio" aria-checked="false" data-rating="1" aria-label="1 star"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z"/></svg></button>
+      <button type="button" role="radio" aria-checked="false" data-rating="2" aria-label="2 stars"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z"/></svg></button>
+      <button type="button" role="radio" aria-checked="false" data-rating="3" aria-label="3 stars"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z"/></svg></button>
+      <button type="button" role="radio" aria-checked="false" data-rating="4" aria-label="4 stars"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z"/></svg></button>
+      <button type="button" role="radio" aria-checked="false" data-rating="5" aria-label="5 stars"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.2l-5.8 3.2 1.2-6.5L2.6 9.4l6.5-.8z"/></svg></button>
+    </div>
+    <p class="rate-status" id="rate-status" aria-live="polite" hidden>Your rating is sent anonymously.</p>
+    <div class="rate-links">
+      <a class="btn btn-primary" data-review href="https://github.com/polaricDev/polaricDev.github.io/discussions/1" target="_blank" rel="noopener">Write a review</a>
+      <a class="btn btn-quiet" data-star href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener">Star on GitHub<span class="star-count" hidden></span></a>
+    </div>
+  </div>
+</section>
+
 <!-- Feedback -->
 <section class="feedback" id="feedback" aria-labelledby="feedback-title">
   <h2 id="feedback-title">Feedback and suggestions</h2>
@@ -316,8 +346,10 @@
       <a href="#features">Features</a>
       <a href="#platforms">Mac &amp; Windows</a>
       <a href="#download">Download</a>
+      <a href="#rate">Rate Polaric</a>
       <a href="https://sociabuzz.com/polaric_dev/tribe" target="_blank" rel="noopener" data-support>Support us</a>
-      <a href="https://www.youtube.com/@PolaricDev" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://youtu.be/n1G_pY94t-M" target="_blank" rel="noopener" data-youtube>YouTube</a>
+      <a href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener" data-github="footer">GitHub</a>
     </nav>
     <p>© 2026 Polaric · Crafted by <a href="mailto:polaric.dev@gmail.com">polaric.dev@gmail.com</a></p>
   </div>

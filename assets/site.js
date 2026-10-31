@@ -50,6 +50,99 @@
     });
   });
 
+  /* Outbound links that open in a new tab: GitHub, YouTube, the promo video file, the review page. */
+  document.querySelectorAll("a[data-github]").forEach(function (a) {
+    a.addEventListener("click", function () { sendEvent("view_on_github", { link_url: a.href, button_location: a.getAttribute("data-github") }); });
+  });
+  document.querySelectorAll("a[data-youtube]").forEach(function (a) {
+    a.addEventListener("click", function () { sendEvent("youtube_link_click", { link_url: a.href, video_id: "n1G_pY94t-M" }); });
+  });
+  document.querySelectorAll("a[data-video-download]").forEach(function (a) {
+    a.addEventListener("click", function () { sendEvent("download_video", { file_name: a.href.split("/").pop(), link_url: a.href }); });
+  });
+  document.querySelectorAll("a[data-review]").forEach(function (a) {
+    a.addEventListener("click", function () { sendEvent("write_review_click", { link_url: a.href }); });
+  });
+  document.querySelectorAll("a[data-star]").forEach(function (a) {
+    a.addEventListener("click", function () { sendEvent("github_star_click", { link_url: a.href }); });
+  });
+
+  /* Download counts: the real number of times each file was downloaded, from GitHub's own release
+     statistics (every release added together). Shown only once there is something to show. */
+  var REPO = "polaricDev/polaricDev.github.io";
+  function fmt(n) { return n.toLocaleString("en-US"); }
+  function fetchJSON(url, key) {
+    try {
+      var c = JSON.parse(sessionStorage.getItem(key) || "null");
+      if (c && Date.now() - c.t < 5 * 60 * 1000) return Promise.resolve(c.d);
+    } catch (e) {}
+    return fetch(url, { headers: { Accept: "application/vnd.github+json" } })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) { try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), d: d })); } catch (e) {} return d; });
+  }
+  if (window.fetch) {
+    fetchJSON("https://api.github.com/repos/" + REPO + "/releases?per_page=100", "polaric-releases").then(function (releases) {
+      var n = { macos: 0, windows: 0 };
+      releases.forEach(function (rel) {
+        (rel.assets || []).forEach(function (as) {
+          if (/\.dmg$/i.test(as.name)) n.macos += as.download_count;
+          else if (/\.exe$/i.test(as.name)) n.windows += as.download_count;
+        });
+      });
+      n.total = n.macos + n.windows;
+      if (!n.total) return;
+      ["total", "macos", "windows"].forEach(function (k) {
+        document.querySelectorAll('[data-count="' + k + '"]').forEach(function (el) { el.textContent = fmt(n[k]); });
+        document.querySelectorAll('[data-count-label="' + k + '"]').forEach(function (el) { el.textContent = n[k] === 1 ? "download" : "downloads"; });
+      });
+      document.querySelectorAll(".tally, .hero-count, .get-count").forEach(function (el) { el.hidden = false; });
+    }).catch(function () {});
+    fetchJSON("https://api.github.com/repos/" + REPO, "polaric-repo").then(function (repo) {
+      var el = document.querySelector(".star-count");
+      if (el && repo.stargazers_count > 0) { el.textContent = "★ " + fmt(repo.stargazers_count); el.hidden = false; }
+    }).catch(function () {});
+  }
+
+  /* Rating: one to five stars, sent once per browser to GA4 (rating, and value so the average can be
+     read as event value ÷ event count). The visitor's choice is remembered on this device. */
+  (function () {
+    var group = document.querySelector(".stars");
+    var status = document.getElementById("rate-status");
+    if (!group) return;
+    var stars = Array.prototype.slice.call(group.querySelectorAll("button"));
+    var KEY = "polaric-rating";
+    var saved = 0;
+    try { saved = parseInt(localStorage.getItem(KEY) || "0", 10) || 0; } catch (e) {}
+    group.hidden = false; status.hidden = false;
+    function light(n) { stars.forEach(function (b, i) { b.classList.toggle("lit", i < n); }); }
+    function lock(n) {
+      stars.forEach(function (b, i) { b.setAttribute("aria-checked", i === n - 1 ? "true" : "false"); b.tabIndex = i === n - 1 ? 0 : -1; });
+      group.setAttribute("aria-disabled", "true");
+      light(n);
+      status.textContent = "Thank you! You rated Polaric " + n + " out of 5. Tell us why in a review.";
+    }
+    if (saved >= 1 && saved <= 5) { lock(saved); return; }
+    stars.forEach(function (b, i) {
+      b.tabIndex = i === 0 ? 0 : -1;
+      b.addEventListener("mouseenter", function () { light(i + 1); });
+      b.addEventListener("focus", function () { light(i + 1); });
+      b.addEventListener("keydown", function (e) {
+        var k = e.key, t = null;
+        if (k === "ArrowRight" || k === "ArrowUp") t = stars[Math.min(i + 1, 4)];
+        if (k === "ArrowLeft" || k === "ArrowDown") t = stars[Math.max(i - 1, 0)];
+        if (t) { e.preventDefault(); t.focus(); }
+      });
+      b.addEventListener("click", function () {
+        if (group.getAttribute("aria-disabled") === "true") return;
+        var n = i + 1;
+        try { localStorage.setItem(KEY, String(n)); } catch (e) {}
+        sendEvent("rate_polaric", { rating: n, value: n, app_version: VERSION });
+        lock(n);
+      });
+    });
+    group.addEventListener("mouseleave", function () { if (group.getAttribute("aria-disabled") !== "true") light(0); });
+  })();
+
   /* Put the visitor's own platform first in the hero. */
   (function () {
     var ua = navigator.userAgent || "";

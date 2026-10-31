@@ -105,6 +105,10 @@ p { margin: 0; }
 .hero h1 { font-size: var(--t-display); max-width: 7.2em; }
 .lede { margin-top: 36px; max-width: 30em; font-size: var(--t-body); }
 .hero-actions { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: var(--t-small); font-weight: 600; }
+.hero-links a { color: var(--ink); text-underline-offset: 5px; }
+.hero-links a:hover { color: var(--accent-hover); }
+.hero-count strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .fine { margin-top: 16px; font-size: var(--t-small); color: var(--soft); }
 
 .moments { margin: 40px 0 0; padding: 0; border: 0; }
@@ -197,6 +201,9 @@ p { margin: 0; }
 .get { background: var(--black); border-radius: var(--notch-big); padding: clamp(28px, 3.4vw, 52px); display: grid; gap: 20px; align-content: start; justify-items: start; }
 .get h3 { font-size: var(--t-h2); letter-spacing: -0.03em; line-height: 1; }
 .get-meta { color: var(--soft); font-size: var(--t-small); }
+.tally { margin-top: 40px; font-size: var(--t-body); color: var(--soft); }
+.tally strong { display: block; font-size: var(--t-display); font-weight: 800; letter-spacing: -0.04em; line-height: .9; color: var(--ink); font-variant-numeric: tabular-nums; }
+.get-count strong { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .guides, .whatsnew { margin-top: 56px; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 16px; }
 .guides h3, .whatsnew h3 { grid-column: 1 / span 4; }
 .guides p, .whatsnew ul { grid-column: 5 / span 8; }
@@ -222,6 +229,27 @@ p { margin: 0; }
   position: absolute; left: var(--m); right: var(--m); bottom: 24px;
   font-weight: 800; font-size: clamp(64px, 15.6vw, 280px); line-height: .8; letter-spacing: -0.05em; white-space: nowrap;
 }
+
+/* ---------- Rate ---------- */
+.rate { padding: var(--gap) var(--m) 0; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 32px; }
+.rate-head { grid-column: 1 / span 5; display: grid; gap: 24px; align-content: start; }
+.rate-body { grid-column: 7 / span 6; display: grid; gap: 24px; align-content: start; justify-items: start; }
+.stars { display: flex; gap: 12px; }
+.stars button {
+  display: grid; place-items: center; width: 72px; height: 72px; padding: 0; border: 0; cursor: pointer;
+  border-radius: var(--notch); background: var(--field); color: #6b7280;
+  transition: background-color .18s var(--ease), color .18s var(--ease), transform .18s var(--ease);
+}
+.stars button svg { width: 34px; height: 34px; fill: currentColor; }
+.stars button.lit { background: var(--black); color: #ffc93c; }
+.stars button:active { transform: translateY(1px) scale(.96); }
+.stars[aria-disabled="true"] button { cursor: default; }
+.rate-status { font-size: var(--t-body); }
+.rate-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.star-count { margin-left: 8px; color: var(--soft); font-variant-numeric: tabular-nums; }
+.video-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.video-get { color: var(--ink); font-size: var(--t-small); font-weight: 600; text-decoration: underline; text-underline-offset: 5px; justify-self: start; }
+.video-get:hover { color: var(--accent-hover); }
 
 /* ---------- Feedback ---------- */
 .feedback { padding: var(--gap) var(--m) 0; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 24px; row-gap: 24px; }
@@ -251,7 +279,7 @@ p { margin: 0; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .hero-notch, .hero-notch .notch-screen { animation: none; }
-  .btn, .moment-list button, .video-play img, .play-mark { transition: none; }
+  .btn, .moment-list button, .stars button, .video-play img, .play-mark { transition: none; }
 }
 
 /* ---------- Tablet ---------- */
@@ -280,6 +308,9 @@ p { margin: 0; }
   .platform-grid, .download-grid { grid-template-columns: 1fr; }
   .guides h3, .guides p, .guide-links, .whatsnew h3, .whatsnew ul { grid-column: 1 / -1; }
   .feedback h2, .feedback-body { grid-column: 1 / -1; }
+  .rate-head, .rate-body { grid-column: 1 / -1; }
+  .stars { gap: 8px; width: 100%; }
+  .stars button { flex: 1 1 0; width: auto; height: 60px; }
   .support { min-height: 360px; }
   .support-note { max-width: 15em; }
   .support-arrow { width: 32px; height: 32px; }
