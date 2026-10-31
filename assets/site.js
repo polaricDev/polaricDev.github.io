@@ -1,7 +1,7 @@
 /* Polaric website: analytics events, the live notch in the hero, the video, clips that play when seen. */
 (function () {
   "use strict";
-  var VERSION = "1.1.0";
+  var VERSION = "1.1.1";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function gtagReady() { return typeof window.gtag === "function"; }
@@ -78,8 +78,12 @@
       .then(function (d) { try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), d: d })); } catch (e) {} return d; });
   }
   if (window.fetch) {
-    fetchJSON("https://api.github.com/repos/" + REPO + "/releases?per_page=100", "polaric-releases").then(function (releases) {
-      var n = { macos: 0, windows: 0 };
+    /* Replaced releases are deleted from GitHub (no going back to an old version); their downloads
+       are kept in assets/downloads-base.json and added to the live counts. */
+    var base = fetch("assets/downloads-base.json", { cache: "no-cache" }).then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
+    Promise.all([fetchJSON("https://api.github.com/repos/" + REPO + "/releases?per_page=100", "polaric-releases-2"), base]).then(function (all) {
+      var releases = all[0], b = all[1] || {};
+      var n = { macos: +b.macos || 0, windows: +b.windows || 0 };
       releases.forEach(function (rel) {
         (rel.assets || []).forEach(function (as) {
           if (/\.dmg$/i.test(as.name)) n.macos += as.download_count;

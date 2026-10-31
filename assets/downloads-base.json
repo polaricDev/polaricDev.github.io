@@ -1,0 +1,6 @@
+{
+  "note": "Downloads of releases that were replaced (their files are gone from GitHub). Added to the live counts.",
+  "macos": 7,
+  "windows": 5,
+  "releases": ["v1.1.0"]
+}
