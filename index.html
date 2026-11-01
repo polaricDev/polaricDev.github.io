@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://polaricdev.github.io/assets/img/video-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/site.css?v=1.2.0-2">
+<link rel="stylesheet" href="assets/site.css?v=1.2.0-3">
 
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-278K1T67BM"></script>
@@ -165,7 +165,7 @@
       <ul class="dots">
         <li>Android: scan a Quick Share QR code</li>
         <li>iPhone: AirDrop on Mac, a one-time code on Windows</li>
-        <li>Progress in the notch until it says Sent</li>
+        <li>Progress in the notch until it says Sent, and you can cancel a send anytime</li>
       </ul>
     </div>
     <div class="stage"><video class="clip" src="assets/clips/share.mp4" poster="assets/clips/share.jpg" muted loop playsinline preload="none" width="1200" height="394" aria-label="ShareZone sending three files to a phone"></video></div>
@@ -221,6 +221,94 @@
     </div>
   </article>
 
+  <article class="feature alt" id="whats-new">
+    <div class="feature-text">
+      <p class="news-tag">New in 1.2.0 · macOS and Windows</p>
+      <h3>Privacy &amp; Network</h3>
+      <p>One page in the notch shows what's in use right now, and how fast your internet is.</p>
+      <ul class="dots">
+        <li>Camera, microphone, screen recording, location and Bluetooth: Active, Inactive or Unavailable, never guessed from permissions</li>
+        <li>Download, upload and ping every 60 minutes by default (5 minutes to 24 hours), or anytime with Test now</li>
+        <li>A short alert when something starts or stops using your camera or microphone</li>
+      </ul>
+    </div>
+    <div class="stage stage-stack news-stage">
+      <p class="news-os">macOS</p>
+      <img src="assets/img/v12/mac-privacy.webp" width="1160" height="440" alt="The Privacy &amp; Network page in the Mac notch" loading="lazy">
+      <p class="news-os">Windows</p>
+      <img src="assets/img/v12/win-privacy.webp" width="1120" height="420" alt="The Privacy &amp; Network page in the Windows notch" loading="lazy">
+    </div>
+  </article>
+
+  <article class="feature">
+    <div class="feature-text">
+      <p class="news-tag">New in 1.2.0 · macOS and Windows</p>
+      <h3>Screenshots</h3>
+      <p>Press ⌥⇧S on Mac or Alt+Shift+S on Windows and drag over any area.</p>
+      <ul class="dots">
+        <li>Named after the app and the time, like "Google Chrome - November 1, 2026 - 10.24 AM"</li>
+        <li>Choose the folder; Open Folder takes you straight there</li>
+        <li>Kept 1, 7, 30 (default), 90 or 365 days, or forever. Only Polaric's own screenshots are ever cleaned up</li>
+        <li>Text capture (⌥O / Alt+O) keeps its own shortcut</li>
+      </ul>
+    </div>
+    <div class="stage stage-stack news-stage">
+      <p class="news-os">macOS</p>
+      <img src="assets/img/v12/mac-hud-shot.webp" width="1380" height="100" alt="The notch alert after a screenshot is saved" loading="lazy">
+      <p class="news-os">Windows</p>
+      <img class="news-crop" src="assets/img/v12/win-settings-shots.webp" width="1274" height="1250" alt="Polaric's Screenshots settings on Windows" loading="lazy">
+    </div>
+  </article>
+
+  <article class="feature alt">
+    <div class="feature-text">
+      <p class="news-tag">New in 1.2.0 · Windows</p>
+      <h3>Game Awareness</h3>
+      <p>Play a game and the notch shows its name and real FPS, with a mascot that reacts as you play. The clock steps aside while you play.</p>
+      <ul class="dots">
+        <li>Excited at 120 FPS and up, then happy, normal, concerned, worried, and sad below 25. You set the numbers</li>
+        <li>Reading frames needs a one-time Allow from an administrator; until then the notch shows FPS --</li>
+      </ul>
+    </div>
+    <div class="stage stage-stack news-stage news-strips">
+      <img src="assets/img/v12/win-game-excited.webp" width="451" height="88" alt="Game name and 144 FPS with an excited mascot" loading="lazy">
+      <img src="assets/img/v12/win-game-normal.webp" width="441" height="88" alt="Game name and 65 FPS with a normal mascot" loading="lazy">
+      <img src="assets/img/v12/win-game-sad.webp" width="441" height="88" alt="Game name and 18 FPS with a sad mascot" loading="lazy">
+      <img src="assets/img/v12/win-game-nofps.webp" width="441" height="88" alt="Game name with FPS not allowed yet" loading="lazy">
+    </div>
+  </article>
+
+  <article class="feature">
+    <div class="feature-text">
+      <p class="news-tag">New in 1.2.0 · Windows</p>
+      <h3>Meetings and the idle clock</h3>
+      <p>The notch knows when you're in a call, and keeps you company when nothing's going on.</p>
+      <ul class="dots">
+        <li>Meeting Awareness: Cam ON • Mic ON during Zoom, Teams, Meet and more, green for on and red for off. Off until you turn it on</li>
+        <li>Idle clock with your mascot, 12 or 24 hour, and an optional Idle Aura</li>
+        <li>Meeting comes first, then game, browser, music and the idle clock. A notification steps in, then the notch goes right back</li>
+      </ul>
+    </div>
+    <div class="stage stage-stack news-stage news-strips">
+      <img src="assets/img/v12/win-meet-on-on.webp" width="441" height="88" alt="Cam ON and Mic ON in the notch" loading="lazy">
+      <img src="assets/img/v12/win-meet-off-on.webp" width="445" height="88" alt="Cam OFF and Mic ON in the notch" loading="lazy">
+      <img src="assets/img/v12/win-idle-clock.webp" width="441" height="88" alt="The idle clock with the mascot" loading="lazy">
+      <img src="assets/img/v12/win-idle-aura.webp" width="600" height="170" alt="The idle clock with the Idle Aura glow" loading="lazy">
+    </div>
+  </article>
+
+  <article class="feature alt">
+    <div class="feature-text">
+      <p class="news-tag">New in 1.2.0 · macOS and Windows</p>
+      <h3>What's New and the Polaric Disclaimer</h3>
+      <p>Two new buttons in Settings › About: what changed in this version, and exactly what Polaric does with your data, every connection it makes, and where to download it safely.</p>
+    </div>
+    <div class="stage news-stage news-pair">
+      <img src="assets/img/v12/mac-whats-new.webp" width="1040" height="1120" alt="The What's new popup on Mac" loading="lazy">
+      <img src="assets/img/v12/win-disclaimer.webp" width="1254" height="1250" alt="The Polaric Disclaimer on Windows" loading="lazy">
+    </div>
+  </article>
+
   <div class="more">
     <h3>And also</h3>
     <ul class="dots more-list">
@@ -229,7 +317,8 @@
       <li><strong>Browser-Aware Mode</strong> folds the notch to a thin line over your browser tabs</li>
       <li><strong>Backup</strong> in one file that restores on Mac and on Windows</li>
       <li><strong>Private</strong>: no analytics, no tracking in the app; everything stays on your computer</li>
-      <li><strong>Shortcuts</strong> you can change: ⌥⌘N or Ctrl+Alt+N opens the notch</li>
+      <li><strong>Shortcuts</strong> you can change: ⌥⌘N or Ctrl+Alt+N opens the notch, and Polaric warns when one is already taken <span class="new-mark">New</span></li>
+      <li><strong>Updates that keep your setup</strong>: Polaric updates itself and never touches your settings or AutoText <span class="new-mark">New</span></li>
     </ul>
   </div>
 </section>
@@ -244,7 +333,7 @@
       <h3>macOS</h3>
       <ul class="dots">
         <li>macOS 14 Sonoma or later, MacBook with or without a notch</li>
-        <li>Shortcuts with ⌥ and ⌘: ⌥⌘N notch, ⌥⌘V clipboard, ⌥O text capture</li>
+        <li>Shortcuts with ⌥ and ⌘: ⌥⌘N notch, ⌥⌘V clipboard, ⌥O text capture, ⌥⇧S screenshots</li>
         <li>Meetings from the Calendar app, plus calendar links</li>
         <li>iPhone files go through AirDrop</li>
         <li>Can replace the macOS volume and brightness popups</li>
@@ -256,7 +345,8 @@
       <h3>Windows</h3>
       <ul class="dots">
         <li>Windows 10 and 11; the notch sits at the top centre of the screen</li>
-        <li>Shortcuts with Ctrl and Alt: Ctrl+Alt+N notch, Ctrl+Alt+V clipboard, Alt+O text capture</li>
+        <li>Shortcuts with Ctrl and Alt: Ctrl+Alt+N notch, Ctrl+Alt+V clipboard, Alt+O text capture, Alt+Shift+S screenshots</li>
+        <li>Game Awareness with real FPS, Meeting Awareness and an idle clock</li>
         <li>Meetings from public calendar links (iCal)</li>
         <li>iPhone files through a one-time code you scan</li>
         <li>Adaptive Notch folds to a line when nothing is happening</li>
@@ -333,117 +423,7 @@
   </div>
 </section>
 
-<!-- What's new in 1.2.0 -->
-<section class="news" id="whats-new" aria-labelledby="news-title">
-  <div class="features-head">
-    <h2 id="news-title">What's new in <span class="berry-text">1.2.0</span></h2>
-    <p>Polaric updates itself, so you get all of this automatically. Your settings and AutoText stay exactly as you set them.</p>
-  </div>
 
-  <div class="news-reel">
-    <video src="assets/clips/reel-1-2.mp4" poster="assets/clips/reel-1-2.jpg" controls muted playsinline preload="none" width="1080" height="1920" aria-label="Polaric 1.2.0 what's new video"></video>
-  </div>
-
-  <article class="feature">
-    <div class="feature-text">
-      <p class="news-tag">New · macOS and Windows</p>
-      <h3>Privacy &amp; Network</h3>
-      <p>One page in the notch shows what's in use right now, and how fast your internet is.</p>
-      <ul class="dots">
-        <li>Camera, microphone, screen recording, location and Bluetooth: Active, Inactive or Unavailable, never guessed from permissions</li>
-        <li>Download, upload and ping every 60 minutes by default (5 minutes to 24 hours), or anytime with Test now</li>
-        <li>A short alert when something starts or stops using your camera or microphone</li>
-      </ul>
-    </div>
-    <div class="stage stage-stack news-stage">
-      <p class="news-os">macOS</p>
-      <img src="assets/img/v12/mac-privacy.webp" width="1160" height="440" alt="The Privacy &amp; Network page in the Mac notch" loading="lazy">
-      <p class="news-os">Windows</p>
-      <img src="assets/img/v12/win-privacy.webp" width="1120" height="420" alt="The Privacy &amp; Network page in the Windows notch" loading="lazy">
-    </div>
-  </article>
-
-  <article class="feature alt">
-    <div class="feature-text">
-      <p class="news-tag">New · macOS and Windows</p>
-      <h3>Screenshots</h3>
-      <p>Press ⌥⇧S on Mac or Alt+Shift+S on Windows and drag over any area.</p>
-      <ul class="dots">
-        <li>Named after the app and the time, like "Google Chrome - November 1, 2026 - 10.24 AM"</li>
-        <li>Choose the folder; Open Folder takes you straight there</li>
-        <li>Kept 1, 7, 30 (default), 90 or 365 days, or forever. Only Polaric's own screenshots are ever cleaned up</li>
-        <li>Text capture (⌥O / Alt+O) keeps its own shortcut</li>
-      </ul>
-    </div>
-    <div class="stage stage-stack news-stage">
-      <p class="news-os">macOS</p>
-      <img src="assets/img/v12/mac-hud-shot.webp" width="1380" height="100" alt="The notch alert after a screenshot is saved" loading="lazy">
-      <p class="news-os">Windows</p>
-      <img class="news-crop" src="assets/img/v12/win-settings-shots.webp" width="1274" height="1250" alt="Polaric's Screenshots settings on Windows" loading="lazy">
-    </div>
-  </article>
-
-  <article class="feature">
-    <div class="feature-text">
-      <p class="news-tag">New · Windows</p>
-      <h3>Game Awareness</h3>
-      <p>Play a game and the notch shows its name and real FPS, with a mascot that reacts as you play. The clock steps aside while you play.</p>
-      <ul class="dots">
-        <li>Excited at 120 FPS and up, then happy, normal, concerned, worried, and sad below 25. You set the numbers</li>
-        <li>Reading frames needs a one-time Allow from an administrator; until then the notch shows FPS --</li>
-      </ul>
-    </div>
-    <div class="stage stage-stack news-stage news-strips">
-      <img src="assets/img/v12/win-game-excited.webp" width="451" height="88" alt="Game name and 144 FPS with an excited mascot" loading="lazy">
-      <img src="assets/img/v12/win-game-normal.webp" width="441" height="88" alt="Game name and 65 FPS with a normal mascot" loading="lazy">
-      <img src="assets/img/v12/win-game-sad.webp" width="441" height="88" alt="Game name and 18 FPS with a sad mascot" loading="lazy">
-      <img src="assets/img/v12/win-game-nofps.webp" width="441" height="88" alt="Game name with FPS not allowed yet" loading="lazy">
-    </div>
-  </article>
-
-  <article class="feature alt">
-    <div class="feature-text">
-      <p class="news-tag">New · Windows</p>
-      <h3>Meetings and the idle clock</h3>
-      <p>The notch knows when you're in a call, and keeps you company when nothing's going on.</p>
-      <ul class="dots">
-        <li>Meeting Awareness: Cam ON • Mic ON during Zoom, Teams, Meet and more, green for on and red for off. Off until you turn it on</li>
-        <li>Idle clock with your mascot, 12 or 24 hour, and an optional Idle Aura</li>
-        <li>Meeting comes first, then game, browser, music and the idle clock. A notification steps in, then the notch goes right back</li>
-      </ul>
-    </div>
-    <div class="stage stage-stack news-stage news-strips">
-      <img src="assets/img/v12/win-meet-on-on.webp" width="441" height="88" alt="Cam ON and Mic ON in the notch" loading="lazy">
-      <img src="assets/img/v12/win-meet-off-on.webp" width="445" height="88" alt="Cam OFF and Mic ON in the notch" loading="lazy">
-      <img src="assets/img/v12/win-idle-clock.webp" width="441" height="88" alt="The idle clock with the mascot" loading="lazy">
-      <img src="assets/img/v12/win-idle-aura.webp" width="600" height="170" alt="The idle clock with the Idle Aura glow" loading="lazy">
-    </div>
-  </article>
-
-  <article class="feature">
-    <div class="feature-text">
-      <p class="news-tag">New · macOS and Windows</p>
-      <h3>What's New and the Polaric Disclaimer</h3>
-      <p>Two new buttons in Settings › About: what changed in this version, and exactly what Polaric does with your data, every connection it makes, and where to download it safely.</p>
-    </div>
-    <div class="stage news-stage news-pair">
-      <img src="assets/img/v12/mac-whats-new.webp" width="1040" height="1120" alt="The What's new popup on Mac" loading="lazy">
-      <img src="assets/img/v12/win-disclaimer.webp" width="1254" height="1250" alt="The Polaric Disclaimer on Windows" loading="lazy">
-    </div>
-  </article>
-
-  <div class="more">
-    <h3>Improved and fixed</h3>
-    <ul class="dots more-list">
-      <li><strong>Updates never touch your setup</strong>: every setting and AutoText template stays as you left it; new features start with their defaults</li>
-      <li><strong>ShareZone</strong>: two clear choices, iPhone (AirDrop on Mac, QR on Windows) or Android with a Quick Share QR code</li>
-      <li><strong>Cancel anytime</strong>: stop a send at any moment; both choices stay after a transfer</li>
-      <li><strong>Shortcut checks</strong>: Polaric warns when a shortcut is already taken and suggests a free one</li>
-      <li><strong>Fixed</strong>: the Text capture hint spacing on Mac</li>
-      <li><strong>Fixed</strong>: Privacy &amp; Data on Windows now points to the full connection list</li>
-    </ul>
-  </div>
-</section>
 
 </main>
 
@@ -467,6 +447,6 @@
   </div>
 </footer>
 
-<script src="assets/site.js?v=1.2.0-2" defer></script>
+<script src="assets/site.js?v=1.2.0-3" defer></script>
 </body>
 </html>

@@ -347,17 +347,14 @@ p { margin: 0; }
   .support::before { width: 46vw; height: 22px; border-radius: 0 0 14px 14px; }
 }
 
-/* ---------- What's new in 1.2.0 (bottom of the page) ---------- */
-.news { padding: var(--gap) 0 0; }
-.news-reel { padding: 0 var(--m) clamp(40px, 5vw, 72px); display: flex; justify-content: center; }
-.news-reel video { width: min(360px, 100%); height: auto; border-radius: var(--notch-big); background: var(--black); }
+/* ---------- New in 1.2.0, inside Features ---------- */
 .news-tag { justify-self: start; font-size: var(--t-small); font-weight: 600; color: #fff; background: var(--berry); padding: 6px 14px; border-radius: var(--notch); }
+.new-mark { display: inline-block; font-size: 12px; font-weight: 700; color: #fff; background: var(--berry); padding: 1px 8px; border-radius: var(--notch); vertical-align: 2px; margin-left: 4px; }
 .news-stage { padding-top: 0; padding-bottom: clamp(20px, 2.6vw, 36px); }
 .news-stage img { width: 100%; height: auto; border-radius: 0 0 18px 18px; }
 .news-os { font-size: var(--t-small); color: var(--soft); font-weight: 600; margin-top: 18px; }
 .news-crop { aspect-ratio: 1274 / 620; object-fit: cover; object-position: top; }
-.news-strips { justify-items: center; gap: 14px; padding-top: 0; }
+.news-strips { justify-items: center; gap: 14px; }
 .news-strips img { width: auto; max-width: 100%; }
-.news-pair { grid-template-columns: 1fr 1fr; gap: 16px; padding-top: 0; align-items: start; }
-.news-pair img { aspect-ratio: 1 / 1; object-fit: cover; object-position: top; border-radius: 0 0 18px 18px; }
-.news .more { padding-bottom: clamp(56px, 7vw, 104px); }
+.news-pair { grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.news-pair img { aspect-ratio: 1 / 1; object-fit: cover; object-position: top; }
