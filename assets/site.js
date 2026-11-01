@@ -1,11 +1,8 @@
-/* Polaric website: analytics events, download counts, the rating, and the page's live parts: the
-   notch in the headline, the pinned story of what's new, the FPS slider, the meeting switches, the
-   Reel and the feature recordings. */
+/* Polaric website: analytics events, the live notch in the hero, the video, clips that play when seen. */
 (function () {
   "use strict";
   var VERSION = "1.2.0";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.documentElement.classList.add("js");
 
   function gtagReady() { return typeof window.gtag === "function"; }
 
@@ -24,9 +21,9 @@
   window.polaricEvent = sendEvent;
 
   /* Downloads: the click is reported as it happens. The release files are served as attachments, so
-     the browser downloads them without leaving this page and GA4 sends the queued event. This counts
-     clicks on a download button; whether the file finished downloading is not something a page can
-     know (GitHub's release download counts measure that). */
+     the browser downloads them without leaving this page and GA4 sends the queued event (it batches
+     events for a few seconds). This counts clicks on a download button; whether the file finished
+     downloading is not something a page can know (GitHub's release download counts measure that). */
   document.querySelectorAll("a[data-download]").forEach(function (a) {
     a.addEventListener("click", function () {
       var platform = a.getAttribute("data-download");
@@ -35,22 +32,30 @@
         app_version: VERSION,
         file_name: a.href.split("/").pop(),
         link_url: a.href,
-        button_location: a.closest("section") ? a.closest("section").id || "page" : "page"
+        button_location: a.closest("section") ? a.closest("section").id : "page"
       });
     });
   });
+
   document.querySelectorAll("a[data-guide]").forEach(function (a) {
     a.addEventListener("click", function () {
       sendEvent("download_guide", { language: a.getAttribute("data-guide"), file_name: a.href.split("/").pop(), link_url: a.href });
     });
   });
+
+  /* Support opens in a new tab, so this page stays and the beacon has time to leave. */
   document.querySelectorAll("a[data-support]").forEach(function (a) {
     a.addEventListener("click", function () {
       sendEvent("support_us_click", { link_url: a.href, button_location: a.closest("footer") ? "footer" : "support_band" });
     });
   });
+
+  /* Outbound links that open in a new tab: GitHub, YouTube, the review page. */
   document.querySelectorAll("a[data-github]").forEach(function (a) {
     a.addEventListener("click", function () { sendEvent("view_on_github", { link_url: a.href, button_location: a.getAttribute("data-github") }); });
+  });
+  document.querySelectorAll("a[data-youtube]").forEach(function (a) {
+    a.addEventListener("click", function () { sendEvent("youtube_link_click", { link_url: a.href, video_id: "n1G_pY94t-M" }); });
   });
   document.querySelectorAll("a[data-review]").forEach(function (a) {
     a.addEventListener("click", function () { sendEvent("write_review_click", { link_url: a.href }); });
@@ -86,17 +91,20 @@
         });
       });
       n.total = n.macos + n.windows;
+      /* The release card always shows the real total; the small counts elsewhere wait for a first download. */
+      var label = function (k, el) { var w = n[k] === 1 ? "download" : "downloads"; return el.hasAttribute("data-cap") ? w.charAt(0).toUpperCase() + w.slice(1) : w; };
+      document.querySelectorAll(".tally [data-count]").forEach(function (el) { el.textContent = fmt(n.total); });
+      document.querySelectorAll(".tally [data-count-label]").forEach(function (el) { el.textContent = label("total", el); });
+      document.querySelectorAll(".tally").forEach(function (el) { el.hidden = false; });
       if (!n.total) return;
-      var label = function (k) { return n[k] === 1 ? "download" : "downloads"; };
       ["total", "macos", "windows"].forEach(function (k) {
         document.querySelectorAll('[data-count="' + k + '"]').forEach(function (el) { el.textContent = fmt(n[k]); });
-        document.querySelectorAll('[data-count-label="' + k + '"]').forEach(function (el) { el.textContent = label(k); });
+        document.querySelectorAll('[data-count-label="' + k + '"]').forEach(function (el) { el.textContent = label(k, el); });
       });
-      document.querySelectorAll(".tally, .count").forEach(function (el) { el.hidden = false; });
-    }).catch(function () {});
+          }).catch(function () {});
     fetchJSON("https://api.github.com/repos/" + REPO, "polaric-repo").then(function (repo) {
       var el = document.querySelector(".star-count");
-      if (el && repo.stargazers_count > 0) { el.textContent = " · " + fmt(repo.stargazers_count) + (repo.stargazers_count === 1 ? " star" : " stars"); el.hidden = false; }
+      if (el && repo.stargazers_count > 0) { el.textContent = "★ " + fmt(repo.stargazers_count); el.hidden = false; }
     }).catch(function () {});
   }
 
@@ -140,11 +148,12 @@
     group.addEventListener("mouseleave", function () { if (group.getAttribute("aria-disabled") !== "true") light(0); });
   })();
 
-  /* The visitor's own platform first in the hero. */
+  /* Put the visitor's own platform first in the hero. */
   (function () {
-    if (!/Windows/i.test(navigator.userAgent || "")) return;
+    var ua = navigator.userAgent || "";
+    var isWin = /Windows/i.test(ua);
     var actions = document.querySelector(".hero-actions");
-    if (!actions) return;
+    if (!actions || !isWin) return;
     var mac = actions.querySelector('[data-download="macos"]');
     var win = actions.querySelector('[data-download="windows"]');
     win.classList.replace("btn-quiet", "btn-primary");
@@ -152,181 +161,136 @@
     actions.insertBefore(win, mac);
   })();
 
-  /* The notch in the headline plays the new states, one after another. */
-  (function () {
-    var imgs = Array.prototype.slice.call(document.querySelectorAll(".reel img"));
-    var caption = document.querySelector("[data-hero-caption]");
-    var CAPTIONS = ["Game Awareness: 144 FPS, an excited mascot · Windows", "Meeting Awareness: camera and mic live · Windows", "The idle clock, with company · Windows", "Game Awareness: 18 FPS, a worried mascot · Windows"];
-    if (!imgs.length) return;
-    var i = 0;
-    imgs[0].classList.add("on");
-    if (reduced) return;
-    setInterval(function () {
-      if (document.hidden) return;
-      var prev = imgs[i];
-      i = (i + 1) % imgs.length;
-      prev.classList.remove("on"); prev.classList.add("off");
-      imgs[i].classList.remove("off"); imgs[i].classList.add("on");
-      setTimeout(function () { prev.classList.remove("off"); }, 900);
-      if (caption) caption.textContent = CAPTIONS[i];
-    }, 2800);
-  })();
+  /* The live notch: pick a moment and the giant notch plays the real recording of it. */
+  var CAPTIONS = {
+    "lyrics": "Synced lyrics under the notch, line by line.",
+    "email": "An email notice: who wrote, and the subject.",
+    "meeting": "A minute before the meeting, with Join.",
+    "open-music": "The Music page: artwork, controls and the song's progress.",
+    "share": "ShareZone sending three files to a phone.",
+    "timer": "A focus session ends: Snooze or OK."
+  };
+  var clip = document.getElementById("hero-clip");
+  var caption = document.getElementById("clip-caption");
+  var radios = Array.prototype.slice.call(document.querySelectorAll(".dock [role=radio]"));
+  /* Until the visitor picks one, the dock moves on by itself when each recording ends. */
+  var auto = !reduced;
+  var current = radios[0];
+  if (clip) clip.loop = !auto;
+  function choose(btn, focus) {
+    var name = btn.getAttribute("data-clip");
+    current = btn;
+    radios.forEach(function (r) { var on = r === btn; r.setAttribute("aria-checked", on ? "true" : "false"); r.tabIndex = on ? 0 : -1; r.style.setProperty("--p", 0); });
+    if (focus) btn.focus();
+    if (!clip) return;
+    clip.classList.add("swap");
+    setTimeout(function () {
+      clip.src = "assets/clips/hero-" + name + ".mp4";
+      clip.poster = "assets/clips/hero-" + name + ".jpg";
+      clip.setAttribute("aria-label", "Polaric: " + CAPTIONS[name]);
+      var p = clip.play(); if (p && p.catch) p.catch(function () {});
+      caption.textContent = CAPTIONS[name];
+      clip.classList.remove("swap");
+    }, reduced ? 0 : 200);
+  }
+  function pick(btn, focus) {
+    if (auto) { auto = false; if (clip) clip.loop = true; }
+    choose(btn, focus);
+    sendEvent("notch_preview_select", { moment: btn.getAttribute("data-clip") });
+  }
+  if (clip) {
+    clip.addEventListener("ended", function () {
+      if (auto) choose(radios[(radios.indexOf(current) + 1) % radios.length], false);
+    });
+    (function tick() {
+      if (clip.duration && current) current.style.setProperty("--p", Math.min(1, clip.currentTime / clip.duration));
+      requestAnimationFrame(tick);
+    })();
+  }
+  radios.forEach(function (r, i) {
+    r.tabIndex = r.getAttribute("aria-checked") === "true" ? 0 : -1;
+    r.addEventListener("click", function () { pick(r, false); });
+    r.addEventListener("keydown", function (e) {
+      var k = e.key, n = null;
+      if (k === "ArrowRight" || k === "ArrowDown") n = radios[(i + 1) % radios.length];
+      if (k === "ArrowLeft" || k === "ArrowUp") n = radios[(i - 1 + radios.length) % radios.length];
+      if (n) { e.preventDefault(); pick(n, true); }
+    });
+  });
+  /* The notch's glow turns like the app's; it holds still for reduced motion. */
+  var shape = document.querySelector(".notch-shape");
+  if (reduced && shape && shape.pauseAnimations) shape.pauseAnimations();
 
-  /* What's new: the stage on the left shows the chapter in view. */
-  (function () {
-    var chapters = document.querySelectorAll("[data-chapter]");
-    var note = document.querySelector("[data-stage-note]");
-    if (!("IntersectionObserver" in window)) return;
-    var seen = {};
-    var io = new IntersectionObserver(function (entries) {
+  /* The video loads only when asked, then reports when it really starts playing. */
+  var VIDEO_ID = "n1G_pY94t-M";
+  var played = false;
+  var playBtn = document.getElementById("video-play");
+  if (playBtn) playBtn.addEventListener("click", function () {
+    var frame = document.getElementById("video-frame");
+    var holder = document.createElement("div");
+    holder.id = "yt-player";
+    frame.innerHTML = "";
+    frame.appendChild(holder);
+    function build() {
+      new window.YT.Player("yt-player", {
+        videoId: VIDEO_ID,
+        playerVars: { autoplay: 1, rel: 0, modestbranding: 1, playsinline: 1 },
+        events: {
+          onReady: function (ev) { ev.target.playVideo(); },
+          onStateChange: function (ev) {
+            if (ev.data === window.YT.PlayerState.PLAYING && !played) {
+              played = true;
+              sendEvent("youtube_video_play", { video_id: VIDEO_ID, video_title: "Polaric Notch introduction", video_provider: "youtube" });
+            }
+          }
+        }
+      });
+    }
+    if (window.YT && window.YT.Player) { build(); return; }
+    window.onYouTubeIframeAPIReady = build;
+    var s = document.createElement("script");
+    s.src = "https://www.youtube.com/iframe_api";
+    s.onerror = function () { window.location.href = "https://youtu.be/" + VIDEO_ID; };
+    document.head.appendChild(s);
+  });
+
+  /* Features: reported once, when the section is really on screen. */
+  var features = document.getElementById("features");
+  if (features && "IntersectionObserver" in window) {
+    var seen = false;
+    new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        var name = en.target.getAttribute("data-chapter");
-        document.querySelectorAll("[data-stage]").forEach(function (img) { img.classList.toggle("on", img.getAttribute("data-stage") === name); });
-        if (note) note.textContent = en.target.getAttribute("data-note") || "";
-        if (!seen[name]) { seen[name] = true; sendEvent("whats_new_view", { feature: name, app_version: VERSION }); }
+        if (en.isIntersecting && !seen) { seen = true; sendEvent("feature_section_view", { section: "features" }); obs.disconnect(); }
       });
-    }, { rootMargin: "-45% 0px -45% 0px" });
-    chapters.forEach(function (c) { io.observe(c); });
-  })();
+    }, { threshold: 0.15 }).observe(features);
+  }
 
-  /* The idle clock on the stage shows the visitor's own time, as the notch would. */
-  (function () {
-    var el = document.querySelector("[data-clock-big]");
-    if (!el) return;
-    function tick() { el.textContent = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" }); }
-    tick();
-    setInterval(tick, 15000);
-  })();
-
-  /* The live thing: drag the frame rate, see the real notch and the mascot's face for it. */
-  (function () {
-    var range = document.getElementById("fps-range");
-    var img = document.querySelector("[data-fps-img]");
-    var out = document.querySelector("[data-fps-out]");
-    var stage = document.querySelector('[data-stage="game"]');
-    if (!range || !img) return;
-    var FACES = [[120, "excited", "Excited"], [90, "happy", "Happy"], [60, "normal", "Normal"], [40, "concerned", "Concerned"], [25, "worried", "Worried"], [0, "sad", "Sad"]];
-    var shown = "normal", told = false;
-    FACES.forEach(function (f) { var p = new Image(); p.src = "assets/img/v12/win-game-" + f[1] + ".webp"; });
-    function update() {
-      var fps = +range.value, face = FACES[FACES.length - 1];
-      for (var k = 0; k < FACES.length; k++) if (fps >= FACES[k][0]) { face = FACES[k]; break; }
-      out.textContent = fps + " FPS · " + face[2];
-      var big = document.querySelector("[data-fps-big]");
-      if (big) big.textContent = fps;
-      range.setAttribute("aria-valuetext", fps + " frames per second, mascot " + face[2].toLowerCase());
-      if (face[1] !== shown) {
-        shown = face[1];
-        var src = "assets/img/v12/win-game-" + shown + ".webp";
-        img.src = src;
-        img.alt = "The Windows notch showing a game with the mascot's " + face[2].toLowerCase() + " face";
-        if (stage) stage.src = src;
-      }
-    }
-    range.addEventListener("input", function () {
-      update();
-      if (!told) { told = true; sendEvent("fps_slider_use", { app_version: VERSION }); }
-    });
-    update();
-  })();
-
-  /* Meeting switches: camera and microphone, each on or off, on the real notch. */
-  (function () {
-    var img = document.querySelector("[data-meet-img]");
-    var switches = document.querySelectorAll(".switch[data-device]");
-    var stage = document.querySelector('[data-stage="meeting"]');
-    if (!img || !switches.length) return;
-    var state = { cam: true, mic: true };
-    ["on-on", "off-on", "on-off", "off-off"].forEach(function (n) { var p = new Image(); p.src = "assets/img/v12/win-meet-" + n + ".webp"; });
-    switches.forEach(function (s) {
-      s.addEventListener("click", function () {
-        var d = s.getAttribute("data-device");
-        state[d] = !state[d];
-        s.setAttribute("aria-checked", state[d] ? "true" : "false");
-        var name = (state.cam ? "on" : "off") + "-" + (state.mic ? "on" : "off");
-        var cam = document.querySelector("[data-cam-big]"), mic = document.querySelector("[data-mic-big]");
-        if (cam) { cam.textContent = "Cam " + (state.cam ? "ON" : "OFF"); cam.classList.toggle("on", state.cam); }
-        if (mic) { mic.textContent = "Mic " + (state.mic ? "ON" : "OFF"); mic.classList.toggle("on", state.mic); }
-        var src = "assets/img/v12/win-meet-" + name + ".webp";
-        img.src = src;
-        img.alt = "The notch showing Cam " + (state.cam ? "ON" : "OFF") + " and Mic " + (state.mic ? "ON" : "OFF");
-        if (stage) stage.src = src;
+  /* Clips play only while on screen. */
+  var clips = document.querySelectorAll("video.clip");
+  if ("IntersectionObserver" in window) {
+    var vo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var v = en.target;
+        if (en.isIntersecting) { if (!reduced) { var p = v.play(); if (p && p.catch) p.catch(function () {}); } }
+        else v.pause();
       });
-    });
-  })();
+    }, { rootMargin: "200px 0px" });
+    clips.forEach(function (v) { vo.observe(v); });
+  }
+  if (reduced && clip) clip.pause();
 
-  /* Videos play only while on screen (and never by themselves with less motion). */
-  var onScreen = "IntersectionObserver" in window ? new IntersectionObserver(function (entries) {
-    entries.forEach(function (en) {
-      var v = en.target;
-      if (en.isIntersecting && !reduced) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-      else if (!en.isIntersecting) v.pause();
-    });
-  }, { rootMargin: "100px 0px" }) : null;
-
-  /* The Reel: muted while it plays by itself; one button turns the sound on. */
-  (function () {
-    var video = document.querySelector("[data-reel]");
-    var btn = document.querySelector("[data-play-reel]");
-    if (!video) return;
-    if (onScreen) onScreen.observe(video);
-    if (btn) btn.addEventListener("click", function () {
-      var on = video.muted;
-      video.muted = !on;
-      if (on) { video.currentTime = 0; video.controls = true; var p = video.play(); if (p && p.catch) p.catch(function () {}); sendEvent("reel_play_sound", { app_version: VERSION }); }
-      btn.textContent = on ? "Mute" : "Play with sound";
-      btn.setAttribute("aria-pressed", on ? "true" : "false");
-    });
-  })();
-
-  /* Everything else: pointing at a row (or choosing it) plays that feature's real recording. */
-  (function () {
-    var video = document.querySelector("[data-feature-video]");
-    var caption = document.querySelector("[data-feature-caption]");
-    var rows = document.querySelectorAll(".feature-list button[data-clip]");
-    if (!video) return;
-    if (onScreen) onScreen.observe(video);
-    var current = "lyrics", timer = null;
-    function show(btn) {
-      var name = btn.getAttribute("data-clip");
-      rows.forEach(function (r) { r.setAttribute("aria-pressed", r === btn ? "true" : "false"); });
-      if (name === current) return;
-      current = name;
-      var label = btn.querySelector(".f-name").textContent;
-      video.classList.add("swap");
-      clearTimeout(timer);
-      timer = setTimeout(function () {
-        video.src = "assets/clips/" + name + ".mp4";
-        video.poster = "assets/clips/" + name + ".jpg";
-        video.setAttribute("aria-label", "Polaric recording: " + label);
-        if (!reduced) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
-        caption.textContent = label;
-        video.classList.remove("swap");
-      }, reduced ? 0 : 160);
-    }
-    rows.forEach(function (r) {
-      r.addEventListener("click", function () { show(r); sendEvent("feature_clip_select", { feature: r.getAttribute("data-clip") }); });
-      r.addEventListener("mouseenter", function () { if (window.matchMedia("(hover: hover)").matches) show(r); });
-      r.addEventListener("focus", function () { show(r); });
-    });
-  })();
-
-  /* Entrances: in every section the heading, then its text, then its picture. */
-  (function () {
-    if (reduced || !("IntersectionObserver" in window)) return;
-    var groups = document.querySelectorAll(".new-head, .chapter, .watch, .features, .steps, .get, .close, .support, .foot");
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
-    }, { rootMargin: "0px 0px -8% 0px" });
+  /* Entrances: heading, then text, then picture, as each section arrives. */
+  if (!reduced && window.innerWidth > 760 && "IntersectionObserver" in window) {
+    var groups = document.querySelectorAll(".video, .features-head, .feature, .more, .platforms, .download, .feedback, .foot");
     groups.forEach(function (g) {
-      var parts = g.querySelectorAll(":scope > h2, :scope > h3, :scope > p, :scope > ul, :scope > ol, :scope > div, :scope > figure, :scope > img, .watch-copy > *, .watch-frame, .platform, .seg, .support-copy > *, .rate, .foot-mail, .foot-row");
-      Array.prototype.forEach.call(parts, function (el, i) {
-        if (el.hasAttribute("data-reveal")) return;
-        el.setAttribute("data-reveal", "");
-        el.style.setProperty("--i", Math.min(i, 6));
-        io.observe(el);
-      });
+      var parts = g.querySelectorAll("h2, h3, p, .dots, .stage, .video-frame, .platform, .get, .guide-links, .mail, .foot-mark, .btn-big");
+      parts.forEach(function (el, i) { el.classList.add("reveal"); el.style.transitionDelay = Math.min(i, 6) * 70 + "ms"; });
     });
-  })();
+    var ro = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add("in"); obs.unobserve(en.target); }
+      });
+    }, { threshold: 0, rootMargin: "0px 0px -6% 0px" });
+    document.querySelectorAll(".reveal").forEach(function (el) { ro.observe(el); });
+  }
 })();
