@@ -1,7 +1,7 @@
 /* Polaric website: analytics events, the live notch in the hero, the video, clips that play when seen. */
 (function () {
   "use strict";
-  var VERSION = "1.3.0";
+  var VERSION = "1.3.1";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function gtagReady() { return typeof window.gtag === "function"; }
@@ -167,7 +167,6 @@
     "email": "An email notice: who wrote, and the subject.",
     "meeting": "A minute before the meeting, with Join.",
     "open-music": "The Music page: artwork, controls and the song's progress.",
-    "share": "ShareZone sending three files to a phone.",
     "timer": "A focus session ends: Snooze or OK."
   };
   var clip = document.getElementById("hero-clip");

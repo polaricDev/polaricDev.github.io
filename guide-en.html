@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Polaric 1.3.0 — User Guide</title>
+<title>Polaric 1.3.1 — User Guide</title>
 <meta name="description" content="Polaric user guide">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
@@ -41,8 +41,8 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <body>
 <nav class="bar"><a href="./">Polaric</a><span class="lang"><a href="guide-en.html" aria-current="page">English</a><a href="guide-id.html">Bahasa Indonesia</a></span></nav>
 <main>
-<h1 id="polaric-130-user-guide">Polaric 1.3.0 — User Guide</h1>
-<p>Polaric turns the top of your screen into a living notch: music with synced lyrics, your meetings, messages and email at a glance, tasks, timers, ambient sound, <strong>ShareZone</strong> (send files to a phone), <strong>Text capture</strong> (copy text from anything on screen), <strong>Screenshots</strong>, <strong>Privacy &amp; Network</strong>, window snapping, AutoText and a small mascot that keeps you company. It shows your <strong>camera and microphone during calls</strong>, tells you when an <strong>AI finishes a task</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), and speaks <strong>English or Bahasa Indonesia</strong>. On Windows it also shows your <strong>game's FPS</strong> and a small <strong>idle clock</strong>. It runs on <strong>macOS 14 or later on a Mac with Apple silicon</strong> (MacBook with or without a notch) and on <strong>Windows 10 and 11</strong> (64-bit).</p>
+<h1 id="polaric-131-user-guide">Polaric 1.3.1 — User Guide</h1>
+<p>Polaric turns the top of your screen into a living notch: music with synced lyrics, your meetings, messages and email at a glance, tasks, timers, ambient sound, <strong>Text capture</strong> (copy text from anything on screen), <strong>Screenshots</strong>, <strong>Privacy &amp; Network</strong>, window snapping, AutoText and a small mascot that keeps you company. It shows your <strong>camera and microphone during calls</strong>, tells you when an <strong>AI finishes a task</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), and speaks <strong>English or Bahasa Indonesia</strong>. On Windows it also shows your <strong>game's FPS</strong> and a small <strong>idle clock</strong>. It runs on <strong>macOS 14 or later on a Mac with Apple silicon</strong> (MacBook with or without a notch) and on <strong>Windows 10 and 11</strong> (64-bit).</p>
 <blockquote>
 <p>🇮🇩 Versi Bahasa Indonesia: <a href="guide-id.html">Bahasa Indonesia</a></p>
 </blockquote>
@@ -61,7 +61,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><a href="#10-system-alerts">System alerts</a></li>
 <li><a href="#11-window-snap">Window Snap</a></li>
 <li><a href="#12-autotext">AutoText</a></li>
-<li><a href="#13-sharezone-send-files-to-a-phone">ShareZone: send files to a phone</a></li>
+<li><a href="#13-sharezone-send-files-to-a-phone">ShareZone: send files to a phone</a> — taking a break</li>
 <li><a href="#14-text-capture-copy-text-from-the-screen">Text capture: copy text from the screen</a></li>
 <li><a href="#15-screenshots-save-any-part-of-the-screen">Screenshots: save any part of the screen</a></li>
 <li><a href="#16-privacy-network">Privacy &amp; Network</a></li>
@@ -75,7 +75,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><a href="#24-ai-task-alerts">AI task alerts</a> — new</li>
 <li><a href="#25-language-and-help-in-settings">Language and help in Settings</a> — new</li>
 <li><a href="#26-troubleshooting">Troubleshooting</a></li>
-<li><a href="#27-whats-new-in-130">What's new in 1.3.0</a></li>
+<li><a href="#27-whats-new-in-131">What's new in 1.3.1</a></li>
 </ol>
 <hr />
 <h2 id="1-install-or-update">1. Install or update</h2>
@@ -91,7 +91,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li>If Polaric is already installed, the setup <strong>updates it in place</strong>: same folder, your data and choices kept, and Polaric starts again by itself. No uninstall needed.</li>
 </ol>
 <p><strong>Updates are automatic.</strong> Polaric checks for a new version 30 seconds after it starts, every 6 hours and when the internet comes back. A new version is downloaded, its signature is checked, and the notch counts down 20 seconds before Polaric installs it and restarts. Your settings and data stay.</p>
-<p>After an update, the notch says <strong>Updated to Polaric 1.3.0</strong> once. The full list of changes is in <strong>Settings › About › What's new</strong>.</p>
+<p>After an update, the notch says <strong>Updated to Polaric 1.3.1</strong> once. The full list of changes is in <strong>Settings › About › What's new</strong>.</p>
 <h2 id="2-set-up-polaric-so-every-feature-works">2. Set up Polaric so every feature works</h2>
 <p>Polaric needs a few permissions from macOS or Windows, and your apps must be allowed to show notifications. Do this once, right after installing. It takes about five minutes.</p>
 <h3 id="21-on-a-mac">2.1 On a Mac</h3>
@@ -102,7 +102,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><strong>Screen Recording</strong> (macOS 15 and later: <strong>Screen &amp; System Audio Recording</strong>) → switch <strong>Polaric</strong> on. Needed for <strong>Text capture</strong> and <strong>Screenshots</strong>, to see the pixels under the box. macOS asks the first time you press ⌥O or ⌥⇧S; quit and reopen Polaric after allowing it.</li>
 <li><strong>Calendars</strong> → set <strong>Polaric</strong> to <strong>Full Access</strong>. Needed for meetings from the Calendar app. To see Google meetings, add your Google account in <strong>System Settings › Internet Accounts</strong> and turn <strong>Calendars</strong> on.</li>
 <li><strong>Automation</strong> → under <strong>Polaric</strong>, switch on <strong>Google Chrome</strong> (and <strong>Safari</strong> if you use it). macOS asks the first time something plays in a browser. Polaric uses it to show the right logo (YouTube, Netflix, Spotify…) and to open meeting links and chats.</li>
-<li><strong>Local Network</strong> → switch <strong>Polaric</strong> on. Needed for ShareZone to reach your Android phone on your Wi-Fi.</li>
+<li><strong>Local Network</strong> → switch <strong>Polaric</strong> on. Needed for ShareZone (taking a short break for now).</li>
 <li><strong>Bluetooth</strong> → switch <strong>Polaric</strong> on. Needed to show your earbuds' name and battery, and the Bluetooth row on the Privacy &amp; Network page.</li>
 <li><strong>Location Services</strong> (optional) → switch <strong>Polaric</strong> on only if you want the Wi-Fi name shown. macOS only tells apps the Wi-Fi name this way; Polaric never uses your location.</li>
 </ol>
@@ -120,24 +120,20 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <h3 id="22-on-windows">2.2 On Windows</h3>
 <ol>
 <li><strong>SmartScreen</strong>: the first time, click <strong>More info › Run anyway</strong>. Polaric is signed by its maker, but it is not a paid certificate yet.</li>
-<li><strong>Windows Firewall</strong>: when it asks about Polaric, tick <strong>Private networks</strong> and click <strong>Allow</strong>. Needed for ShareZone's iPhone code.</li>
+<li><strong>Windows Firewall</strong>: when it asks about Polaric, tick <strong>Private networks</strong> and click <strong>Allow</strong>. Needed for ShareZone (taking a short break for now).</li>
 <li><strong>Settings › System › Notifications</strong> → <strong>Notifications</strong> on, and on for <strong>Google Chrome</strong>, <strong>WhatsApp</strong>, <strong>Telegram</strong>, <strong>Slack</strong>, <strong>Microsoft Outlook</strong> and the other chat apps you use. Polaric reads Windows' own notification list, so this works even when <em>Do not disturb</em> is on.</li>
 <li><strong>Chrome site notifications</strong> and <strong>Gmail / Outlook / WhatsApp Web settings</strong>: the same as steps 10 and 11 above.</li>
 <li><strong>Start with Windows</strong>: chosen in the installer; you can change it any time in Polaric › Settings › General › <em>Start Polaric when you sign in</em>.</li>
 <li><strong>Text capture</strong>: Windows reads text in the languages installed in <strong>Settings › Time &amp; language › Language &amp; region</strong>. English works out of the box; add another language there to read it too.</li>
 <li><strong>Calendar</strong>: Windows has no system calendar for Polaric to read, so paste your calendar's public iCal link in Polaric › Settings › Calendar (see <a href="#7-meetings-and-calendar">Meetings and Calendar</a>).</li>
-<li><strong>Game FPS</strong> (optional): Windows only lets apps read another program's frames with permission. In Polaric › Settings › Gaming &amp; Meetings, click <strong>Allow FPS reading…</strong>, accept the administrator prompt, then <strong>sign out and back in</strong>. Without it, games still show in the notch with <strong>FPS --</strong> (see <a href="#17-game-awareness-windows">Game Awareness</a>).</li>
+<li><strong>Game FPS</strong> (optional): Windows only lets apps read another program's frames with permission. In Polaric › Settings › Gaming &amp; Meetings, click <strong>Allow FPS reading…</strong>, accept the administrator prompt, then choose <strong>Sign out now</strong> (or sign out and back in later). Without it, games still show in the notch with <strong>FPS --</strong> (see <a href="#17-game-awareness-windows">Game Awareness</a>).</li>
 <li><strong>Camera and microphone in Windows privacy settings</strong>: Meeting Awareness and Privacy &amp; Network read Windows' own privacy record. Leave <strong>Settings › Privacy &amp; security › Camera / Microphone / Location</strong> as they are; Polaric only reads which app last used each one.</li>
 </ol>
 <blockquote>
 <p>AutoText and Window Snap can't reach apps that run <strong>as administrator</strong> unless Polaric runs as administrator too. This is a Windows rule.</p>
 </blockquote>
 <h3 id="23-on-your-phone-sharezone">2.3 On your phone (ShareZone)</h3>
-<ul>
-<li><strong>Android</strong>: Wi-Fi on, the <strong>same network</strong> as the computer, and <strong>Quick Share</strong> turned on (Settings › Google › All services › Quick Share, or the Quick Share tile). You'll scan a QR code with the phone's camera. Keep the screen unlocked until the notch says <strong>Sent to …</strong>.</li>
-<li><strong>iPhone, from a Mac</strong>: Control Center › <strong>AirDrop</strong> › <strong>Everyone for 10 minutes</strong> or <strong>Contacts Only</strong>.</li>
-<li><strong>iPhone, from Windows</strong>: the same Wi-Fi as the PC; scan the code with the Camera app and open the link in Safari.</li>
-</ul>
+<p>ShareZone is taking a short break (see <a href="#13-sharezone-send-files-to-a-phone">ShareZone</a>); nothing to set up on the phone for now.</p>
 <h3 id="24-quick-check-feature-by-feature">2.4 Quick check, feature by feature</h3>
 <table>
 <thead>
@@ -191,7 +187,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <tr>
 <td>Game FPS</td>
 <td>Windows only</td>
-<td><strong>Allow FPS reading…</strong> once (administrator), then sign out and in</td>
+<td><strong>Allow FPS reading…</strong> once (administrator), then <strong>Sign out now</strong></td>
 </tr>
 <tr>
 <td>Meeting Awareness</td>
@@ -200,8 +196,8 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 <tr>
 <td>ShareZone</td>
-<td>Local Network; same Wi-Fi; Quick Share or AirDrop on the phone</td>
-<td>Firewall › Private; same Wi-Fi; Quick Share on Android</td>
+<td>Taking a short break</td>
+<td>Taking a short break</td>
 </tr>
 <tr>
 <td>Volume and brightness popups</td>
@@ -268,7 +264,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 <tr>
 <td>ShareZone</td>
-<td>Drop files on the notch and send them to an Android phone or an iPhone</td>
+<td>Coming soon: taking a short break</td>
 </tr>
 <tr>
 <td>To-do</td>
@@ -296,7 +292,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 <tr>
 <td><strong>Privacy &amp; Network</strong> (new)</td>
-<td>What uses your camera, microphone and more right now, and your download, upload and ping</td>
+<td>What uses your camera, microphone and more right now, and your download and upload</td>
 </tr>
 </tbody>
 </table>
@@ -327,6 +323,18 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><strong>Public calendar links</strong> (iCal). Use these when your calendar can't be added to the Mac. In Google Calendar: <em>Settings › your calendar › Integrate calendar › Public address in iCal format</em>. Paste it in <strong>Settings › Calendar › Public calendar links</strong> and click <strong>Add calendar</strong>. Polaric checks it every few minutes (adjustable).</li>
 <li><strong>Meetings you add in Polaric</strong>: Settings › Calendar › <strong>Add meeting…</strong> (name, time, link, place, notes).</li>
 </ol>
+<h3 id="how-to-get-your-google-calendars-ical-address">How to get your Google Calendar's iCal address</h3>
+<ol>
+<li>Open <strong>calendar.google.com</strong> on a computer (not the phone app).</li>
+<li>On the left, under <strong>My calendars</strong>, point at your calendar, click <strong>⋮</strong> › <strong>Settings and sharing</strong>.</li>
+<li>Under <strong>Access permissions for events</strong>, tick <strong>Make available to public</strong>. (Choose <em>See all event details</em> if you want the meeting names in Polaric.)</li>
+<li>Scroll down to <strong>Integrate calendar</strong> and copy <strong>Public address in iCal format</strong> (it ends in <code>basic.ics</code>). Polaric also takes the <strong>Public URL to this calendar</strong> (<code>…/embed?src=…</code>) and finds the iCal address by itself.</li>
+<li>In Polaric: <strong>Settings › Calendar › Public calendar links</strong>, give it a name, paste the address and click <strong>Add calendar</strong>. Its meetings show in the notch within a minute.</li>
+</ol>
+<p>A public calendar can be seen by anyone who has its link. If you'd rather not, use <strong>Secret address in iCal format</strong> (same page, under <em>Integrate calendar</em>): it works without making the calendar public. Keep it to yourself, like a password.</p>
+<blockquote>
+<p><strong>Work email:</strong> many companies' administrators block sharing calendars outside the company for security. Then a work calendar has no public or secret iCal address, and a link only opens for people signed in to it. A <strong>personal Google account</strong> works. On a <strong>Mac</strong>, you can also add the work account in <strong>System Settings › Internet Accounts › Calendars</strong>: Polaric reads it from there.</p>
+</blockquote>
 <p>A minute before a meeting (adjustable), the notch shows an alert with <strong>Join</strong>.</p>
 <p><video src="guide/media/mac-meeting.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Meeting alert"></video></p>
 <p><strong>Open the meeting link in Chrome when the alert shows</strong> is <strong>off</strong> by default. Turn it on in Settings › Calendar if you want the call to open by itself. (During the call itself, Polaric can show your camera and microphone: see <a href="#18-meeting-awareness">Meeting Awareness</a>.)</p>
@@ -386,22 +394,9 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p>A variable without a saved value (e.g. <code>{{recipient}}</code>) is asked for when you type the shortcut. Turn that off with <em>Ask for values a template needs</em>. The date and time formats are set under <strong>Date and time</strong> (e.g. <code>dd/MM/yyyy</code>, <code>HH:mm</code>).</p>
 <p>Tip: pick shortcuts you never type by accident, such as <code>.daily</code>.</p>
 <h2 id="13-sharezone-send-files-to-a-phone">13. ShareZone: send files to a phone</h2>
-<p>ShareZone sends files from your Mac or PC to a phone over Wi-Fi. Nothing to install on the phone. It has <strong>two ways to send</strong>, so your files only ever go to the phone you meant.</p>
-<p><img src="guide/media/mac-sharezone-qr.png" alt="ShareZone" loading="lazy"></p>
-<ol>
-<li><strong>Add files</strong>: drag them onto the notch (it opens ShareZone by itself), drop them in the ShareZone box, or click <strong>Choose files…</strong>. Remove one with ×, or all with <strong>Clear</strong>.</li>
-<li><strong>Pick where they go</strong> (the two buttons on the right):
-   - <strong>iPhone</strong>: on a Mac, <strong>AirDrop</strong> opens with your files. On Windows (no AirDrop), a code appears: scan it with the iPhone camera and tap each file in Safari to save it.
-   - <strong>Android · Quick Share QR</strong>: a QR code appears. Scan it with the Android phone's camera; Quick Share opens on the phone and the send starts by itself. The code is tied to the phone that scans it, so no other phone nearby can receive your files.</li>
-<li><strong>Accept on the phone</strong>. Both screens show the same 4-digit code. The notch shows the progress, then <strong>Sent to …</strong>.</li>
-</ol>
-<p><strong>Cancel</strong> is there at every step (while connecting, while waiting for the phone, and while sending). After a send, the same two buttons are ready for the next files.</p>
-<p>Good to know:</p>
-<ul>
-<li>The phone and the computer must be on the <strong>same Wi-Fi</strong>.</li>
-<li>The iPhone address works only for those files, only with its secret code, and only for 10 minutes.</li>
-<li>Turn ShareZone on or off in Settings › Modules.</li>
-</ul>
+<blockquote>
+<p><strong>ShareZone is taking a short break.</strong> It didn't send reliably on every network, so it's switched off for now and shows as <strong>Coming soon</strong> in Settings › Modules. It comes back as soon as it works properly everywhere. Until then, use AirDrop (Mac → iPhone) or your phone's own sharing.</p>
+</blockquote>
 <h2 id="14-text-capture-copy-text-from-the-screen">14. Text capture: copy text from the screen</h2>
 <p>Copy text from anything you can see: a picture, a video, a scanned PDF, a slide, an app that won't let you select.</p>
 <p><video src="guide/media/mac-text-capture.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Text capture"></video></p>
@@ -456,7 +451,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 <tr>
 <td><strong>Keep screenshots for</strong></td>
-<td>1 day, 7 days, <strong>30 days</strong> (default), 90 days, 1 year or Forever. Older ones go to the Trash (Mac) or Recycle Bin (Windows), so you can still get them back</td>
+<td><strong>Forever</strong> (default), 1 day, 7 days, 30 days, 90 days or 1 year. Older ones go to the Trash (Mac) or Recycle Bin (Windows), so you can still get them back</td>
 </tr>
 </tbody>
 </table>
@@ -514,14 +509,14 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </ul>
 <p><img src="guide/media/mac-alert-camera.png" alt="Camera in use" loading="lazy"></p>
 <p><strong>Internet check</strong></p>
-<p>The right side shows <strong>Download</strong> and <strong>Upload</strong> (Mbps) and the average <strong>Ping</strong> (ms), with when they were measured.</p>
+<p>The right side shows <strong>Download</strong> and <strong>Upload</strong> (Mbps), with when they were measured.</p>
 <ul>
 <li><strong>Test now</strong> measures right away.</li>
 <li>Polaric also checks by itself every <strong>60 minutes</strong> (you set the minutes), and shows the result in the notch:</li>
 </ul>
 <p><img src="guide/media/mac-alert-internet-check.png" alt="An internet check in the notch" loading="lazy"></p>
 <ul>
-<li>It is an internet speed test, not the traffic on your own network connection. On a Mac, download and upload come from macOS's own test (Apple's servers); on Windows from speed.cloudflare.com. Ping is the average of 5 pings to speed.cloudflare.com.</li>
+<li>It is an internet speed test, not the traffic on your own network connection. On a Mac, download and upload come from macOS's own test (Apple's servers); on Windows from speed.cloudflare.com.</li>
 <li>Each check moves some data (often 100 MB or more on a fast line). <strong>Scheduled checks skip metered connections</strong> such as a phone's hotspot; <strong>Test now</strong> always runs.</li>
 <li>A check that fails says so (for example <em>Couldn't reach the test servers</em>), and the last good result keeps its own time.</li>
 </ul>
@@ -599,7 +594,8 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </table>
 <ul>
 <li>While a game runs, the idle clock steps aside. A notification still comes through, then the notch goes back to the game and its FPS.</li>
-<li><strong>FPS --</strong> means the FPS can't be read yet: Windows needs permission (below), or the game draws in a way Windows doesn't report (some Vulkan or OpenGL games).</li>
+<li><strong>FPS --</strong> means the FPS can't be read yet: Windows needs permission (below), or the game draws in a way Windows doesn't report (some Vulkan or OpenGL games). The first time, the notch says once where to allow it.</li>
+<li>The game's name is in <strong>bold</strong>, the FPS in regular type.</li>
 </ul>
 <p><img src="guide/media/win-game-no-fps.png" alt="FPS not readable yet" loading="lazy"></p>
 <p><strong>Settings › Gaming &amp; Meetings</strong></p>
@@ -626,7 +622,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 <tr>
 <td><strong>Allow FPS reading…</strong></td>
-<td>Shown when Windows hasn't given permission yet. Click it, accept the administrator prompt (it adds you to Windows' <em>Performance Log Users</em> group), then sign out and back in</td>
+<td>Shown when Windows hasn't given permission yet. Click it, accept the administrator prompt (it adds you to Windows' <em>Performance Log Users</em> group), then choose <strong>Sign out now</strong> so it starts when you sign back in</td>
 </tr>
 <tr>
 <td><strong>Mascot faces by FPS</strong></td>
@@ -725,6 +721,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><strong>Rests</strong> when you're away, <strong>waves</strong> when you come back, and <strong>dozes off</strong> after a while.</li>
 </ul>
 <p><video src="guide/media/mac-mascot.mp4" autoplay loop muted playsinline preload="metadata" aria-label="The mascot resting"></video></p>
+<p><strong>Placement</strong> (Settings › Appearance): <strong>Anchored notch</strong> joins the top edge; <strong>Floating island</strong> is a pill you can put anywhere. With Floating island, move it with <strong>Left or right</strong> and <strong>Down</strong>; <strong>Reset position</strong> puts it back under the menu bar.</p>
 <h2 id="21-browser-aware-mode-and-adaptive-notch">21. Browser-Aware Mode and Adaptive Notch</h2>
 <p><strong>Browser-Aware Mode</strong> (Mac and Windows): when the pointer is on a browser's tabs right under the notch, Polaric folds into a thin glowing strip so your tabs stay reachable. Touch the strip to bring it back. While you head for the tabs, <strong>everything</strong> folds (lyrics, alerts, notifications, a meeting's Cam/Mic line) and comes back once the pointer leaves them.</p>
 <p><video src="guide/media/mac-browser-aware.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Browser-Aware strip"></video></p>
@@ -756,14 +753,12 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p><video src="guide/media/win-chat-email.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: email and chat"></video></p>
 <p><video src="guide/media/win-alerts.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: alerts"></video></p>
 <p><video src="guide/media/win-system.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: system alerts"></video></p>
-<p><video src="guide/media/win-sharezone.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: ShareZone"></video></p>
 <p><video src="guide/media/win-snap.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: Window Snap"></video></p>
 <p><img src="guide/media/win-privacy-network.png" alt="Windows: Privacy &amp; Network" loading="lazy"></p>
 <p><video src="guide/media/win-settings.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: Settings"></video></p>
 <p>Windows notes:</p>
 <ul>
 <li>Shortcuts: <strong>Ctrl+Alt+N</strong> (open), <strong>Ctrl+Alt+V</strong> (clipboard), <strong>Ctrl+Alt+S</strong> (snap), <strong>Alt+O</strong> (text capture), <strong>Alt+Shift+S</strong> (screenshot).</li>
-<li>ShareZone: iPhone and Android both use a QR code.</li>
 <li>The tray icon has Settings, About, <em>Keep notch expanded</em> and Quit.</li>
 <li>Email and chat notifications come from Windows' own notification list, so they work even with <em>Do not disturb</em> on. Chrome must be allowed to show notifications.</li>
 </ul>
@@ -835,7 +830,8 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p><strong>Language</strong>: Settings › General › <strong>Language</strong>: <strong>English</strong> or <strong>Bahasa Indonesia</strong>. It changes at once, everywhere: Settings, the notch, alerts and the tray menu on Windows. Your own things stay as they are: songs, lyrics, who wrote, email subjects, to-dos and templates.</p>
 <p><img src="guide/media/mac-settings-language-id.png" alt="Settings in Bahasa Indonesia" loading="lazy"></p>
 <p><img src="guide/media/mac-ai-task-id.png" alt="An alert in Bahasa Indonesia" loading="lazy"></p>
-<p><strong>ⓘ beside every section</strong>: click it for <strong>What it does</strong>, <strong>Why use it</strong> and <strong>How to set it</strong>, in your language.</p>
+<p><strong>ⓘ beside every section</strong>: click it for <strong>What it does</strong>, <strong>Why use it</strong> and <strong>How to set it</strong>, in your language, with a moving picture of where it shows in the notch.</p>
+<p><strong>Search</strong>: type at the top of the Settings sidebar (for example <em>lyrics</em>, <em>glow</em> or <em>calendar</em>). Matching settings appear; click one to open its page. It also finds words from the ⓘ help, in English or Bahasa Indonesia.</p>
 <p><strong>User guide</strong>: About › <strong>User guide</strong> opens this guide in English or Bahasa Indonesia.</p>
 <h2 id="26-troubleshooting">26. Troubleshooting</h2>
 <table>
@@ -908,7 +904,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 <tr>
 <td>The game shows <strong>FPS --</strong> (Windows)</td>
-<td>Settings › Gaming &amp; Meetings › <strong>Allow FPS reading…</strong>, then sign out and back in. Some Vulkan/OpenGL games can't be measured</td>
+<td>Settings › Gaming &amp; Meetings › <strong>Allow FPS reading…</strong>, then <strong>Sign out now</strong> and sign back in. Some Vulkan/OpenGL games can't be measured</td>
 </tr>
 <tr>
 <td>My game isn't detected (Windows)</td>
@@ -919,34 +915,45 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <td>Check Meeting Awareness, Camera and Microphone (Mac: Settings › Privacy &amp; Network; Windows: Settings › Gaming &amp; Meetings)</td>
 </tr>
 <tr>
-<td>My Android phone doesn't get the files</td>
-<td>Same Wi-Fi; Quick Share on; scan the code with the phone's camera and keep the phone unlocked until <strong>Sent to …</strong></td>
+<td>ShareZone isn't in the notch</td>
+<td>It's taking a short break and comes back once it sends reliably</td>
 </tr>
 <tr>
-<td>The iPhone can't open the code's page</td>
-<td>Same Wi-Fi as the computer; on Windows allow Polaric on private networks when the firewall asks</td>
+<td>My work calendar can't be added</td>
+<td>The company blocks sharing calendars outside it. Use a personal Google account, or on a Mac add the work account in System Settings › Internet Accounts</td>
 </tr>
 </tbody>
 </table>
-<h2 id="27-whats-new-in-130">27. What's new in 1.3.0</h2>
+<h2 id="27-whats-new-in-131">27. What's new in 1.3.1</h2>
+<p>Everything new since 1.2.0, in one update.</p>
 <p><strong>New</strong></p>
 <ul>
-<li><strong>AI task alerts</strong> (Mac and Windows): <em>Claude Code › your project · Task Completed</em> with the AI's animated logo, for Claude Code, Codex, Antigravity (app, IDE, CLI), Claude AI, ChatGPT and Gemini.</li>
+<li><strong>AI task alerts</strong> (Mac and Windows): <em>Claude Code › your project · Task Completed</em> with the AI's animated logo, for Claude Code, Codex, Antigravity (app, IDE, CLI), Claude AI, ChatGPT and Gemini. See <a href="#24-ai-task-alerts">AI task alerts</a>.</li>
 <li><strong>Bahasa Indonesia</strong> for all of Polaric, chosen in Settings › General › Language.</li>
-<li><strong>ⓘ help</strong> beside every Settings section, and Settings grouped into Notch, Tools and Privacy.</li>
+<li><strong>Search in Settings</strong>: type a word at the top of the sidebar and jump straight to the setting.</li>
+<li><strong>ⓘ help</strong> beside every Settings section, with a moving picture of where it shows in the notch. Settings is grouped into Notch, Tools and Privacy.</li>
+<li><strong>Floating island anywhere</strong>: move it left, right and down; Reset position puts it back.</li>
 <li><strong>Meeting Awareness on the Mac</strong>, with <strong>Meeting started</strong> / <strong>Meeting ended</strong> alerts on both.</li>
 <li><strong>User guide</strong> links in About.</li>
 </ul>
 <p><strong>Improved</strong></p>
 <ul>
+<li><strong>ShareZone</strong> is taking a short break and comes back once it sends reliably.</li>
 <li>The microphone shows <strong>Muted</strong> while a call has it muted, read from Google Meet's, Zoom's and Teams' own buttons; the camera row names the app during a call.</li>
-<li><strong>Browser-Aware</strong> folds everything (lyrics, alerts, notifications) while you head for a browser's tabs.</li>
+<li><strong>Browser-Aware</strong> folds everything (lyrics, alerts, notifications, a meeting) while you head for a browser's tabs.</li>
+<li><strong>AI news</strong> (limits, finished tasks) shows for a few seconds and goes by itself; alerts with buttons stay reachable over a browser's tabs.</li>
 <li>The notch <strong>never cuts text off</strong>: it widens for the whole line, also when a message count or the timer changes.</li>
 <li>WhatsApp senders saved as a phone number show as WhatsApp shows them.</li>
+<li><strong>Calendar</strong> takes Google's <em>Public URL to this calendar</em>, and explains when a work account doesn't allow sharing. See <a href="#how-to-get-your-google-calendars-ical-address">How to get your Google Calendar's iCal address</a>.</li>
+<li><strong>Internet check</strong> measures download and upload only.</li>
+<li><strong>Screenshots</strong> are kept forever on new installs unless you pick a number of days.</li>
+<li><strong>Windows games</strong>: the name in bold and the FPS in regular type; the first time FPS can't be read, the notch says where to allow it, and <strong>Allow FPS reading…</strong> offers to sign out so it starts.</li>
 </ul>
 <p><strong>Fixed</strong></p>
 <ul>
 <li>No thin outline around the resting notch.</li>
+<li>The microphone no longer reads Active while you're muted in a call.</li>
+<li>Clicking OK on an alert over a browser's tabs no longer lands on a tab.</li>
 <li>Windows: every Settings description is translated; a long backup line wraps inside its card.</li>
 </ul>
 <h3 id="in-120">In 1.2.0</h3>
@@ -971,7 +978,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li>Windows: the notch hides over browser tabs again; notifications and the playing song read in one line (1.1.2).</li>
 </ul>
 <hr />
-<p>Polaric 1.3.0 · Crafted by polaric.dev@gmail.com · Download only from <a href="https://polaricdev.github.io/">polaricdev.github.io</a></p>
+<p>Polaric 1.3.1 · Crafted by polaric.dev@gmail.com · Download only from <a href="https://polaricdev.github.io/">polaricdev.github.io</a></p>
 </main>
 <footer>Polaric · polaric.dev@gmail.com · <a href="./">polaricdev.github.io</a></footer>
 </body>

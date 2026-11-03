@@ -209,6 +209,18 @@ p { margin: 0; }
 .more h3 { grid-column: 1 / span 4; font-size: var(--t-h2); letter-spacing: -0.03em; line-height: 1; }
 .more-list { grid-column: 5 / span 8; grid-template-columns: 1fr 1fr; column-gap: 40px; row-gap: 18px; }
 
+/* ---------- Everything in Polaric ---------- */
+.everything { padding: var(--gap) var(--m) 0; }
+.everything-lede { margin-top: 24px; max-width: 36em; color: var(--soft); }
+.everything-grid { margin-top: 48px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.ev { background: var(--field); border-radius: var(--notch); padding: 22px 22px 24px; }
+.ev h3 { font-size: 19px; line-height: 1.25; letter-spacing: -0.01em; }
+.ev p { margin-top: 8px; font-size: var(--t-small); color: var(--soft); line-height: 1.5; }
+.everything-note { margin-top: 28px; font-size: var(--t-small); color: var(--soft); }
+.everything-note strong { color: var(--ink); }
+@media (max-width: 1080px) { .everything-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .everything-grid { grid-template-columns: 1fr; } }
+
 /* ---------- Platforms ---------- */
 .platforms { padding: var(--gap) var(--m) 0; }
 .platforms-lede { margin-top: 24px; max-width: 36em; }
