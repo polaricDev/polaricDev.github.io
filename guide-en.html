@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polaric 1.3.0 — User Guide</title>
+<meta name="description" content="Polaric user guide">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Bricolage Grotesque"; src: url("assets/fonts/BricolageGrotesque.woff2") format("woff2"); font-weight: 200 800; font-display: swap; }
+:root { --ground: #16181d; --field: #1f2229; --ink: #f4f5f7; --soft: #a9adb7; --accent: #C026D3; --accent-hover: #F472B6;
+  --berry: linear-gradient(120deg, #F472B6 0%, #C026D3 50%, #7E22CE 100%); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.65 "Bricolage Grotesque", system-ui, sans-serif; }
+.bar { position: sticky; top: 0; z-index: 2; display: flex; gap: 16px; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: rgba(22,24,29,.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.bar a { color: var(--ink); text-decoration: none; font-weight: 600; }
+.bar .lang a { color: var(--soft); font-weight: 500; margin-left: 14px; }
+.bar .lang a[aria-current] { color: var(--ink); }
+main { max-width: 860px; margin: 0 auto; padding: 32px 16px 96px; }
+h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.05; margin: 24px 0 18px; background: var(--berry); -webkit-background-clip: text; background-clip: text; color: transparent; }
+h2 { font-size: clamp(24px, 3.4vw, 32px); margin: 64px 0 12px; scroll-margin-top: 72px; }
+h3 { font-size: 20px; margin: 32px 0 8px; scroll-margin-top: 72px; }
+p, li { color: #dfe1e6; }
+a { color: var(--accent-hover); }
+a:hover { color: #fff; }
+strong { color: var(--ink); }
+code { background: var(--field); padding: 1px 6px; border-radius: 6px; font-size: .9em; }
+blockquote { margin: 18px 0; padding: 12px 18px; background: var(--field); border-radius: 6px 6px 18px 18px; color: var(--soft); }
+blockquote p { margin: 0; }
+hr { border: 0; height: 1px; background: rgba(255,255,255,.08); margin: 48px 0; }
+img, video { display: block; max-width: 100%; height: auto; margin: 18px auto; border-radius: 0 0 22px 22px; background: #000; }
+table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; display: block; overflow-x: auto; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,.08); vertical-align: top; }
+th { color: var(--soft); font-weight: 600; }
+footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 16px 48px; }
+</style>
+</head>
+<body>
+<nav class="bar"><a href="./">Polaric</a><span class="lang"><a href="guide-en.html" aria-current="page">English</a><a href="guide-id.html">Bahasa Indonesia</a></span></nav>
+<main>
+<h1 id="polaric-130-user-guide">Polaric 1.3.0 — User Guide</h1>
+<p>Polaric turns the top of your screen into a living notch: music with synced lyrics, your meetings, messages and email at a glance, tasks, timers, ambient sound, <strong>ShareZone</strong> (send files to a phone), <strong>Text capture</strong> (copy text from anything on screen), <strong>Screenshots</strong>, <strong>Privacy &amp; Network</strong>, window snapping, AutoText and a small mascot that keeps you company. It shows your <strong>camera and microphone during calls</strong>, tells you when an <strong>AI finishes a task</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), and speaks <strong>English or Bahasa Indonesia</strong>. On Windows it also shows your <strong>game's FPS</strong> and a small <strong>idle clock</strong>. It runs on <strong>macOS 14 or later on a Mac with Apple silicon</strong> (MacBook with or without a notch) and on <strong>Windows 10 and 11</strong> (64-bit).</p>
+<blockquote>
+<p>🇮🇩 Versi Bahasa Indonesia: <a href="guide-id.html">Bahasa Indonesia</a></p>
+</blockquote>
+<p><video src="guide/media/mac-music.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Polaric playing music"></video></p>
+<h2 id="contents">Contents</h2>
+<ol>
+<li><a href="#1-install-or-update">Install or update</a></li>
+<li><a href="#2-set-up-polaric-so-every-feature-works">Set up Polaric so every feature works</a></li>
+<li><a href="#3-opening-the-notch">Opening the notch</a></li>
+<li><a href="#4-music-and-lyrics">Music and lyrics</a></li>
+<li><a href="#5-pages-in-the-notch">Pages in the notch</a></li>
+<li><a href="#6-email-and-chat-notifications">Email and chat notifications</a></li>
+<li><a href="#7-meetings-and-calendar">Meetings and Calendar</a></li>
+<li><a href="#8-timer-and-to-do">Timer and To-do</a></li>
+<li><a href="#9-ambient-sounds">Ambient sounds</a></li>
+<li><a href="#10-system-alerts">System alerts</a></li>
+<li><a href="#11-window-snap">Window Snap</a></li>
+<li><a href="#12-autotext">AutoText</a></li>
+<li><a href="#13-sharezone-send-files-to-a-phone">ShareZone: send files to a phone</a></li>
+<li><a href="#14-text-capture-copy-text-from-the-screen">Text capture: copy text from the screen</a></li>
+<li><a href="#15-screenshots-save-any-part-of-the-screen">Screenshots: save any part of the screen</a></li>
+<li><a href="#16-privacy-network">Privacy &amp; Network</a></li>
+<li><a href="#17-game-awareness-windows">Game Awareness (Windows)</a></li>
+<li><a href="#18-meeting-awareness">Meeting Awareness</a></li>
+<li><a href="#19-idle-clock-windows">Idle clock (Windows)</a></li>
+<li><a href="#20-your-look-themes-aura-glow-and-mascots">Your look: themes, Aura Glow and mascots</a></li>
+<li><a href="#21-browser-aware-mode-and-adaptive-notch">Browser-Aware Mode and Adaptive Notch</a></li>
+<li><a href="#22-settings-backup-privacy-and-about">Settings, backup, privacy and About</a></li>
+<li><a href="#23-polaric-for-windows">Polaric for Windows</a></li>
+<li><a href="#24-ai-task-alerts">AI task alerts</a> — new</li>
+<li><a href="#25-language-and-help-in-settings">Language and help in Settings</a> — new</li>
+<li><a href="#26-troubleshooting">Troubleshooting</a></li>
+<li><a href="#27-whats-new-in-130">What's new in 1.3.0</a></li>
+</ol>
+<hr />
+<h2 id="1-install-or-update">1. Install or update</h2>
+<p>Download Polaric <strong>only from the official website, <a href="https://polaricdev.github.io/">polaricdev.github.io</a></strong>. Copies from anywhere else may have been changed.</p>
+<p><strong>Mac</strong></p>
+<ol>
+<li>Open <code>Polaric-Notch.dmg</code> and drag <strong>Polaric</strong> into <strong>Applications</strong>.</li>
+<li>Open Polaric from Applications. The first time, macOS may say it can't check the developer: right-click Polaric › <strong>Open</strong>, or go to <strong>System Settings › Privacy &amp; Security</strong> and click <strong>Open Anyway</strong>.</li>
+</ol>
+<p><strong>Windows</strong></p>
+<ol>
+<li>Run <code>Polaric-Setup.exe</code>. If SmartScreen appears, click <strong>More info › Run anyway</strong>.</li>
+<li>If Polaric is already installed, the setup <strong>updates it in place</strong>: same folder, your data and choices kept, and Polaric starts again by itself. No uninstall needed.</li>
+</ol>
+<p><strong>Updates are automatic.</strong> Polaric checks for a new version 30 seconds after it starts, every 6 hours and when the internet comes back. A new version is downloaded, its signature is checked, and the notch counts down 20 seconds before Polaric installs it and restarts. Your settings and data stay.</p>
+<p>After an update, the notch says <strong>Updated to Polaric 1.3.0</strong> once. The full list of changes is in <strong>Settings › About › What's new</strong>.</p>
+<h2 id="2-set-up-polaric-so-every-feature-works">2. Set up Polaric so every feature works</h2>
+<p>Polaric needs a few permissions from macOS or Windows, and your apps must be allowed to show notifications. Do this once, right after installing. It takes about five minutes.</p>
+<h3 id="21-on-a-mac">2.1 On a Mac</h3>
+<p>Open <strong>System Settings › Privacy &amp; Security</strong> and go through these, top to bottom:</p>
+<ol>
+<li><strong>Accessibility</strong> → switch <strong>Polaric</strong> on. Needed for AutoText, Window Snap, the ⌥O (Text capture) and ⌥⇧S (Screenshots) shortcuts, email and chat notices, WhatsApp names and replacing the volume and brightness popup.
+   <em>If a feature stops working after an update:</em> select Polaric, remove it with <strong>−</strong>, open Polaric again and switch it back on.</li>
+<li><strong>Screen Recording</strong> (macOS 15 and later: <strong>Screen &amp; System Audio Recording</strong>) → switch <strong>Polaric</strong> on. Needed for <strong>Text capture</strong> and <strong>Screenshots</strong>, to see the pixels under the box. macOS asks the first time you press ⌥O or ⌥⇧S; quit and reopen Polaric after allowing it.</li>
+<li><strong>Calendars</strong> → set <strong>Polaric</strong> to <strong>Full Access</strong>. Needed for meetings from the Calendar app. To see Google meetings, add your Google account in <strong>System Settings › Internet Accounts</strong> and turn <strong>Calendars</strong> on.</li>
+<li><strong>Automation</strong> → under <strong>Polaric</strong>, switch on <strong>Google Chrome</strong> (and <strong>Safari</strong> if you use it). macOS asks the first time something plays in a browser. Polaric uses it to show the right logo (YouTube, Netflix, Spotify…) and to open meeting links and chats.</li>
+<li><strong>Local Network</strong> → switch <strong>Polaric</strong> on. Needed for ShareZone to reach your Android phone on your Wi-Fi.</li>
+<li><strong>Bluetooth</strong> → switch <strong>Polaric</strong> on. Needed to show your earbuds' name and battery, and the Bluetooth row on the Privacy &amp; Network page.</li>
+<li><strong>Location Services</strong> (optional) → switch <strong>Polaric</strong> on only if you want the Wi-Fi name shown. macOS only tells apps the Wi-Fi name this way; Polaric never uses your location.</li>
+</ol>
+<p>Then, still in System Settings:</p>
+<ol start="8">
+<li><strong>Notifications</strong> → for <strong>Google Chrome</strong>, <strong>WhatsApp</strong>, <strong>Telegram</strong>, <strong>Slack</strong>, <strong>Microsoft Outlook</strong> and the other chat apps you use: <strong>Allow notifications</strong> on and the alert style set to <strong>Temporary</strong> or <strong>Persistent</strong> (not <strong>None</strong>). Polaric reads these banners to show email and chat notices, then hides the macOS banner so you don't see it twice.
+   Keep <strong>Focus / Do Not Disturb</strong> off when you want notices: macOS shows no banners during a Focus. (WhatsApp still shows, from its Dock badge.)</li>
+<li><strong>General › Login Items</strong> → make sure <strong>Polaric</strong> is allowed, so it starts when you log in (turn it on in Polaric › Settings › General › <em>Start Polaric when you log in</em>).</li>
+</ol>
+<p>In <strong>Google Chrome</strong> (for Gmail, Outlook on the web and WhatsApp Web):</p>
+<ol start="10">
+<li>Open each site, click the icon left of the address › <strong>Site settings</strong> › <strong>Notifications: Allow</strong>.</li>
+<li><strong>Gmail</strong>: ⚙︎ › See all settings › <strong>Desktop notifications › New mail notifications on</strong>. <strong>Outlook on the web</strong>: ⚙︎ › General › Notifications › <strong>Desktop notifications</strong> on. <strong>WhatsApp Web</strong>: ⋮ › Settings › Notifications › on.</li>
+</ol>
+<h3 id="22-on-windows">2.2 On Windows</h3>
+<ol>
+<li><strong>SmartScreen</strong>: the first time, click <strong>More info › Run anyway</strong>. Polaric is signed by its maker, but it is not a paid certificate yet.</li>
+<li><strong>Windows Firewall</strong>: when it asks about Polaric, tick <strong>Private networks</strong> and click <strong>Allow</strong>. Needed for ShareZone's iPhone code.</li>
+<li><strong>Settings › System › Notifications</strong> → <strong>Notifications</strong> on, and on for <strong>Google Chrome</strong>, <strong>WhatsApp</strong>, <strong>Telegram</strong>, <strong>Slack</strong>, <strong>Microsoft Outlook</strong> and the other chat apps you use. Polaric reads Windows' own notification list, so this works even when <em>Do not disturb</em> is on.</li>
+<li><strong>Chrome site notifications</strong> and <strong>Gmail / Outlook / WhatsApp Web settings</strong>: the same as steps 10 and 11 above.</li>
+<li><strong>Start with Windows</strong>: chosen in the installer; you can change it any time in Polaric › Settings › General › <em>Start Polaric when you sign in</em>.</li>
+<li><strong>Text capture</strong>: Windows reads text in the languages installed in <strong>Settings › Time &amp; language › Language &amp; region</strong>. English works out of the box; add another language there to read it too.</li>
+<li><strong>Calendar</strong>: Windows has no system calendar for Polaric to read, so paste your calendar's public iCal link in Polaric › Settings › Calendar (see <a href="#7-meetings-and-calendar">Meetings and Calendar</a>).</li>
+<li><strong>Game FPS</strong> (optional): Windows only lets apps read another program's frames with permission. In Polaric › Settings › Gaming &amp; Meetings, click <strong>Allow FPS reading…</strong>, accept the administrator prompt, then <strong>sign out and back in</strong>. Without it, games still show in the notch with <strong>FPS --</strong> (see <a href="#17-game-awareness-windows">Game Awareness</a>).</li>
+<li><strong>Camera and microphone in Windows privacy settings</strong>: Meeting Awareness and Privacy &amp; Network read Windows' own privacy record. Leave <strong>Settings › Privacy &amp; security › Camera / Microphone / Location</strong> as they are; Polaric only reads which app last used each one.</li>
+</ol>
+<blockquote>
+<p>AutoText and Window Snap can't reach apps that run <strong>as administrator</strong> unless Polaric runs as administrator too. This is a Windows rule.</p>
+</blockquote>
+<h3 id="23-on-your-phone-sharezone">2.3 On your phone (ShareZone)</h3>
+<ul>
+<li><strong>Android</strong>: Wi-Fi on, the <strong>same network</strong> as the computer, and <strong>Quick Share</strong> turned on (Settings › Google › All services › Quick Share, or the Quick Share tile). You'll scan a QR code with the phone's camera. Keep the screen unlocked until the notch says <strong>Sent to …</strong>.</li>
+<li><strong>iPhone, from a Mac</strong>: Control Center › <strong>AirDrop</strong> › <strong>Everyone for 10 minutes</strong> or <strong>Contacts Only</strong>.</li>
+<li><strong>iPhone, from Windows</strong>: the same Wi-Fi as the PC; scan the code with the Camera app and open the link in Safari.</li>
+</ul>
+<h3 id="24-quick-check-feature-by-feature">2.4 Quick check, feature by feature</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Mac needs</th>
+<th>Windows needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Music, logos and lyrics</td>
+<td>Automation › Chrome/Safari; internet for lyrics</td>
+<td>Nothing (the player must show in Windows' media controls); internet for lyrics</td>
+</tr>
+<tr>
+<td>Email and chat notices</td>
+<td>Accessibility; Notifications on (Temporary/Persistent) for Chrome and the apps; Chrome site notifications; Focus off</td>
+<td>Notifications on for Chrome and the apps; Chrome site notifications</td>
+</tr>
+<tr>
+<td>Meetings</td>
+<td>Calendars › Full Access (Google via Internet Accounts), or iCal links</td>
+<td>iCal links in Settings › Calendar</td>
+</tr>
+<tr>
+<td>AutoText</td>
+<td>Accessibility</td>
+<td>Nothing (not in admin apps)</td>
+</tr>
+<tr>
+<td>Window Snap</td>
+<td>Accessibility</td>
+<td>Nothing (not in admin windows)</td>
+</tr>
+<tr>
+<td>Text capture (⌥O / Alt+O)</td>
+<td>Accessibility + Screen Recording</td>
+<td>The language installed in Windows</td>
+</tr>
+<tr>
+<td>Screenshots (⌥⇧S / Alt+Shift+S)</td>
+<td>Accessibility + Screen Recording</td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td>Privacy &amp; Network</td>
+<td>Bluetooth (for the Bluetooth row); internet for the speed check</td>
+<td>Internet for the speed check</td>
+</tr>
+<tr>
+<td>Game FPS</td>
+<td>Windows only</td>
+<td><strong>Allow FPS reading…</strong> once (administrator), then sign out and in</td>
+</tr>
+<tr>
+<td>Meeting Awareness</td>
+<td>Windows only</td>
+<td>Turn it on in Settings › Gaming &amp; Meetings</td>
+</tr>
+<tr>
+<td>ShareZone</td>
+<td>Local Network; same Wi-Fi; Quick Share or AirDrop on the phone</td>
+<td>Firewall › Private; same Wi-Fi; Quick Share on Android</td>
+</tr>
+<tr>
+<td>Volume and brightness popups</td>
+<td>Accessibility (Settings › Notifications › <em>Replace the macOS volume and brightness popup</em>)</td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td>Earbuds' battery</td>
+<td>Bluetooth</td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td>Wi-Fi name</td>
+<td>Location Services (optional)</td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td>AI usage</td>
+<td>Turn each service on in Settings › Modules. Claude Code signed in (<code>/login</code>); Codex CLI installed (<code>brew install codex</code>), then <strong>Sign in with ChatGPT</strong> on the AI usage page; Antigravity open</td>
+<td>The same, but install Codex with <code>npm i -g @openai/codex</code> and sign in with <code>codex login</code></td>
+</tr>
+<tr>
+<td>Start at login</td>
+<td>Login Items</td>
+<td>Installer choice or Settings › General</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-opening-the-notch">3. Opening the notch</h2>
+<ul>
+<li><strong>Hover</strong>: move the pointer to the notch and it opens (Settings › General › <em>Open when the pointer reaches the notch</em>, with an adjustable delay).</li>
+<li><strong>Click</strong> the notch, or press <strong>⌥⌘N</strong> on Mac / <strong>Ctrl+Alt+N</strong> on Windows.</li>
+<li>Move the pointer away and it closes by itself.</li>
+<li>The tabs switch pages (on a Mac, on both sides of the camera; on Windows, in one row at the top left); the ⚙︎ opens Settings.</li>
+<li><strong>⌥⌘V</strong> / <strong>Ctrl+Alt+V</strong> opens the Clipboard page directly. All shortcuts can be changed in Settings › Shortcuts.</li>
+</ul>
+<p><video src="guide/media/mac-open-music.mp4" autoplay loop muted playsinline preload="metadata" aria-label="The open notch"></video></p>
+<h2 id="4-music-and-lyrics">4. Music and lyrics</h2>
+<p>When music plays in any app or browser tab (Spotify, Apple Music, YouTube Music, YouTube, Netflix and more):</p>
+<ul>
+<li>The <strong>service's logo</strong> shows and the <strong>mascot dances</strong>. On Windows the song reads in one line: <em>[logo] Title • Artist [mascot]</em>.</li>
+<li>When the song changes, its title shows for a moment.</li>
+<li>Press the <strong>lyrics</strong> button on the Music page to show the sung line under the notch, synced to the song.</li>
+<li>Nothing playing? The Music page shows your saved shortcuts (playlists, albums) that open in Chrome.</li>
+</ul>
+<p><video src="guide/media/mac-lyrics.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Synced lyrics"></video></p>
+<p>Settings › Music &amp; Mascot: logo and mascot beside the notch, song title toast, synced lyrics, music shortcuts.</p>
+<h2 id="5-pages-in-the-notch">5. Pages in the notch</h2>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>What you do there</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Music</td>
+<td>Artwork, play/pause, skip, scrub, lyrics</td>
+</tr>
+<tr>
+<td>Timer</td>
+<td>Start a countdown from a preset; it ticks beside the notch</td>
+</tr>
+<tr>
+<td>ShareZone</td>
+<td>Drop files on the notch and send them to an Android phone or an iPhone</td>
+</tr>
+<tr>
+<td>To-do</td>
+<td>Tasks with reminders</td>
+</tr>
+<tr>
+<td>Calendar</td>
+<td>Today's meetings, one-click <strong>Join</strong></td>
+</tr>
+<tr>
+<td>Clipboard</td>
+<td>What you copied recently, click to copy again (memory only)</td>
+</tr>
+<tr>
+<td>AI usage</td>
+<td>Claude Code, ChatGPT · Codex and Antigravity limits</td>
+</tr>
+<tr>
+<td>Ambient</td>
+<td>Background sounds</td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td>The last 30 emails and messages</td>
+</tr>
+<tr>
+<td><strong>Privacy &amp; Network</strong> (new)</td>
+<td>What uses your camera, microphone and more right now, and your download, upload and ping</td>
+</tr>
+</tbody>
+</table>
+<p>Turn pages on or off and change their order in <strong>Settings › Modules</strong>.</p>
+<p><video src="guide/media/mac-pages.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Pages"></video></p>
+<h2 id="6-email-and-chat-notifications">6. Email and chat notifications</h2>
+<p>Polaric shows a <strong>small notification level with the notch</strong>, like the charging one. It never grows into a big panel.</p>
+<p><strong>Email</strong> (Gmail and Outlook, in Chrome or their apps):</p>
+<p><code>[Gmail logo] marli@domain.id • Optimization Budget 2027</code></p>
+<p><video src="guide/media/mac-email.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Email notifications"></video></p>
+<p><strong>Chat</strong> (WhatsApp, Telegram, Messenger, Slack, Discord, Microsoft Teams, LINE, Signal, in their apps or on the web in Chrome, such as WhatsApp Web):</p>
+<p><code>[WhatsApp logo] Alex • 1 New message received</code></p>
+<p>The message itself is <strong>never</strong> shown or saved, only who wrote. A sender saved only as a phone number shows the way WhatsApp shows it (<code>+6281234567890</code>). More messages from the same chat count up in place (<code>2 New messages received</code>), and the notch always widens to fit the whole line: nothing is ever cut off.</p>
+<p><video src="guide/media/mac-chat.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Chat notifications"></video></p>
+<p><strong>Click a notification</strong> to go straight to it: an email opens its thread, a WhatsApp message opens the chat (the app, or its tab in Chrome).</p>
+<p><strong>History</strong>: the <strong>Notifications</strong> page (🔔 tab) keeps the <strong>last 30</strong>. Each email shows the sender's address with the subject under it; each chat shows who wrote. Click one to open it again; it stays in the list until you press <strong>Clear</strong>.</p>
+<p><video src="guide/media/mac-notifications-history.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Notification history"></video></p>
+<p>Settings › Notifications:</p>
+<ul>
+<li><strong>Email and chats › Emails / Who wrote</strong>: switch each kind on or off.</li>
+<li><strong>Messages</strong>: choose which chat apps can alert you (unread counts from apps that are open).</li>
+</ul>
+<p>How it works: Polaric reads only the notifications your Mac or PC already shows (sender and subject). Nothing is sent anywhere. On Windows it also works while <em>Do not disturb</em> is on.</p>
+<h2 id="7-meetings-and-calendar">7. Meetings and Calendar</h2>
+<p>Polaric gathers meetings from three places:</p>
+<ol>
+<li><strong>Your calendars</strong> (Mac): the Calendar app, including Google once it's added under System Settings › Internet Accounts. On Windows, use links (below).</li>
+<li><strong>Public calendar links</strong> (iCal). Use these when your calendar can't be added to the Mac. In Google Calendar: <em>Settings › your calendar › Integrate calendar › Public address in iCal format</em>. Paste it in <strong>Settings › Calendar › Public calendar links</strong> and click <strong>Add calendar</strong>. Polaric checks it every few minutes (adjustable).</li>
+<li><strong>Meetings you add in Polaric</strong>: Settings › Calendar › <strong>Add meeting…</strong> (name, time, link, place, notes).</li>
+</ol>
+<p>A minute before a meeting (adjustable), the notch shows an alert with <strong>Join</strong>.</p>
+<p><video src="guide/media/mac-meeting.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Meeting alert"></video></p>
+<p><strong>Open the meeting link in Chrome when the alert shows</strong> is <strong>off</strong> by default. Turn it on in Settings › Calendar if you want the call to open by itself. (During the call itself, Polaric can show your camera and microphone: see <a href="#18-meeting-awareness">Meeting Awareness</a>.)</p>
+<h2 id="8-timer-and-to-do">8. Timer and To-do</h2>
+<ul>
+<li><strong>Timer</strong>: pick a preset on the Timer page. The countdown shows beside the notch; when it ends, an alert offers <strong>Snooze</strong> or <strong>OK</strong>.</li>
+<li><strong>To-do</strong>: add a task, optionally with a reminder time (e.g. <code>14.30</code>). At that time an alert offers <strong>Done</strong> or <strong>Snooze</strong>. Finishing a task makes the mascot happy.</li>
+</ul>
+<p><video src="guide/media/mac-timer.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Timer beside the notch"></video></p>
+<h2 id="9-ambient-sounds">9. Ambient sounds</h2>
+<p>On the <strong>Ambient</strong> page, pick a sound: Rain, Light rain &amp; thunder, Ocean, Fireplace, Forest, White, Pink or Brown noise. Click again to pause and use the slider for volume. The sounds are made live on your device: nothing is downloaded and they never loop. Music from other apps keeps playing.</p>
+<p>Settings › Music &amp; Mascot › Ambient sounds: volume, and whether the last sound plays again when Polaric starts (off by default).</p>
+<h2 id="10-system-alerts">10. System alerts</h2>
+<p>Volume, brightness, Caps Lock, keyboard language, battery and charging, Wi-Fi (with an optional speed test when it connects), Bluetooth devices such as AirPods with their battery, and headphones. Choose which ones show in <strong>Settings › Notifications</strong>. On Mac, Polaric can replace the macOS volume and brightness popup.</p>
+<p><video src="guide/media/mac-system.mp4" autoplay loop muted playsinline preload="metadata" aria-label="System alerts"></video></p>
+<h2 id="11-window-snap">11. Window Snap</h2>
+<p>Drag any window to the notch: a layout bar appears. Drop the window on a zone (halves, quarters, 60/40, Left + 2…) and it snaps there. With the keyboard, press <strong>⌃⌥S</strong> (Windows: <strong>Ctrl+Alt+S</strong>), then use the arrow keys and Return. Edge snapping, labels, preview and animation are in <strong>Settings › Window Management</strong>.</p>
+<p><video src="guide/media/mac-snap.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Window Snap"></video></p>
+<h2 id="12-autotext">12. AutoText</h2>
+<p>Type a shortcut anywhere and it becomes your text, from a short phrase to a whole report.</p>
+<p><video src="guide/media/mac-autotext.mp4" autoplay loop muted playsinline preload="metadata" aria-label="AutoText"></video></p>
+<p><strong>Settings › Productivity</strong>:</p>
+<ul>
+<li><strong>AutoText</strong> switch: on (Mac needs Accessibility). Password fields are never read.</li>
+<li><strong>Templates</strong> list: every row has <strong>✏️ Edit</strong> and <strong>🗑 Delete</strong>. Edit opens the template <strong>right under its row</strong>; press ✓ or <strong>Done</strong> to close it.</li>
+<li>In the editor: <strong>Name</strong>, <strong>Category</strong>, <strong>Shortcut</strong> (e.g. <code>.daily</code>), <strong>Text</strong> and a live <strong>Preview</strong>. Click a variable chip to insert it.</li>
+<li><strong>New template</strong>, <strong>Add examples</strong> (email, daily report, meeting notes, follow-up, status update), <strong>Import… / Export…</strong> (JSON).</li>
+</ul>
+<p><video src="guide/media/mac-settings-autotext.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Editing a template"></video></p>
+<p><strong>Variables</strong> fill in as you type the shortcut:</p>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{date}}</code> <code>{{time}}</code> <code>{{datetime}}</code></td>
+<td>30 Oct 2026 · 14:05</td>
+</tr>
+<tr>
+<td><code>{{day}}</code> <code>{{month}}</code> <code>{{year}}</code> <code>{{weekday}}</code></td>
+<td>30 · October · 2026 · Friday</td>
+</tr>
+<tr>
+<td><code>{{timestamp}}</code></td>
+<td>2026-10-30T14:05:00+07:00</td>
+</tr>
+<tr>
+<td>Your own (Settings › Your variables), e.g. <code>{{my_name}}</code></td>
+<td>[Your Name]</td>
+</tr>
+</tbody>
+</table>
+<p>A variable without a saved value (e.g. <code>{{recipient}}</code>) is asked for when you type the shortcut. Turn that off with <em>Ask for values a template needs</em>. The date and time formats are set under <strong>Date and time</strong> (e.g. <code>dd/MM/yyyy</code>, <code>HH:mm</code>).</p>
+<p>Tip: pick shortcuts you never type by accident, such as <code>.daily</code>.</p>
+<h2 id="13-sharezone-send-files-to-a-phone">13. ShareZone: send files to a phone</h2>
+<p>ShareZone sends files from your Mac or PC to a phone over Wi-Fi. Nothing to install on the phone. It has <strong>two ways to send</strong>, so your files only ever go to the phone you meant.</p>
+<p><img src="guide/media/mac-sharezone-qr.png" alt="ShareZone" loading="lazy"></p>
+<ol>
+<li><strong>Add files</strong>: drag them onto the notch (it opens ShareZone by itself), drop them in the ShareZone box, or click <strong>Choose files…</strong>. Remove one with ×, or all with <strong>Clear</strong>.</li>
+<li><strong>Pick where they go</strong> (the two buttons on the right):
+   - <strong>iPhone</strong>: on a Mac, <strong>AirDrop</strong> opens with your files. On Windows (no AirDrop), a code appears: scan it with the iPhone camera and tap each file in Safari to save it.
+   - <strong>Android · Quick Share QR</strong>: a QR code appears. Scan it with the Android phone's camera; Quick Share opens on the phone and the send starts by itself. The code is tied to the phone that scans it, so no other phone nearby can receive your files.</li>
+<li><strong>Accept on the phone</strong>. Both screens show the same 4-digit code. The notch shows the progress, then <strong>Sent to …</strong>.</li>
+</ol>
+<p><strong>Cancel</strong> is there at every step (while connecting, while waiting for the phone, and while sending). After a send, the same two buttons are ready for the next files.</p>
+<p>Good to know:</p>
+<ul>
+<li>The phone and the computer must be on the <strong>same Wi-Fi</strong>.</li>
+<li>The iPhone address works only for those files, only with its secret code, and only for 10 minutes.</li>
+<li>Turn ShareZone on or off in Settings › Modules.</li>
+</ul>
+<h2 id="14-text-capture-copy-text-from-the-screen">14. Text capture: copy text from the screen</h2>
+<p>Copy text from anything you can see: a picture, a video, a scanned PDF, a slide, an app that won't let you select.</p>
+<p><video src="guide/media/mac-text-capture.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Text capture"></video></p>
+<ol>
+<li>Press <strong>⌥O</strong> on Mac (Option+O) or <strong>Alt+O</strong> on Windows.</li>
+<li>The screen dims. <strong>Drag a box</strong> over the text. Press Esc to cancel.</li>
+<li>The notch shows <em>Reading text…</em>, then <strong>Text copied · N words</strong>. Paste it anywhere (⌘V / Ctrl+V).</li>
+</ol>
+<p>A <strong>QR code</strong> in the box gives its link (<strong>Link copied</strong>).</p>
+<p><strong>Settings › Productivity › Text capture</strong>: switch it on or off and change the shortcut. On Mac it needs <strong>Screen Recording</strong>. The text is read on your device by macOS or Windows; nothing is sent anywhere.</p>
+<h2 id="15-screenshots-save-any-part-of-the-screen">15. Screenshots: save any part of the screen</h2>
+<p>Save any part of the screen as a picture with one shortcut. Text capture and Screenshots use the same selector: Text capture copies the words, Screenshots saves the picture.</p>
+<p><video src="guide/media/mac-screenshot.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Taking a screenshot"></video></p>
+<p><strong>How to take one</strong></p>
+<ol>
+<li>Press <strong>⌥⇧S</strong> on a Mac (Option+Shift+S) or <strong>Alt+Shift+S</strong> on Windows.</li>
+<li>The screen dims and shows <em>Drag over the area to save</em>. <strong>Drag a box</strong> over what you want. Press <strong>Esc</strong> (or the shortcut again) to cancel.</li>
+<li>The notch says <strong>Screenshot saved</strong> with the file's name.</li>
+</ol>
+<p><img src="guide/media/mac-alert-screenshot.png" alt="The notch after a screenshot" loading="lazy"></p>
+<p><strong>File names</strong>: each file is named after the app that was in front, then the date and time, for example <code>Google Chrome - November 1, 2026 - 12.20 PM.png</code>. (A file name can't contain ":", so the time uses a dot.) Two screenshots in the same minute get <code>(2)</code>, <code>(3)</code> added.</p>
+<p><strong>Where they go</strong>: by default <code>Pictures › Polaric Screenshots</code> (Mac: <code>~/Pictures/Polaric Screenshots</code>; Windows: <code>Pictures\Polaric Screenshots</code>).</p>
+<p><strong>Settings › Screenshots</strong></p>
+<p><img src="guide/media/mac-settings-screenshots.png" alt="Screenshots settings" loading="lazy"></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Screenshots</strong></td>
+<td>Switches the feature and its shortcut on or off</td>
+</tr>
+<tr>
+<td><strong>Shortcut</strong></td>
+<td>Click it and press new keys. Polaric refuses a shortcut that macOS/Windows, Polaric itself or another app already uses, and offers a free one (<strong>Use … instead</strong>). For a shortcut most apps use (like ⌘⇧S Save As) it warns you.</td>
+</tr>
+<tr>
+<td><strong>Save to · Change…</strong></td>
+<td>Pick any folder you can write to. A folder that's missing or read-only is refused with the reason</td>
+</tr>
+<tr>
+<td><strong>Use Default</strong></td>
+<td>Back to Polaric Screenshots</td>
+</tr>
+<tr>
+<td><strong>Open Folder</strong></td>
+<td>Opens the folder in Finder or File Explorer</td>
+</tr>
+<tr>
+<td><strong>Keep screenshots for</strong></td>
+<td>1 day, 7 days, <strong>30 days</strong> (default), 90 days, 1 year or Forever. Older ones go to the Trash (Mac) or Recycle Bin (Windows), so you can still get them back</td>
+</tr>
+</tbody>
+</table>
+<p>Good to know:</p>
+<ul>
+<li>Clean-up only ever touches <strong>screenshots Polaric took itself</strong>, and only while the file is unchanged (same place, same size). Your other files in the folder are never touched, even if they have a similar name.</li>
+<li>If the chosen folder isn't available any more (an unplugged drive), the screenshot is saved in Polaric Screenshots and the notch says so.</li>
+<li>Windows' own <strong>Win+Shift+S</strong> keeps working as before.</li>
+<li>On Mac it needs <strong>Screen Recording</strong> and <strong>Accessibility</strong> (see 2.1). Screenshots stay on your device; nothing is uploaded.</li>
+</ul>
+<h2 id="16-privacy-network">16. Privacy &amp; Network</h2>
+<p>One page in the notch shows which sensitive parts of your computer are <strong>really in use right now</strong>, and how fast your internet is. Open it from its tab (the shield) in the open notch.</p>
+<p><img src="guide/media/mac-privacy-network.png" alt="Privacy &amp; Network on a Mac" loading="lazy"></p>
+<p><strong>Privacy activity</strong></p>
+<table>
+<thead>
+<tr>
+<th>Row</th>
+<th>Mac</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Camera</td>
+<td>Active when any camera is running; during a call, with the app's name once the call's own camera button says it's on</td>
+<td>Active, with the app's name, while an app uses it</td>
+</tr>
+<tr>
+<td>Microphone</td>
+<td>Active, with the app's name, while an app records; <strong>Muted</strong> while the call's own mute button is on (Google Meet, Zoom, Teams)</td>
+<td>Active, with the app's name; <strong>Muted</strong> while the call says it's muted</td>
+</tr>
+<tr>
+<td>Screen Recording</td>
+<td>Unavailable (macOS doesn't tell other apps)</td>
+<td>Active when an app captures through Windows' capture feature</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>Unavailable (macOS doesn't tell other apps)</td>
+<td>Active, with the app's name</td>
+</tr>
+<tr>
+<td>Bluetooth</td>
+<td>Active, with the devices connected now</td>
+<td>Active, with the devices connected now</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Active</strong> means the system reports it in use right now, never just that an app is <em>allowed</em> to use it. <strong>Inactive</strong> means it stopped. <strong>Unavailable</strong> means the system gives no reliable signal, so Polaric doesn't guess.</li>
+<li>When something starts, the notch shows an alert such as <strong>Camera in use · MacBook Air Camera</strong>. When it stops, the alert changes to <em>stopped</em>. The same state never alerts twice.</li>
+<li>Polaric only asks whether each one is in use. It never records sound, pictures, keys, clipboard text or where you are.</li>
+</ul>
+<p><img src="guide/media/mac-alert-camera.png" alt="Camera in use" loading="lazy"></p>
+<p><strong>Internet check</strong></p>
+<p>The right side shows <strong>Download</strong> and <strong>Upload</strong> (Mbps) and the average <strong>Ping</strong> (ms), with when they were measured.</p>
+<ul>
+<li><strong>Test now</strong> measures right away.</li>
+<li>Polaric also checks by itself every <strong>60 minutes</strong> (you set the minutes), and shows the result in the notch:</li>
+</ul>
+<p><img src="guide/media/mac-alert-internet-check.png" alt="An internet check in the notch" loading="lazy"></p>
+<ul>
+<li>It is an internet speed test, not the traffic on your own network connection. On a Mac, download and upload come from macOS's own test (Apple's servers); on Windows from speed.cloudflare.com. Ping is the average of 5 pings to speed.cloudflare.com.</li>
+<li>Each check moves some data (often 100 MB or more on a fast line). <strong>Scheduled checks skip metered connections</strong> such as a phone's hotspot; <strong>Test now</strong> always runs.</li>
+<li>A check that fails says so (for example <em>Couldn't reach the test servers</em>), and the last good result keeps its own time.</li>
+</ul>
+<p><strong>Settings › Privacy &amp; Network</strong></p>
+<p><img src="guide/media/mac-settings-privacy-network.png" alt="Privacy &amp; Network settings" loading="lazy"></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Privacy &amp; Network</strong></td>
+<td>Turns the page and its alerts on or off</td>
+</tr>
+<tr>
+<td><strong>What is watched</strong></td>
+<td>Each resource with its status now and what the system can and can't tell</td>
+</tr>
+<tr>
+<td><strong>Check every … minutes · Save</strong></td>
+<td>Type any whole number from 5 to 1440 (one day). The default is 60. A wrong value (0, a negative number, text) is refused with the reason, and the old interval stays</td>
+</tr>
+<tr>
+<td><strong>Latest result · Test now</strong></td>
+<td>The last measurement, and a button to measure now</td>
+</tr>
+</tbody>
+</table>
+<h2 id="17-game-awareness-windows">17. Game Awareness (Windows)</h2>
+<p>Start a game and the notch shows its name and its <strong>real frames per second</strong>, with your mascot cheering you on:</p>
+<p><code>Hades II • FPS 144 [mascot]</code></p>
+<p><img src="guide/media/win-game-144.png" alt="144 FPS, an excited mascot" loading="lazy"></p>
+<p><img src="guide/media/win-game-18.png" alt="18 FPS, a worried mascot" loading="lazy"></p>
+<ul>
+<li><strong>Which games</strong>: games from Steam, Epic, GOG, Xbox, Riot, Battle.net, EA and Ubisoft, and any game Windows itself lists as a game. In a window, borderless or full screen. Polaric follows the game until it exits, then everything about it stops.</li>
+<li><strong>The FPS</strong> is read from the frames the game hands to Windows (the same events the PresentMon tool reads), updated every second. Nothing is added to the game, so anti-cheat isn't touched. It is never your screen's refresh rate.</li>
+<li><strong>The mascot's face</strong> follows a few seconds' average, so a short dip doesn't make it flicker.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>FPS (default)</th>
+<th>Face</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>120 and up</td>
+<td>Excited</td>
+</tr>
+<tr>
+<td>90–119</td>
+<td>Happy</td>
+</tr>
+<tr>
+<td>60–89</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td>40–59</td>
+<td>Concerned</td>
+</tr>
+<tr>
+<td>25–39</td>
+<td>Worried</td>
+</tr>
+<tr>
+<td>below 25</td>
+<td>Sad</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>While a game runs, the idle clock steps aside. A notification still comes through, then the notch goes back to the game and its FPS.</li>
+<li><strong>FPS --</strong> means the FPS can't be read yet: Windows needs permission (below), or the game draws in a way Windows doesn't report (some Vulkan or OpenGL games).</li>
+</ul>
+<p><img src="guide/media/win-game-no-fps.png" alt="FPS not readable yet" loading="lazy"></p>
+<p><strong>Settings › Gaming &amp; Meetings</strong></p>
+<p><img src="guide/media/win-settings-gaming.png" alt="Gaming &amp; Meetings settings" loading="lazy"></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Game Awareness</strong></td>
+<td>Shows a running game in the notch (on by default)</td>
+</tr>
+<tr>
+<td><strong>FPS monitoring</strong></td>
+<td>Reads the game's real FPS (on by default; runs only while a game runs)</td>
+</tr>
+<tr>
+<td><strong>Gaming mascot</strong></td>
+<td>The mascot reacts to the frame rate</td>
+</tr>
+<tr>
+<td><strong>Allow FPS reading…</strong></td>
+<td>Shown when Windows hasn't given permission yet. Click it, accept the administrator prompt (it adds you to Windows' <em>Performance Log Users</em> group), then sign out and back in</td>
+</tr>
+<tr>
+<td><strong>Mascot faces by FPS</strong></td>
+<td>The FPS where each face starts. Each number must be lower than the one before (for example 120, 90, 60, 40, 25). <strong>Save</strong> keeps them; <strong>Defaults</strong> puts the original numbers back</td>
+</tr>
+<tr>
+<td><strong>Not games</strong></td>
+<td>Programs that should never count as games, by file name (e.g. <code>game.exe, other.exe</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Note: a game in <em>exclusive</em> full screen draws over every window, the notch included. Borderless full screen works.</p>
+<h2 id="18-meeting-awareness">18. Meeting Awareness</h2>
+<p>During a call, the notch shows whether your camera and microphone are live, on a Mac beside the camera (<code>Mic ON [notch] Cam OFF</code>) and on Windows in one line:</p>
+<p><code>[camera] Cam ON • [microphone] Mic ON</code></p>
+<p><img src="guide/media/win-meeting-on.png" alt="Camera and microphone on" loading="lazy"></p>
+<p><img src="guide/media/win-meeting-cam-off.png" alt="Camera off" loading="lazy"></p>
+<ul>
+<li><strong>Green</strong> means on, <strong>red</strong> means off, <strong>grey UNKNOWN</strong> means Windows doesn't say. Each one animates only when it changes: the camera opens or closes, the microphone pulses or gets a slash.</li>
+<li><strong>Which calls</strong>: Zoom, Microsoft Teams, Webex, Slack, Discord, Skype, and Google Meet (or Zoom, Teams, Webex, Whereby, Jitsi) in a browser. A call counts only while the app really uses the camera or the microphone; an open Zoom window alone is not a meeting.</li>
+<li>The meeting comes first: it shows over a game and over the idle clock. A notification still comes through, then Cam and Mic come back. When the call ends, the notch goes back to what it showed before.</li>
+<li>A call counts while the camera or microphone is really in use (macOS's own device state, Windows' privacy record). Mute and camera come from the call's own buttons (Google Meet, Zoom, Microsoft Teams), so a muted microphone reads <strong>OFF</strong> even though the app keeps it open.</li>
+<li>Only two alerts: <strong>Meeting started</strong> and <strong>Meeting ended</strong>. The live Cam and Mic line shows in between.</li>
+</ul>
+<p><strong>Settings › Privacy &amp; Network</strong> (Mac) or <strong>Settings › Gaming &amp; Meetings › Meetings</strong> (Windows), on by default:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Meeting Awareness</strong></td>
+<td>Watches for calls (nothing is watched while it's off)</td>
+</tr>
+<tr>
+<td><strong>Camera</strong></td>
+<td>Shows Cam ON / OFF</td>
+</tr>
+<tr>
+<td><strong>Microphone</strong></td>
+<td>Shows Mic ON / OFF</td>
+</tr>
+</tbody>
+</table>
+<h2 id="19-idle-clock-windows">19. Idle clock (Windows)</h2>
+<p>When nothing else is going on, the notch stays as a small <strong>clock</strong> with your mascot beside it, instead of folding to the glowing strip.</p>
+<p><img src="guide/media/win-idle-clock.png" alt="The idle clock" loading="lazy"></p>
+<p><img src="guide/media/win-idle-aura.png" alt="With Idle Aura" loading="lazy"></p>
+<ul>
+<li>It follows your PC's time and time zone.</li>
+<li>The mascot blinks now and then and dozes off when you're away. It steps aside when you point at the notch (which opens it) or at a browser's tabs (where the notch folds as usual).</li>
+<li><strong>What comes first</strong>: a meeting, then a game, then a browser's tabs under the pointer, then music or a timer, then the idle clock. In full screen the notch hides.</li>
+</ul>
+<p><strong>Settings › Appearance › Idle clock</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Idle clock</strong></td>
+<td>The clock when nothing else shows (on by default)</td>
+</tr>
+<tr>
+<td><strong>Clock format</strong></td>
+<td><strong>12-hour</strong> (12:20 PM, default) or <strong>24-hour</strong> (12:20)</td>
+</tr>
+<tr>
+<td><strong>Mascot beside the clock</strong></td>
+<td>Show or hide the mascot</td>
+</tr>
+<tr>
+<td><strong>Idle Aura</strong></td>
+<td>A soft glow in your theme's colours around the clock (off by default)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="20-your-look-themes-aura-glow-and-mascots">20. Your look: themes, Aura Glow and mascots</h2>
+<p>Make Polaric yours in <strong>Settings › Appearance</strong> and <strong>Settings › Music &amp; Mascot</strong>.</p>
+<p><strong>Aura Glow</strong>: a living light around the notch while music plays. Pick one of 20 colours (many-colour blends such as Prism, Aurora or Tropical, two-colour pairs, or a single colour), and set its speed and brightness.</p>
+<p><video src="guide/media/mac-glow.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Aura Glow colours"></video></p>
+<p><strong>Mascots</strong>: 35 characters live beside the camera. Hopper is shown here; Foxy, Ribbit, Luna, Draco, Bao, Gem, Frost and many more are one click away.</p>
+<p><video src="guide/media/mac-mascots.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Choosing a mascot"></video></p>
+<p><strong>Themes</strong>: 40 themes, from bright (Ocean, Aurora, Sunset, Emerald) to luxe (Gold, Sapphire, Noir). A theme colours the mascot's eyes, the timer ring, progress bars and the soft light in the corners of the open notch and its alerts.</p>
+<p><video src="guide/media/mac-themes.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Themes"></video></p>
+<p>The mascot also:</p>
+<ul>
+<li><strong>Dances</strong> while music plays (intensity, tempo, movement, a jump when the song changes).</li>
+<li><strong>Reacts</strong>: happy when a task is done, worried at low battery, surprised near an AI limit, and on Windows to your game's FPS.</li>
+<li><strong>Rests</strong> when you're away, <strong>waves</strong> when you come back, and <strong>dozes off</strong> after a while.</li>
+</ul>
+<p><video src="guide/media/mac-mascot.mp4" autoplay loop muted playsinline preload="metadata" aria-label="The mascot resting"></video></p>
+<h2 id="21-browser-aware-mode-and-adaptive-notch">21. Browser-Aware Mode and Adaptive Notch</h2>
+<p><strong>Browser-Aware Mode</strong> (Mac and Windows): when the pointer is on a browser's tabs right under the notch, Polaric folds into a thin glowing strip so your tabs stay reachable. Touch the strip to bring it back. While you head for the tabs, <strong>everything</strong> folds (lyrics, alerts, notifications, a meeting's Cam/Mic line) and comes back once the pointer leaves them.</p>
+<p><video src="guide/media/mac-browser-aware.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Browser-Aware strip"></video></p>
+<p><strong>Adaptive Notch</strong> (Windows): the notch expands for music, timers, notifications, games and meetings. When nothing is happening it shows the <a href="#19-idle-clock-windows">idle clock</a>, or folds into the strip if you turned the idle clock off. To keep it open, use the tray icon's <em>Keep notch expanded</em>.</p>
+<h2 id="22-settings-backup-privacy-and-about">22. Settings, backup, privacy and About</h2>
+<p>Settings is a sidebar in groups: <strong>General</strong> and <strong>Appearance</strong>; <strong>Notch</strong> (Modules, Music &amp; Mascot, Notifications, Gaming &amp; Meetings on Windows); <strong>Tools</strong> (Calendar, AutoText, Screenshots, Window Management, Shortcuts); <strong>Privacy</strong> (Privacy &amp; Network, Privacy &amp; Data); and About. Every section has an <strong>ⓘ</strong> with what it does, why to use it and how to set it, and Settings speaks English or Bahasa Indonesia (see <a href="#25-language-and-help-in-settings">Language and help in Settings</a>).</p>
+<p><strong>Shortcuts</strong>: every shortcut is checked when you change it. One that macOS/Windows, Polaric or another app already uses is refused, with a free one offered (<strong>Use … instead</strong>).</p>
+<p><strong>About</strong> shows your version and:</p>
+<ul>
+<li><strong>User guide</strong>: this guide, in English or Bahasa Indonesia.</li>
+<li><strong>What's new</strong>: opens a window with what's <strong>New</strong>, what's <strong>Improved</strong> and what was <strong>Fixed</strong> in your version.</li>
+<li><strong>Polaric Disclaimer</strong>: what Polaric keeps, every internet connection it makes and why, and why to download Polaric only from <strong>polaricdev.github.io</strong>.</li>
+<li>A <strong>Support Our Development</strong> button, and the address for feedback, ideas and bug reports: <strong>polaric.dev@gmail.com</strong>.</li>
+</ul>
+<p><img src="guide/media/mac-whats-new.png" alt="What&#x27;s new" loading="lazy"></p>
+<p><img src="guide/media/win-disclaimer.png" alt="Polaric Disclaimer" loading="lazy"></p>
+<p><strong>Privacy &amp; Data</strong>:</p>
+<ul>
+<li><strong>Export backup…</strong>: one sealed <code>.polaric</code> file with every setting, templates and variables, to-dos, meetings and calendar links. It <strong>restores on both Mac and Windows</strong>. (The screenshot folder stays with each computer.)</li>
+<li><strong>Restore from backup…</strong>: checked completely first; if anything goes wrong your current setup is put back.</li>
+<li><strong>Reset settings to default</strong>: settings only; your data stays.</li>
+<li><strong>Delete saved Polaric data</strong>: templates, to-dos, meetings, calendar links, notification history, clipboard history and the list of screenshots Polaric took (the pictures themselves stay in their folder). Settings stay.</li>
+</ul>
+<p>Everything stays on your device. No analytics, no tracking, no accounts. The Polaric Disclaimer lists every connection Polaric makes: update checks, lyrics, the internet check, your calendar links, AI usage (if you turn it on) and ShareZone.</p>
+<h2 id="23-polaric-for-windows">23. Polaric for Windows</h2>
+<p>Everything above works the same on Windows, plus Game Awareness, Meeting Awareness and the idle clock. The notch sits at the top center of the screen.</p>
+<p><video src="guide/media/win-music.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: music"></video></p>
+<p><video src="guide/media/win-pages.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: pages"></video></p>
+<p><video src="guide/media/win-chat-email.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: email and chat"></video></p>
+<p><video src="guide/media/win-alerts.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: alerts"></video></p>
+<p><video src="guide/media/win-system.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: system alerts"></video></p>
+<p><video src="guide/media/win-sharezone.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: ShareZone"></video></p>
+<p><video src="guide/media/win-snap.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: Window Snap"></video></p>
+<p><img src="guide/media/win-privacy-network.png" alt="Windows: Privacy &amp; Network" loading="lazy"></p>
+<p><video src="guide/media/win-settings.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: Settings"></video></p>
+<p>Windows notes:</p>
+<ul>
+<li>Shortcuts: <strong>Ctrl+Alt+N</strong> (open), <strong>Ctrl+Alt+V</strong> (clipboard), <strong>Ctrl+Alt+S</strong> (snap), <strong>Alt+O</strong> (text capture), <strong>Alt+Shift+S</strong> (screenshot).</li>
+<li>ShareZone: iPhone and Android both use a QR code.</li>
+<li>The tray icon has Settings, About, <em>Keep notch expanded</em> and Quit.</li>
+<li>Email and chat notifications come from Windows' own notification list, so they work even with <em>Do not disturb</em> on. Chrome must be allowed to show notifications.</li>
+</ul>
+<h2 id="24-ai-task-alerts">24. AI task alerts</h2>
+<p>Start a long task in an AI tool, go do something else, and the notch tells you the moment it's done:</p>
+<p><img src="guide/media/mac-ai-task.png" alt="Claude Code finished a task" loading="lazy"></p>
+<p><code>[animated logo] Claude Code › PolaricNotch</code> · <strong>Task Completed</strong> · <em>Claude Code has finished executing your prompt. Your task is ready for review.</em></p>
+<ul>
+<li><strong>Open</strong> brings back the terminal, editor or app it ran in; <strong>OK</strong> closes the alert.</li>
+<li>A task that ends with an error says <strong>Task Stopped</strong>.</li>
+<li>The name always says where it came from: <strong>Claude Code</strong> in a terminal or editor, <strong>Claude AI</strong> on claude.ai or in the Claude app.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>AI</th>
+<th>How Polaric knows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td>Its own Stop hook (press <strong>Connect</strong> once)</td>
+</tr>
+<tr>
+<td><strong>Codex</strong></td>
+<td>Its own <code>notify</code> setting (press <strong>Connect</strong> once)</td>
+</tr>
+<tr>
+<td><strong>Antigravity</strong> (app, IDE and CLI)</td>
+<td>Its own Stop hook, one for all three; the alert says Antigravity, Antigravity IDE or Antigravity CLI</td>
+</tr>
+<tr>
+<td><strong>Claude AI</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong></td>
+<td>The notification they post in Chrome or in their app (allow their notifications once)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Settings › Notifications › AI tasks</strong></p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>When an AI finishes a task</strong></td>
+<td>The alert itself (on by default)</td>
+</tr>
+<tr>
+<td><strong>Also while you're looking at it</strong></td>
+<td>Off: no alert while the window the task ran in is in front, since you're already looking at it</td>
+</tr>
+<tr>
+<td><strong>Connect</strong> / <strong>Disconnect</strong></td>
+<td>Beside Claude Code, Codex and Antigravity. Connect adds one entry to that tool's own settings file (<code>~/.claude/settings.json</code>, <code>~/.codex/config.toml</code>, <code>~/.gemini/config/hooks.json</code>), keeps a backup next to it (<code>.polaric-backup</code>) and changes nothing else. Disconnect takes the entry out again</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>If Codex already runs something of yours when a turn ends, Polaric leaves it alone and tells you.</li>
+<li>Behind a meeting or timer alert, a finished task waits its turn. The same task reported twice shows once.</li>
+<li>Polaric only learns that a task finished, and the project folder's name (or the chat's title). Never your prompt or the answer.</li>
+</ul>
+<p><img src="guide/media/win-ai-task.png" alt="On Windows" loading="lazy"></p>
+<h2 id="25-language-and-help-in-settings">25. Language and help in Settings</h2>
+<p><strong>Language</strong>: Settings › General › <strong>Language</strong>: <strong>English</strong> or <strong>Bahasa Indonesia</strong>. It changes at once, everywhere: Settings, the notch, alerts and the tray menu on Windows. Your own things stay as they are: songs, lyrics, who wrote, email subjects, to-dos and templates.</p>
+<p><img src="guide/media/mac-settings-language-id.png" alt="Settings in Bahasa Indonesia" loading="lazy"></p>
+<p><img src="guide/media/mac-ai-task-id.png" alt="An alert in Bahasa Indonesia" loading="lazy"></p>
+<p><strong>ⓘ beside every section</strong>: click it for <strong>What it does</strong>, <strong>Why use it</strong> and <strong>How to set it</strong>, in your language.</p>
+<p><strong>User guide</strong>: About › <strong>User guide</strong> opens this guide in English or Bahasa Indonesia.</p>
+<h2 id="26-troubleshooting">26. Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AutoText, Window Snap or notifications do nothing (Mac)</td>
+<td>System Settings › Privacy &amp; Security › Accessibility: remove Polaric (−), open Polaric again, switch it on</td>
+</tr>
+<tr>
+<td>No alert when Claude Code, Codex or Antigravity finishes</td>
+<td>Settings › Notifications › AI tasks: press <strong>Connect</strong> beside it, then start a new session of the tool. Nothing shows while you're looking at its window unless <em>Also while you're looking at it</em> is on</td>
+</tr>
+<tr>
+<td>No alert from Claude AI, ChatGPT or Gemini</td>
+<td>Allow the site's notifications in Chrome (and its own setting to notify when a reply is ready), or the app's notifications</td>
+</tr>
+<tr>
+<td>Codex: <em>already runs something when a turn ends</em></td>
+<td>Polaric leaves your own <code>notify</code> alone; remove that line from <code>~/.codex/config.toml</code> first if you want Polaric's</td>
+</tr>
+<tr>
+<td>No email or chat notification</td>
+<td>Allow notifications for Chrome / the app; check Settings › Notifications › Email and chats; the Notifications module must be on (Settings › Modules)</td>
+</tr>
+<tr>
+<td>Calendar link refused</td>
+<td>It must be a public <strong>https</strong> address (Google's <em>Public address in iCal format</em>)</td>
+</tr>
+<tr>
+<td>A shortcut fires inside a word</td>
+<td>Use a prefix such as <code>.</code> (e.g. <code>.daily</code>)</td>
+</tr>
+<tr>
+<td>Windows says "Windows protected your PC"</td>
+<td>More info › Run anyway (the app is signed with a self-signed certificate)</td>
+</tr>
+<tr>
+<td>⌥O or ⌥⇧S does nothing (Mac)</td>
+<td>Accessibility and Screen Recording must both be on for Polaric; after a reinstall switch them off and on again</td>
+</tr>
+<tr>
+<td>A shortcut is refused in Settings</td>
+<td>macOS/Windows, Polaric or another app already uses it: press <strong>Use … instead</strong>, or pick other keys</td>
+</tr>
+<tr>
+<td>"Folder unavailable · saved in Polaric Screenshots"</td>
+<td>The folder you picked is missing or read-only (an unplugged drive). Plug it back in, or pick another folder in Settings › Screenshots</td>
+</tr>
+<tr>
+<td>Old screenshots weren't cleaned up</td>
+<td>Only screenshots Polaric took and that are unchanged are removed; files you moved, renamed or edited are left alone</td>
+</tr>
+<tr>
+<td>Text capture says "No text found"</td>
+<td>Drag a bigger box around the words; very small or blurry text may not read</td>
+</tr>
+<tr>
+<td>Privacy &amp; Network shows Unavailable</td>
+<td>The system gives no reliable signal for that one (on a Mac: Screen Recording and Location). Look for the indicator in the menu bar</td>
+</tr>
+<tr>
+<td>The internet check says <em>Skipped: metered connection</em></td>
+<td>You're on a hotspot or a metered line; press <strong>Test now</strong> to measure anyway</td>
+</tr>
+<tr>
+<td>The game shows <strong>FPS --</strong> (Windows)</td>
+<td>Settings › Gaming &amp; Meetings › <strong>Allow FPS reading…</strong>, then sign out and back in. Some Vulkan/OpenGL games can't be measured</td>
+</tr>
+<tr>
+<td>My game isn't detected (Windows)</td>
+<td>Install it through a store (Steam, Epic…) or open it once with Windows' Game Bar; check it isn't in <em>Not games</em></td>
+</tr>
+<tr>
+<td>No Cam/Mic during a call</td>
+<td>Check Meeting Awareness, Camera and Microphone (Mac: Settings › Privacy &amp; Network; Windows: Settings › Gaming &amp; Meetings)</td>
+</tr>
+<tr>
+<td>My Android phone doesn't get the files</td>
+<td>Same Wi-Fi; Quick Share on; scan the code with the phone's camera and keep the phone unlocked until <strong>Sent to …</strong></td>
+</tr>
+<tr>
+<td>The iPhone can't open the code's page</td>
+<td>Same Wi-Fi as the computer; on Windows allow Polaric on private networks when the firewall asks</td>
+</tr>
+</tbody>
+</table>
+<h2 id="27-whats-new-in-130">27. What's new in 1.3.0</h2>
+<p><strong>New</strong></p>
+<ul>
+<li><strong>AI task alerts</strong> (Mac and Windows): <em>Claude Code › your project · Task Completed</em> with the AI's animated logo, for Claude Code, Codex, Antigravity (app, IDE, CLI), Claude AI, ChatGPT and Gemini.</li>
+<li><strong>Bahasa Indonesia</strong> for all of Polaric, chosen in Settings › General › Language.</li>
+<li><strong>ⓘ help</strong> beside every Settings section, and Settings grouped into Notch, Tools and Privacy.</li>
+<li><strong>Meeting Awareness on the Mac</strong>, with <strong>Meeting started</strong> / <strong>Meeting ended</strong> alerts on both.</li>
+<li><strong>User guide</strong> links in About.</li>
+</ul>
+<p><strong>Improved</strong></p>
+<ul>
+<li>The microphone shows <strong>Muted</strong> while a call has it muted, read from Google Meet's, Zoom's and Teams' own buttons; the camera row names the app during a call.</li>
+<li><strong>Browser-Aware</strong> folds everything (lyrics, alerts, notifications) while you head for a browser's tabs.</li>
+<li>The notch <strong>never cuts text off</strong>: it widens for the whole line, also when a message count or the timer changes.</li>
+<li>WhatsApp senders saved as a phone number show as WhatsApp shows them.</li>
+</ul>
+<p><strong>Fixed</strong></p>
+<ul>
+<li>No thin outline around the resting notch.</li>
+<li>Windows: every Settings description is translated; a long backup line wraps inside its card.</li>
+</ul>
+<h3 id="in-120">In 1.2.0</h3>
+<p><strong>New</strong></p>
+<ul>
+<li><strong>Screenshots</strong> (Mac and Windows): ⌥⇧S / Alt+Shift+S, drag over any area, saved and named after the app, in the folder you choose, cleaned up after the days you pick.</li>
+<li><strong>Privacy &amp; Network</strong> (Mac and Windows): what really uses your camera, microphone, screen capture, location and Bluetooth right now, plus download, upload and ping every hour or on demand.</li>
+<li><strong>Game Awareness</strong> (Windows): your game's real FPS in the notch, with a mascot that reacts to it.</li>
+<li><strong>Meeting Awareness</strong> (Windows): Cam ON / Mic ON in green and red during calls (off until you turn it on).</li>
+<li><strong>Idle clock</strong> (Windows): a small clock with your mascot when nothing's going on, with an optional Idle Aura.</li>
+<li><strong>Polaric Disclaimer</strong> and <strong>What's new</strong> in About.</li>
+</ul>
+<p><strong>Improved</strong></p>
+<ul>
+<li><strong>Your settings and AutoText are safe on every update</strong>: everything you set is kept exactly, new features start with their defaults, and a file Polaric can't read is copied aside (<code>….unreadable-&lt;date&gt;</code>), never replaced or reset. Tested with real data from 1.1.2.</li>
+<li><strong>ShareZone</strong> sends only through AirDrop or a QR code, so files never go to the wrong phone, and every send can be cancelled.</li>
+<li><strong>Shortcuts</strong> that the system or another app already uses are caught, with a free one suggested.</li>
+</ul>
+<p><strong>Also since 1.1.0</strong></p>
+<ul>
+<li>Polaric <strong>updates itself</strong> (1.1.1).</li>
+<li>Windows: the notch hides over browser tabs again; notifications and the playing song read in one line (1.1.2).</li>
+</ul>
+<hr />
+<p>Polaric 1.3.0 · Crafted by polaric.dev@gmail.com · Download only from <a href="https://polaricdev.github.io/">polaricdev.github.io</a></p>
+</main>
+<footer>Polaric · polaric.dev@gmail.com · <a href="./">polaricdev.github.io</a></footer>
+</body>
+</html>

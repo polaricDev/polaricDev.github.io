@@ -1,0 +1,978 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polaric 1.3.0 — Panduan Pengguna</title>
+<meta name="description" content="Panduan pengguna Polaric">
+<link rel="icon" type="image/png" href="assets/img/favicon.png">
+<link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Bricolage Grotesque"; src: url("assets/fonts/BricolageGrotesque.woff2") format("woff2"); font-weight: 200 800; font-display: swap; }
+:root { --ground: #16181d; --field: #1f2229; --ink: #f4f5f7; --soft: #a9adb7; --accent: #C026D3; --accent-hover: #F472B6;
+  --berry: linear-gradient(120deg, #F472B6 0%, #C026D3 50%, #7E22CE 100%); }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 17px/1.65 "Bricolage Grotesque", system-ui, sans-serif; }
+.bar { position: sticky; top: 0; z-index: 2; display: flex; gap: 16px; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: rgba(22,24,29,.88); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,.06); }
+.bar a { color: var(--ink); text-decoration: none; font-weight: 600; }
+.bar .lang a { color: var(--soft); font-weight: 500; margin-left: 14px; }
+.bar .lang a[aria-current] { color: var(--ink); }
+main { max-width: 860px; margin: 0 auto; padding: 32px 16px 96px; }
+h1 { font-size: clamp(34px, 6vw, 56px); line-height: 1.05; margin: 24px 0 18px; background: var(--berry); -webkit-background-clip: text; background-clip: text; color: transparent; }
+h2 { font-size: clamp(24px, 3.4vw, 32px); margin: 64px 0 12px; scroll-margin-top: 72px; }
+h3 { font-size: 20px; margin: 32px 0 8px; scroll-margin-top: 72px; }
+p, li { color: #dfe1e6; }
+a { color: var(--accent-hover); }
+a:hover { color: #fff; }
+strong { color: var(--ink); }
+code { background: var(--field); padding: 1px 6px; border-radius: 6px; font-size: .9em; }
+blockquote { margin: 18px 0; padding: 12px 18px; background: var(--field); border-radius: 6px 6px 18px 18px; color: var(--soft); }
+blockquote p { margin: 0; }
+hr { border: 0; height: 1px; background: rgba(255,255,255,.08); margin: 48px 0; }
+img, video { display: block; max-width: 100%; height: auto; margin: 18px auto; border-radius: 0 0 22px 22px; background: #000; }
+table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 15px; display: block; overflow-x: auto; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid rgba(255,255,255,.08); vertical-align: top; }
+th { color: var(--soft); font-weight: 600; }
+footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 16px 48px; }
+</style>
+</head>
+<body>
+<nav class="bar"><a href="./">Polaric</a><span class="lang"><a href="guide-en.html">English</a><a href="guide-id.html" aria-current="page">Bahasa Indonesia</a></span></nav>
+<main>
+<h1 id="polaric-130-panduan-pengguna">Polaric 1.3.0 — Panduan Pengguna</h1>
+<p>Polaric mengubah bagian atas layar kamu jadi notch yang hidup: musik dengan lirik yang sinkron, meeting, pesan dan email sekilas lihat, to-do, timer, suara ambient, <strong>ShareZone</strong> (kirim file ke HP), <strong>Text capture</strong> (salin teks dari apa saja di layar), <strong>Screenshot</strong>, <strong>Privacy &amp; Network</strong>, window snap, AutoText, dan maskot kecil yang menemani. Notch juga menampilkan <strong>kamera dan mikrofon saat meeting</strong>, memberi tahu saat <strong>AI selesai mengerjakan tugas</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), dan bisa memakai <strong>English atau Bahasa Indonesia</strong>. Di Windows, notch juga menampilkan <strong>FPS game</strong> kamu dan <strong>jam kecil saat idle</strong>. Polaric jalan di <strong>macOS 14 atau lebih baru di Mac dengan Apple silicon</strong> (MacBook dengan atau tanpa notch) dan <strong>Windows 10 dan 11</strong> (64-bit).</p>
+<blockquote>
+<p>🇬🇧 English version: <a href="guide-en.html">English</a></p>
+</blockquote>
+<p><video src="guide/media/mac-music.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Polaric memutar musik"></video></p>
+<h2 id="daftar-isi">Daftar isi</h2>
+<ol>
+<li><a href="#1-pasang-atau-update">Pasang atau update</a></li>
+<li><a href="#2-atur-polaric-supaya-semua-fitur-berfungsi">Atur Polaric supaya semua fitur berfungsi</a></li>
+<li><a href="#3-membuka-notch">Membuka notch</a></li>
+<li><a href="#4-musik-dan-lirik">Musik dan lirik</a></li>
+<li><a href="#5-halaman-di-notch">Halaman di notch</a></li>
+<li><a href="#6-notifikasi-email-dan-chat">Notifikasi email dan chat</a></li>
+<li><a href="#7-meeting-dan-kalender">Meeting dan Kalender</a></li>
+<li><a href="#8-timer-dan-to-do">Timer dan To-do</a></li>
+<li><a href="#9-suara-ambient">Suara ambient</a></li>
+<li><a href="#10-notifikasi-sistem">Notifikasi sistem</a></li>
+<li><a href="#11-window-snap">Window Snap</a></li>
+<li><a href="#12-autotext">AutoText</a></li>
+<li><a href="#13-sharezone-kirim-file-ke-hp">ShareZone: kirim file ke HP</a></li>
+<li><a href="#14-text-capture-salin-teks-dari-layar">Text capture: salin teks dari layar</a></li>
+<li><a href="#15-screenshot-simpan-bagian-mana-pun-dari-layar">Screenshot: simpan bagian mana pun dari layar</a></li>
+<li><a href="#16-privacy-network">Privacy &amp; Network</a></li>
+<li><a href="#17-game-awareness-windows">Game Awareness (Windows)</a></li>
+<li><a href="#18-meeting-awareness">Meeting Awareness</a></li>
+<li><a href="#19-jam-idle-windows">Jam idle (Windows)</a></li>
+<li><a href="#20-tampilan-tema-aura-glow-dan-maskot">Tampilan: tema, Aura Glow, dan maskot</a></li>
+<li><a href="#21-browser-aware-mode-dan-adaptive-notch">Browser-Aware Mode dan Adaptive Notch</a></li>
+<li><a href="#22-pengaturan-backup-privasi-dan-about">Pengaturan, backup, privasi, dan About</a></li>
+<li><a href="#23-polaric-untuk-windows">Polaric untuk Windows</a></li>
+<li><a href="#24-notifikasi-tugas-ai">Notifikasi tugas AI</a> — baru</li>
+<li><a href="#25-bahasa-dan-bantuan-di-settings">Bahasa dan bantuan di Settings</a> — baru</li>
+<li><a href="#26-kalau-ada-masalah">Kalau ada masalah</a></li>
+<li><a href="#27-yang-baru-di-130">Yang baru di 1.3.0</a></li>
+</ol>
+<hr />
+<h2 id="1-pasang-atau-update">1. Pasang atau update</h2>
+<p>Download Polaric <strong>hanya dari website resmi, <a href="https://polaricdev.github.io/">polaricdev.github.io</a></strong>. Salinan dari tempat lain bisa saja sudah diubah orang.</p>
+<p><strong>Mac</strong></p>
+<ol>
+<li>Buka <code>Polaric-Notch.dmg</code> lalu seret <strong>Polaric</strong> ke <strong>Applications</strong>.</li>
+<li>Buka Polaric dari Applications. Pertama kali, macOS mungkin bilang tidak bisa memeriksa pembuatnya: klik kanan Polaric › <strong>Open</strong>, atau buka <strong>System Settings › Privacy &amp; Security</strong> dan klik <strong>Open Anyway</strong>.</li>
+</ol>
+<p><strong>Windows</strong></p>
+<ol>
+<li>Jalankan <code>Polaric-Setup.exe</code>. Kalau muncul SmartScreen, klik <strong>More info › Run anyway</strong>.</li>
+<li>Kalau Polaric sudah terpasang, setup <strong>memperbarui di tempat</strong>: folder sama, data dan pilihan kamu tetap, dan Polaric jalan lagi sendiri. Tidak perlu uninstall.</li>
+</ol>
+<p><strong>Update berjalan otomatis.</strong> Polaric mengecek versi baru 30 detik setelah jalan, setiap 6 jam, dan saat internet tersambung lagi. Versi baru diunduh, tanda tangannya dicek, lalu notch menghitung mundur 20 detik sebelum Polaric memasangnya dan jalan ulang. Pengaturan dan data kamu tetap.</p>
+<p>Setelah update, notch menampilkan <strong>Updated to Polaric 1.3.0</strong> sekali. Daftar lengkap perubahannya ada di <strong>Settings › About › What's new</strong>.</p>
+<h2 id="2-atur-polaric-supaya-semua-fitur-berfungsi">2. Atur Polaric supaya semua fitur berfungsi</h2>
+<p>Polaric butuh beberapa izin dari macOS atau Windows, dan aplikasi kamu harus boleh menampilkan notifikasi. Lakukan sekali saja setelah memasang. Kira-kira lima menit.</p>
+<h3 id="21-di-mac">2.1 Di Mac</h3>
+<p>Buka <strong>System Settings › Privacy &amp; Security</strong> dan cek satu per satu dari atas:</p>
+<ol>
+<li><strong>Accessibility</strong> → nyalakan <strong>Polaric</strong>. Dibutuhkan untuk AutoText, Window Snap, shortcut ⌥O (Text capture) dan ⌥⇧S (Screenshot), notifikasi email dan chat, nama di WhatsApp, dan mengganti popup volume dan kecerahan.
+   <em>Kalau ada fitur yang berhenti setelah update:</em> pilih Polaric, hapus dengan <strong>−</strong>, buka Polaric lagi, lalu nyalakan lagi.</li>
+<li><strong>Screen Recording</strong> (macOS 15 ke atas: <strong>Screen &amp; System Audio Recording</strong>) → nyalakan <strong>Polaric</strong>. Dibutuhkan untuk <strong>Text capture</strong> dan <strong>Screenshot</strong>, supaya bisa melihat isi layar di dalam kotak. macOS menanyakannya saat pertama kamu menekan ⌥O atau ⌥⇧S; tutup dan buka lagi Polaric setelah diizinkan.</li>
+<li><strong>Calendars</strong> → atur <strong>Polaric</strong> ke <strong>Full Access</strong>. Dibutuhkan untuk meeting dari aplikasi Calendar. Untuk melihat meeting Google, tambahkan akun Google di <strong>System Settings › Internet Accounts</strong> dan nyalakan <strong>Calendars</strong>.</li>
+<li><strong>Automation</strong> → di bawah <strong>Polaric</strong>, nyalakan <strong>Google Chrome</strong> (dan <strong>Safari</strong> kalau kamu pakai). macOS menanyakannya saat pertama ada yang diputar di browser. Polaric memakainya untuk menampilkan logo yang tepat (YouTube, Netflix, Spotify…) dan membuka link meeting dan chat.</li>
+<li><strong>Local Network</strong> → nyalakan <strong>Polaric</strong>. Dibutuhkan ShareZone untuk menjangkau HP Android di Wi-Fi kamu.</li>
+<li><strong>Bluetooth</strong> → nyalakan <strong>Polaric</strong>. Dibutuhkan untuk nama dan baterai earbuds, dan baris Bluetooth di halaman Privacy &amp; Network.</li>
+<li><strong>Location Services</strong> (opsional) → nyalakan <strong>Polaric</strong> hanya kalau mau nama Wi-Fi ditampilkan. macOS hanya memberi tahu nama Wi-Fi lewat cara ini; Polaric tidak pernah memakai lokasi kamu.</li>
+</ol>
+<p>Lalu, masih di System Settings:</p>
+<ol start="8">
+<li><strong>Notifications</strong> → untuk <strong>Google Chrome</strong>, <strong>WhatsApp</strong>, <strong>Telegram</strong>, <strong>Slack</strong>, <strong>Microsoft Outlook</strong> dan aplikasi chat lain yang kamu pakai: <strong>Allow notifications</strong> menyala dan gaya alert <strong>Temporary</strong> atau <strong>Persistent</strong> (bukan <strong>None</strong>). Polaric membaca banner ini untuk notifikasi email dan chat, lalu menyembunyikan banner macOS supaya tidak muncul dua kali.
+   Matikan <strong>Focus / Do Not Disturb</strong> kalau mau notifikasi: macOS tidak menampilkan banner selama Focus. (WhatsApp tetap muncul dari badge di Dock.)</li>
+<li><strong>General › Login Items</strong> → pastikan <strong>Polaric</strong> diizinkan, supaya jalan saat login (nyalakan di Polaric › Settings › General › <em>Start Polaric when you log in</em>).</li>
+</ol>
+<p>Di <strong>Google Chrome</strong> (untuk Gmail, Outlook web, dan WhatsApp Web):</p>
+<ol start="10">
+<li>Buka tiap situs, klik ikon di kiri alamat › <strong>Site settings</strong> › <strong>Notifications: Allow</strong>.</li>
+<li><strong>Gmail</strong>: ⚙︎ › See all settings › <strong>Desktop notifications › New mail notifications on</strong>. <strong>Outlook web</strong>: ⚙︎ › General › Notifications › <strong>Desktop notifications</strong> on. <strong>WhatsApp Web</strong>: ⋮ › Settings › Notifications › on.</li>
+</ol>
+<h3 id="22-di-windows">2.2 Di Windows</h3>
+<ol>
+<li><strong>SmartScreen</strong>: pertama kali, klik <strong>More info › Run anyway</strong>. Polaric ditandatangani pembuatnya, tapi belum memakai sertifikat berbayar.</li>
+<li><strong>Windows Firewall</strong>: saat ditanya soal Polaric, centang <strong>Private networks</strong> lalu klik <strong>Allow</strong>. Dibutuhkan untuk kode iPhone di ShareZone.</li>
+<li><strong>Settings › System › Notifications</strong> → <strong>Notifications</strong> menyala, dan menyala untuk <strong>Google Chrome</strong>, <strong>WhatsApp</strong>, <strong>Telegram</strong>, <strong>Slack</strong>, <strong>Microsoft Outlook</strong> dan aplikasi chat lain yang kamu pakai. Polaric membaca daftar notifikasi Windows sendiri, jadi tetap jalan walau <em>Do not disturb</em> menyala.</li>
+<li><strong>Notifikasi situs di Chrome</strong> dan <strong>pengaturan Gmail / Outlook / WhatsApp Web</strong>: sama seperti langkah 10 dan 11 di atas.</li>
+<li><strong>Jalan bersama Windows</strong>: dipilih di installer; bisa diubah kapan saja di Polaric › Settings › General › <em>Start Polaric when you sign in</em>.</li>
+<li><strong>Text capture</strong>: Windows membaca teks dalam bahasa yang terpasang di <strong>Settings › Time &amp; language › Language &amp; region</strong>. Bahasa Inggris langsung bisa; tambahkan bahasa lain di sana supaya ikut terbaca.</li>
+<li><strong>Kalender</strong>: Windows tidak punya kalender sistem yang bisa dibaca Polaric, jadi tempel link iCal publik kalender kamu di Polaric › Settings › Calendar (lihat <a href="#7-meeting-dan-kalender">Meeting dan Kalender</a>).</li>
+<li><strong>FPS game</strong> (opsional): Windows hanya mengizinkan aplikasi membaca frame program lain kalau ada izin. Di Polaric › Settings › Gaming &amp; Meetings, klik <strong>Allow FPS reading…</strong>, setujui permintaan administrator, lalu <strong>sign out dan masuk lagi</strong>. Tanpa izin ini, game tetap tampil di notch dengan <strong>FPS --</strong> (lihat <a href="#17-game-awareness-windows">Game Awareness</a>).</li>
+<li><strong>Kamera dan mikrofon di pengaturan privasi Windows</strong>: Meeting Awareness dan Privacy &amp; Network membaca catatan privasi Windows sendiri. Biarkan <strong>Settings › Privacy &amp; security › Camera / Microphone / Location</strong> seperti biasa; Polaric hanya membaca aplikasi mana yang terakhir memakainya.</li>
+</ol>
+<blockquote>
+<p>AutoText dan Window Snap tidak bisa menjangkau aplikasi yang jalan <strong>sebagai administrator</strong>, kecuali Polaric juga jalan sebagai administrator. Ini aturan Windows.</p>
+</blockquote>
+<h3 id="23-di-hp-kamu-sharezone">2.3 Di HP kamu (ShareZone)</h3>
+<ul>
+<li><strong>Android</strong>: Wi-Fi menyala di <strong>jaringan yang sama</strong> dengan komputer, dan <strong>Quick Share</strong> menyala (Settings › Google › All services › Quick Share, atau tile Quick Share). Kamu akan memindai kode QR dengan kamera HP. Biarkan layar HP terbuka sampai notch bilang <strong>Sent to …</strong>.</li>
+<li><strong>iPhone, dari Mac</strong>: Control Center › <strong>AirDrop</strong> › <strong>Everyone for 10 minutes</strong> atau <strong>Contacts Only</strong>.</li>
+<li><strong>iPhone, dari Windows</strong>: Wi-Fi yang sama dengan PC; pindai kode dengan aplikasi Kamera lalu buka link-nya di Safari.</li>
+</ul>
+<h3 id="24-cek-cepat-fitur-per-fitur">2.4 Cek cepat, fitur per fitur</h3>
+<table>
+<thead>
+<tr>
+<th>Fitur</th>
+<th>Mac butuh</th>
+<th>Windows butuh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Musik, logo, dan lirik</td>
+<td>Automation › Chrome/Safari; internet untuk lirik</td>
+<td>Tidak ada (pemutarnya harus muncul di kontrol media Windows); internet untuk lirik</td>
+</tr>
+<tr>
+<td>Notifikasi email dan chat</td>
+<td>Accessibility; Notifications menyala (Temporary/Persistent) untuk Chrome dan aplikasinya; notifikasi situs Chrome; Focus mati</td>
+<td>Notifications menyala untuk Chrome dan aplikasinya; notifikasi situs Chrome</td>
+</tr>
+<tr>
+<td>Meeting</td>
+<td>Calendars › Full Access (Google lewat Internet Accounts), atau link iCal</td>
+<td>Link iCal di Settings › Calendar</td>
+</tr>
+<tr>
+<td>AutoText</td>
+<td>Accessibility</td>
+<td>Tidak ada (bukan di aplikasi admin)</td>
+</tr>
+<tr>
+<td>Window Snap</td>
+<td>Accessibility</td>
+<td>Tidak ada (bukan di jendela admin)</td>
+</tr>
+<tr>
+<td>Text capture (⌥O / Alt+O)</td>
+<td>Accessibility + Screen Recording</td>
+<td>Bahasanya terpasang di Windows</td>
+</tr>
+<tr>
+<td>Screenshot (⌥⇧S / Alt+Shift+S)</td>
+<td>Accessibility + Screen Recording</td>
+<td>Tidak ada</td>
+</tr>
+<tr>
+<td>Privacy &amp; Network</td>
+<td>Bluetooth (untuk baris Bluetooth); internet untuk cek kecepatan</td>
+<td>Internet untuk cek kecepatan</td>
+</tr>
+<tr>
+<td>FPS game</td>
+<td>Khusus Windows</td>
+<td><strong>Allow FPS reading…</strong> sekali (administrator), lalu sign out dan masuk lagi</td>
+</tr>
+<tr>
+<td>Meeting Awareness</td>
+<td>Khusus Windows</td>
+<td>Nyalakan di Settings › Gaming &amp; Meetings</td>
+</tr>
+<tr>
+<td>ShareZone</td>
+<td>Local Network; Wi-Fi sama; Quick Share atau AirDrop di HP</td>
+<td>Firewall › Private; Wi-Fi sama; Quick Share di Android</td>
+</tr>
+<tr>
+<td>Popup volume dan kecerahan</td>
+<td>Accessibility (Settings › Notifications › <em>Replace the macOS volume and brightness popup</em>)</td>
+<td>Tidak ada</td>
+</tr>
+<tr>
+<td>Baterai earbuds</td>
+<td>Bluetooth</td>
+<td>Tidak ada</td>
+</tr>
+<tr>
+<td>Nama Wi-Fi</td>
+<td>Location Services (opsional)</td>
+<td>Tidak ada</td>
+</tr>
+<tr>
+<td>AI usage</td>
+<td>Nyalakan tiap layanan di Settings › Modules. Claude Code sudah login (<code>/login</code>); Codex CLI terpasang (<code>brew install codex</code>), lalu <strong>Sign in with ChatGPT</strong> di halaman AI usage; Antigravity terbuka</td>
+<td>Sama, tapi pasang Codex dengan <code>npm i -g @openai/codex</code> dan login dengan <code>codex login</code></td>
+</tr>
+<tr>
+<td>Jalan saat login</td>
+<td>Login Items</td>
+<td>Pilihan di installer atau Settings › General</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-membuka-notch">3. Membuka notch</h2>
+<ul>
+<li><strong>Arahkan pointer</strong> ke notch dan notch terbuka (Settings › General › <em>Open when the pointer reaches the notch</em>, dengan jeda yang bisa diatur).</li>
+<li><strong>Klik</strong> notch, atau tekan <strong>⌥⌘N</strong> di Mac / <strong>Ctrl+Alt+N</strong> di Windows.</li>
+<li>Gerakkan pointer menjauh dan notch menutup sendiri.</li>
+<li>Tab berganti halaman (di Mac, di kiri-kanan kamera; di Windows, satu baris di kiri atas); ⚙︎ membuka Settings.</li>
+<li><strong>⌥⌘V</strong> / <strong>Ctrl+Alt+V</strong> langsung membuka halaman Clipboard. Semua shortcut bisa diubah di Settings › Shortcuts.</li>
+</ul>
+<p><video src="guide/media/mac-open-music.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Notch terbuka"></video></p>
+<h2 id="4-musik-dan-lirik">4. Musik dan lirik</h2>
+<p>Saat musik diputar di aplikasi atau tab browser mana pun (Spotify, Apple Music, YouTube Music, YouTube, Netflix, dan lainnya):</p>
+<ul>
+<li><strong>Logo layanannya</strong> tampil dan <strong>maskot berjoget</strong>. Di Windows, lagu dibaca dalam satu baris: <em>[logo] Judul • Penyanyi [maskot]</em>.</li>
+<li>Saat lagu berganti, judulnya muncul sebentar.</li>
+<li>Tekan tombol <strong>lirik</strong> di halaman Music untuk menampilkan baris yang sedang dinyanyikan di bawah notch, sinkron dengan lagunya.</li>
+<li>Tidak ada yang diputar? Halaman Music menampilkan shortcut tersimpan (playlist, album) yang terbuka di Chrome.</li>
+</ul>
+<p><video src="guide/media/mac-lyrics.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Lirik sinkron"></video></p>
+<p>Settings › Music &amp; Mascot: logo dan maskot di samping notch, judul lagu, lirik sinkron, shortcut musik.</p>
+<h2 id="5-halaman-di-notch">5. Halaman di notch</h2>
+<table>
+<thead>
+<tr>
+<th>Halaman</th>
+<th>Isinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Music</td>
+<td>Artwork, play/pause, skip, geser posisi, lirik</td>
+</tr>
+<tr>
+<td>Timer</td>
+<td>Mulai hitung mundur dari preset; berjalan di samping notch</td>
+</tr>
+<tr>
+<td>ShareZone</td>
+<td>Taruh file di notch dan kirim ke HP Android atau iPhone</td>
+</tr>
+<tr>
+<td>To-do</td>
+<td>Tugas dengan pengingat</td>
+</tr>
+<tr>
+<td>Calendar</td>
+<td>Meeting hari ini, <strong>Join</strong> sekali klik</td>
+</tr>
+<tr>
+<td>Clipboard</td>
+<td>Yang baru kamu salin, klik untuk menyalin lagi (hanya di memori)</td>
+</tr>
+<tr>
+<td>AI usage</td>
+<td>Batas Claude Code, ChatGPT · Codex, dan Antigravity</td>
+</tr>
+<tr>
+<td>Ambient</td>
+<td>Suara latar</td>
+</tr>
+<tr>
+<td>Notifications</td>
+<td>30 email dan pesan terakhir</td>
+</tr>
+<tr>
+<td><strong>Privacy &amp; Network</strong> (baru)</td>
+<td>Apa yang sedang memakai kamera, mikrofon, dan lainnya sekarang, plus download, upload, dan ping</td>
+</tr>
+</tbody>
+</table>
+<p>Nyalakan/matikan halaman dan atur urutannya di <strong>Settings › Modules</strong>.</p>
+<p><video src="guide/media/mac-pages.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Halaman"></video></p>
+<h2 id="6-notifikasi-email-dan-chat">6. Notifikasi email dan chat</h2>
+<p>Polaric menampilkan <strong>notifikasi kecil sejajar notch</strong>, seperti notifikasi mengisi daya. Tidak pernah membesar jadi panel besar.</p>
+<p><strong>Email</strong> (Gmail dan Outlook, di Chrome atau aplikasinya):</p>
+<p><code>[logo Gmail] marli@domain.id • Optimization Budget 2027</code></p>
+<p><video src="guide/media/mac-email.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Notifikasi email"></video></p>
+<p><strong>Chat</strong> (WhatsApp, Telegram, Messenger, Slack, Discord, Microsoft Teams, LINE, Signal, di aplikasinya atau versi web di Chrome seperti WhatsApp Web):</p>
+<p><code>[logo WhatsApp] Alex • 1 New message received</code></p>
+<p>Isi pesan <strong>tidak pernah</strong> ditampilkan atau disimpan, hanya siapa pengirimnya. Pengirim yang tersimpan sebagai nomor HP tampil seperti di WhatsApp (<code>+6281234567890</code>). Pesan berikutnya dari chat yang sama menambah hitungan di tempat (<code>2 New messages received</code>), dan notch selalu melebar sesuai panjang tulisannya: tidak pernah ada yang terpotong.</p>
+<p><video src="guide/media/mac-chat.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Notifikasi chat"></video></p>
+<p><strong>Klik notifikasinya</strong> untuk langsung ke sana: email membuka thread-nya, pesan WhatsApp membuka chat-nya (aplikasinya, atau tab-nya di Chrome).</p>
+<p><strong>Riwayat</strong>: halaman <strong>Notifications</strong> (tab 🔔) menyimpan <strong>30 terakhir</strong>. Tiap email menampilkan alamat pengirim dengan subjek di bawahnya; tiap chat menampilkan pengirimnya. Klik untuk membukanya lagi; tetap di daftar sampai kamu menekan <strong>Clear</strong>.</p>
+<p><video src="guide/media/mac-notifications-history.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Riwayat notifikasi"></video></p>
+<p>Settings › Notifications:</p>
+<ul>
+<li><strong>Email and chats › Emails / Who wrote</strong>: nyalakan/matikan tiap jenis.</li>
+<li><strong>Messages</strong>: pilih aplikasi chat mana yang boleh memberi notifikasi (jumlah belum dibaca dari aplikasi yang terbuka).</li>
+</ul>
+<p>Cara kerjanya: Polaric hanya membaca notifikasi yang memang sudah ditampilkan Mac atau PC kamu (pengirim dan subjek). Tidak ada yang dikirim ke mana pun. Di Windows tetap jalan saat <em>Do not disturb</em> menyala.</p>
+<h2 id="7-meeting-dan-kalender">7. Meeting dan Kalender</h2>
+<p>Polaric mengumpulkan meeting dari tiga tempat:</p>
+<ol>
+<li><strong>Kalender kamu</strong> (Mac): aplikasi Calendar, termasuk Google setelah ditambahkan di System Settings › Internet Accounts. Di Windows, pakai link (di bawah).</li>
+<li><strong>Link kalender publik</strong> (iCal). Pakai ini kalau kalender kamu tidak bisa ditambahkan ke Mac. Di Google Calendar: <em>Settings › kalender kamu › Integrate calendar › Public address in iCal format</em>. Tempel di <strong>Settings › Calendar › Public calendar links</strong> lalu klik <strong>Add calendar</strong>. Polaric mengeceknya setiap beberapa menit (bisa diatur).</li>
+<li><strong>Meeting yang kamu tambahkan di Polaric</strong>: Settings › Calendar › <strong>Add meeting…</strong> (nama, waktu, link, tempat, catatan).</li>
+</ol>
+<p>Semenit sebelum meeting (bisa diatur), notch menampilkan pengingat dengan tombol <strong>Join</strong>.</p>
+<p><video src="guide/media/mac-meeting.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Pengingat meeting"></video></p>
+<p><strong>Buka link meeting di Chrome saat pengingat muncul</strong> <strong>mati</strong> secara default. Nyalakan di Settings › Calendar kalau mau panggilannya terbuka sendiri. (Selama panggilan berlangsung, Windows bisa menampilkan kamera dan mikrofon kamu: lihat <a href="#18-meeting-awareness">Meeting Awareness</a>.)</p>
+<h2 id="8-timer-dan-to-do">8. Timer dan To-do</h2>
+<ul>
+<li><strong>Timer</strong>: pilih preset di halaman Timer. Hitung mundurnya tampil di samping notch; saat selesai, muncul pilihan <strong>Snooze</strong> atau <strong>OK</strong>.</li>
+<li><strong>To-do</strong>: tambah tugas, bisa dengan jam pengingat (mis. <code>14.30</code>). Pada jam itu muncul pilihan <strong>Done</strong> atau <strong>Snooze</strong>. Menyelesaikan tugas membuat maskot senang.</li>
+</ul>
+<p><video src="guide/media/mac-timer.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Timer di samping notch"></video></p>
+<h2 id="9-suara-ambient">9. Suara ambient</h2>
+<p>Di halaman <strong>Ambient</strong>, pilih suara: Rain, Light rain &amp; thunder, Ocean, Fireplace, Forest, White, Pink, atau Brown noise. Klik lagi untuk jeda dan geser slider untuk volume. Suaranya dibuat langsung di perangkat kamu: tidak ada yang diunduh dan tidak pernah berulang. Musik dari aplikasi lain tetap jalan.</p>
+<p>Settings › Music &amp; Mascot › Ambient sounds: volume, dan apakah suara terakhir diputar lagi saat Polaric jalan (mati secara default).</p>
+<h2 id="10-notifikasi-sistem">10. Notifikasi sistem</h2>
+<p>Volume, kecerahan, Caps Lock, bahasa keyboard, baterai dan mengisi daya, Wi-Fi (dengan tes kecepatan opsional saat tersambung), perangkat Bluetooth seperti AirPods dengan baterainya, dan headphone. Pilih yang mau ditampilkan di <strong>Settings › Notifications</strong>. Di Mac, Polaric bisa mengganti popup volume dan kecerahan bawaan macOS.</p>
+<p><video src="guide/media/mac-system.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Notifikasi sistem"></video></p>
+<h2 id="11-window-snap">11. Window Snap</h2>
+<p>Seret jendela mana pun ke notch: muncul bar tata letak. Lepas jendela di salah satu zona (setengah, seperempat, 60/40, Kiri + 2…) dan jendelanya langsung pas. Dengan keyboard, tekan <strong>⌃⌥S</strong> (Windows: <strong>Ctrl+Alt+S</strong>), lalu pakai tombol panah dan Return. Snap di tepi layar, label, pratinjau, dan animasi ada di <strong>Settings › Window Management</strong>.</p>
+<p><video src="guide/media/mac-snap.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Window Snap"></video></p>
+<h2 id="12-autotext">12. AutoText</h2>
+<p>Ketik shortcut di mana saja dan berubah jadi teks kamu, dari frasa pendek sampai laporan utuh.</p>
+<p><video src="guide/media/mac-autotext.mp4" autoplay loop muted playsinline preload="metadata" aria-label="AutoText"></video></p>
+<p><strong>Settings › Productivity</strong>:</p>
+<ul>
+<li>Saklar <strong>AutoText</strong>: nyala (Mac butuh Accessibility). Kolom password tidak pernah dibaca.</li>
+<li>Daftar <strong>Templates</strong>: tiap baris punya <strong>✏️ Edit</strong> dan <strong>🗑 Delete</strong>. Edit membuka template <strong>tepat di bawah barisnya</strong>; tekan ✓ atau <strong>Done</strong> untuk menutup.</li>
+<li>Di editor: <strong>Name</strong>, <strong>Category</strong>, <strong>Shortcut</strong> (mis. <code>.daily</code>), <strong>Text</strong>, dan <strong>Preview</strong> langsung. Klik chip variabel untuk menyisipkannya.</li>
+<li><strong>New template</strong>, <strong>Add examples</strong> (email, laporan harian, notulen meeting, follow-up, update status), <strong>Import… / Export…</strong> (JSON).</li>
+</ul>
+<p><video src="guide/media/mac-settings-autotext.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Mengedit template"></video></p>
+<p><strong>Variabel</strong> terisi saat kamu mengetik shortcut:</p>
+<table>
+<thead>
+<tr>
+<th>Variabel</th>
+<th>Contoh</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{date}}</code> <code>{{time}}</code> <code>{{datetime}}</code></td>
+<td>30 Oct 2026 · 14:05</td>
+</tr>
+<tr>
+<td><code>{{day}}</code> <code>{{month}}</code> <code>{{year}}</code> <code>{{weekday}}</code></td>
+<td>30 · October · 2026 · Friday</td>
+</tr>
+<tr>
+<td><code>{{timestamp}}</code></td>
+<td>2026-10-30T14:05:00+07:00</td>
+</tr>
+<tr>
+<td>Buatan sendiri (Settings › Your variables), misalnya <code>{{my_name}}</code></td>
+<td>[Your Name]</td>
+</tr>
+</tbody>
+</table>
+<p>Variabel yang belum punya nilai tersimpan (mis. <code>{{recipient}}</code>) akan ditanyakan saat kamu mengetik shortcut-nya. Matikan dengan <em>Ask for values a template needs</em>. Format tanggal dan jam diatur di <strong>Date and time</strong> (mis. <code>dd/MM/yyyy</code>, <code>HH:mm</code>).</p>
+<p>Tips: pilih shortcut yang tidak akan terketik tanpa sengaja, misalnya <code>.daily</code>.</p>
+<h2 id="13-sharezone-kirim-file-ke-hp">13. ShareZone: kirim file ke HP</h2>
+<p>ShareZone mengirim file dari Mac atau PC ke HP lewat Wi-Fi. Tidak perlu memasang apa pun di HP. Ada <strong>dua cara kirim</strong>, jadi file kamu hanya sampai ke HP yang kamu maksud.</p>
+<p><img src="guide/media/mac-sharezone-qr.png" alt="ShareZone" loading="lazy"></p>
+<ol>
+<li><strong>Tambah file</strong>: seret ke notch (ShareZone terbuka sendiri), taruh di kotak ShareZone, atau klik <strong>Choose files…</strong>. Hapus satu dengan ×, atau semua dengan <strong>Clear</strong>.</li>
+<li><strong>Pilih tujuannya</strong> (dua tombol di kanan):
+   - <strong>iPhone</strong>: di Mac, <strong>AirDrop</strong> terbuka dengan file kamu. Di Windows (tidak ada AirDrop), muncul kode: pindai dengan kamera iPhone lalu ketuk tiap file di Safari untuk menyimpannya.
+   - <strong>Android · Quick Share QR</strong>: muncul kode QR. Pindai dengan kamera HP Android; Quick Share terbuka di HP dan pengiriman mulai sendiri. Kodenya terikat ke HP yang memindainya, jadi HP lain di sekitar tidak bisa menerima file kamu.</li>
+<li><strong>Terima di HP</strong>. Kedua layar menampilkan kode 4 digit yang sama. Notch menampilkan progresnya, lalu <strong>Sent to …</strong>.</li>
+</ol>
+<p>Tombol <strong>Cancel</strong> ada di setiap tahap (saat menyambung, menunggu HP, dan saat mengirim). Setelah terkirim, dua tombol yang sama siap untuk file berikutnya.</p>
+<p>Perlu diketahui:</p>
+<ul>
+<li>HP dan komputer harus di <strong>Wi-Fi yang sama</strong>.</li>
+<li>Alamat untuk iPhone hanya berlaku untuk file itu, hanya dengan kode rahasianya, dan hanya 10 menit.</li>
+<li>Nyalakan/matikan ShareZone di Settings › Modules.</li>
+</ul>
+<h2 id="14-text-capture-salin-teks-dari-layar">14. Text capture: salin teks dari layar</h2>
+<p>Salin teks dari apa pun yang terlihat: gambar, video, PDF hasil scan, slide, aplikasi yang tidak bisa diseleksi.</p>
+<p><video src="guide/media/mac-text-capture.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Text capture"></video></p>
+<ol>
+<li>Tekan <strong>⌥O</strong> di Mac (Option+O) atau <strong>Alt+O</strong> di Windows.</li>
+<li>Layar meredup. <strong>Tarik kotak</strong> di atas teksnya. Tekan Esc untuk batal.</li>
+<li>Notch menampilkan <em>Reading text…</em>, lalu <strong>Text copied · N words</strong>. Tempel di mana saja (⌘V / Ctrl+V).</li>
+</ol>
+<p><strong>Kode QR</strong> di dalam kotak memberi link-nya (<strong>Link copied</strong>).</p>
+<p><strong>Settings › Productivity › Text capture</strong>: nyalakan/matikan dan ubah shortcut-nya. Di Mac butuh <strong>Screen Recording</strong>. Teks dibaca di perangkat kamu oleh macOS atau Windows; tidak ada yang dikirim ke mana pun.</p>
+<h2 id="15-screenshot-simpan-bagian-mana-pun-dari-layar">15. Screenshot: simpan bagian mana pun dari layar</h2>
+<p>Simpan bagian mana pun dari layar sebagai gambar dengan satu shortcut. Text capture dan Screenshot memakai pemilih area yang sama: Text capture menyalin kata-katanya, Screenshot menyimpan gambarnya.</p>
+<p><video src="guide/media/mac-screenshot.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Mengambil screenshot"></video></p>
+<p><strong>Cara mengambilnya</strong></p>
+<ol>
+<li>Tekan <strong>⌥⇧S</strong> di Mac (Option+Shift+S) atau <strong>Alt+Shift+S</strong> di Windows.</li>
+<li>Layar meredup dan menampilkan <em>Drag over the area to save</em>. <strong>Tarik kotak</strong> di atas yang kamu mau. Tekan <strong>Esc</strong> (atau shortcut-nya lagi) untuk batal.</li>
+<li>Notch bilang <strong>Screenshot saved</strong> dengan nama file-nya.</li>
+</ol>
+<p><img src="guide/media/mac-alert-screenshot.png" alt="Notch setelah screenshot" loading="lazy"></p>
+<p><strong>Nama file</strong>: tiap file diberi nama aplikasi yang sedang di depan, lalu tanggal dan jam, misalnya <code>Google Chrome - November 1, 2026 - 12.20 PM.png</code>. (Nama file tidak boleh berisi ":", jadi jamnya pakai titik.) Dua screenshot di menit yang sama diberi tambahan <code>(2)</code>, <code>(3)</code>.</p>
+<p><strong>Tersimpan di mana</strong>: secara default <code>Pictures › Polaric Screenshots</code> (Mac: <code>~/Pictures/Polaric Screenshots</code>; Windows: <code>Pictures\Polaric Screenshots</code>).</p>
+<p><strong>Settings › Screenshots</strong></p>
+<p><img src="guide/media/mac-settings-screenshots.png" alt="Pengaturan Screenshots" loading="lazy"></p>
+<table>
+<thead>
+<tr>
+<th>Pengaturan</th>
+<th>Fungsinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Screenshots</strong></td>
+<td>Menyalakan/mematikan fitur dan shortcut-nya</td>
+</tr>
+<tr>
+<td><strong>Shortcut</strong></td>
+<td>Klik lalu tekan tombol baru. Polaric menolak shortcut yang sudah dipakai macOS/Windows, Polaric sendiri, atau aplikasi lain, dan menawarkan yang masih kosong (<strong>Use … instead</strong>). Untuk shortcut yang dipakai kebanyakan aplikasi (seperti ⌘⇧S Save As) muncul peringatan.</td>
+</tr>
+<tr>
+<td><strong>Save to · Change…</strong></td>
+<td>Pilih folder mana saja yang bisa ditulisi. Folder yang tidak ada atau hanya-baca ditolak dengan alasannya</td>
+</tr>
+<tr>
+<td><strong>Use Default</strong></td>
+<td>Kembali ke Polaric Screenshots</td>
+</tr>
+<tr>
+<td><strong>Open Folder</strong></td>
+<td>Membuka foldernya di Finder atau File Explorer</td>
+</tr>
+<tr>
+<td><strong>Keep screenshots for</strong></td>
+<td>1 hari, 7 hari, <strong>30 hari</strong> (default), 90 hari, 1 tahun, atau Forever. Yang lebih lama dipindah ke Trash (Mac) atau Recycle Bin (Windows), jadi masih bisa dikembalikan</td>
+</tr>
+</tbody>
+</table>
+<p>Perlu diketahui:</p>
+<ul>
+<li>Pembersihan hanya menyentuh <strong>screenshot yang diambil Polaric sendiri</strong>, dan hanya selama file-nya belum berubah (tempat dan ukuran sama). File lain di folder itu tidak pernah disentuh, walaupun namanya mirip.</li>
+<li>Kalau folder pilihan kamu sedang tidak ada (drive dicabut), screenshot disimpan di Polaric Screenshots dan notch memberitahukannya.</li>
+<li><strong>Win+Shift+S</strong> bawaan Windows tetap jalan seperti biasa.</li>
+<li>Di Mac butuh <strong>Screen Recording</strong> dan <strong>Accessibility</strong> (lihat 2.1). Screenshot tetap di perangkat kamu; tidak ada yang diunggah.</li>
+</ul>
+<h2 id="16-privacy-network">16. Privacy &amp; Network</h2>
+<p>Satu halaman di notch menunjukkan bagian sensitif komputer mana yang <strong>benar-benar sedang dipakai sekarang</strong>, dan seberapa cepat internet kamu. Buka dari tab-nya (ikon perisai) di notch yang terbuka.</p>
+<p><img src="guide/media/mac-privacy-network.png" alt="Privacy &amp; Network di Mac" loading="lazy"></p>
+<p><strong>Aktivitas privasi</strong></p>
+<table>
+<thead>
+<tr>
+<th>Baris</th>
+<th>Mac</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Camera</td>
+<td>Active saat ada kamera yang menyala; saat panggilan, dengan nama aplikasinya begitu tombol kamera panggilan itu bilang menyala</td>
+<td>Active, dengan nama aplikasinya, selama aplikasi memakainya</td>
+</tr>
+<tr>
+<td>Microphone</td>
+<td>Active, dengan nama aplikasinya, selama aplikasi merekam; <strong>Muted</strong> selama tombol mute panggilan itu menyala (Google Meet, Zoom, Teams)</td>
+<td>Active, dengan nama aplikasinya; <strong>Muted</strong> selama panggilannya bilang di-mute</td>
+</tr>
+<tr>
+<td>Screen Recording</td>
+<td>Unavailable (macOS tidak memberi tahu aplikasi lain)</td>
+<td>Active saat aplikasi merekam lewat fitur capture Windows</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>Unavailable (macOS tidak memberi tahu aplikasi lain)</td>
+<td>Active, dengan nama aplikasinya</td>
+</tr>
+<tr>
+<td>Bluetooth</td>
+<td>Active, dengan perangkat yang tersambung sekarang</td>
+<td>Active, dengan perangkat yang tersambung sekarang</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Active</strong> artinya sistem melaporkan sedang dipakai sekarang, bukan sekadar aplikasi <em>diizinkan</em> memakainya. <strong>Inactive</strong> artinya sudah berhenti. <strong>Unavailable</strong> artinya sistem tidak memberi sinyal yang bisa dipercaya, jadi Polaric tidak menebak.</li>
+<li>Saat ada yang mulai, notch menampilkan pemberitahuan seperti <strong>Camera in use · MacBook Air Camera</strong>. Saat berhenti, berubah jadi <em>stopped</em>. Keadaan yang sama tidak diberitahukan dua kali.</li>
+<li>Polaric hanya bertanya apakah masing-masing sedang dipakai. Tidak pernah merekam suara, gambar, ketikan, isi clipboard, atau lokasi kamu.</li>
+</ul>
+<p><img src="guide/media/mac-alert-camera.png" alt="Camera in use" loading="lazy"></p>
+<p><strong>Cek internet</strong></p>
+<p>Sisi kanan menampilkan <strong>Download</strong> dan <strong>Upload</strong> (Mbps) dan rata-rata <strong>Ping</strong> (ms), dengan waktu pengukurannya.</p>
+<ul>
+<li><strong>Test now</strong> langsung mengukur.</li>
+<li>Polaric juga mengecek sendiri setiap <strong>60 menit</strong> (menitnya bisa kamu atur), dan menampilkan hasilnya di notch:</li>
+</ul>
+<p><img src="guide/media/mac-alert-internet-check.png" alt="Cek internet di notch" loading="lazy"></p>
+<ul>
+<li>Ini tes kecepatan internet, bukan lalu lintas jaringan di komputer kamu sendiri. Di Mac, download dan upload dari tes bawaan macOS (server Apple); di Windows dari speed.cloudflare.com. Ping adalah rata-rata 5 ping ke speed.cloudflare.com.</li>
+<li>Tiap pengecekan memakai sejumlah data (sering 100 MB atau lebih di koneksi cepat). <strong>Pengecekan terjadwal dilewati di koneksi berkuota</strong> seperti hotspot HP; <strong>Test now</strong> selalu jalan.</li>
+<li>Pengecekan yang gagal bilang begitu (misalnya <em>Couldn't reach the test servers</em>), dan hasil terakhir yang berhasil tetap dengan waktunya sendiri.</li>
+</ul>
+<p><strong>Settings › Privacy &amp; Network</strong></p>
+<p><img src="guide/media/mac-settings-privacy-network.png" alt="Pengaturan Privacy &amp; Network" loading="lazy"></p>
+<table>
+<thead>
+<tr>
+<th>Pengaturan</th>
+<th>Fungsinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Privacy &amp; Network</strong></td>
+<td>Menyalakan/mematikan halaman dan pemberitahuannya</td>
+</tr>
+<tr>
+<td><strong>What is watched</strong></td>
+<td>Tiap sumber dengan statusnya sekarang dan apa yang bisa dan tidak bisa diketahui sistem</td>
+</tr>
+<tr>
+<td><strong>Check every … minutes · Save</strong></td>
+<td>Ketik angka bulat dari 5 sampai 1440 (satu hari). Default 60. Nilai yang salah (0, negatif, huruf) ditolak dengan alasannya, dan interval lama tetap dipakai</td>
+</tr>
+<tr>
+<td><strong>Latest result · Test now</strong></td>
+<td>Hasil pengukuran terakhir, dan tombol untuk mengukur sekarang</td>
+</tr>
+</tbody>
+</table>
+<h2 id="17-game-awareness-windows">17. Game Awareness (Windows)</h2>
+<p>Mulai main game dan notch menampilkan nama game dan <strong>FPS aslinya</strong>, dengan maskot yang menyemangati:</p>
+<p><code>Hades II • FPS 144 [maskot]</code></p>
+<p><img src="guide/media/win-game-144.png" alt="144 FPS, maskot semangat" loading="lazy"></p>
+<p><img src="guide/media/win-game-18.png" alt="18 FPS, maskot khawatir" loading="lazy"></p>
+<ul>
+<li><strong>Game mana saja</strong>: game dari Steam, Epic, GOG, Xbox, Riot, Battle.net, EA, dan Ubisoft, dan game apa pun yang dikenali Windows sebagai game. Di jendela, borderless, atau layar penuh. Polaric mengikuti game sampai ditutup, lalu semua yang berhubungan dengannya berhenti.</li>
+<li><strong>FPS-nya</strong> dibaca dari frame yang diserahkan game ke Windows (event yang sama yang dibaca alat PresentMon), diperbarui setiap detik. Tidak ada yang ditambahkan ke game, jadi anti-cheat tidak tersentuh. Tidak pernah memakai refresh rate layar.</li>
+<li><strong>Ekspresi maskot</strong> mengikuti rata-rata beberapa detik, jadi penurunan sesaat tidak membuatnya berkedip-kedip.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>FPS (default)</th>
+<th>Ekspresi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>120 ke atas</td>
+<td>Excited (semangat)</td>
+</tr>
+<tr>
+<td>90–119</td>
+<td>Happy (senang)</td>
+</tr>
+<tr>
+<td>60–89</td>
+<td>Normal</td>
+</tr>
+<tr>
+<td>40–59</td>
+<td>Concerned (agak cemas)</td>
+</tr>
+<tr>
+<td>25–39</td>
+<td>Worried (khawatir)</td>
+</tr>
+<tr>
+<td>di bawah 25</td>
+<td>Sad (sedih)</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Selama game jalan, jam idle minggir. Notifikasi tetap masuk, lalu notch kembali ke game dan FPS-nya.</li>
+<li><strong>FPS --</strong> artinya FPS belum bisa dibaca: Windows butuh izin (di bawah), atau game-nya menggambar dengan cara yang tidak dilaporkan Windows (sebagian game Vulkan atau OpenGL).</li>
+</ul>
+<p><img src="guide/media/win-game-no-fps.png" alt="FPS belum bisa dibaca" loading="lazy"></p>
+<p><strong>Settings › Gaming &amp; Meetings</strong></p>
+<p><img src="guide/media/win-settings-gaming.png" alt="Pengaturan Gaming &amp; Meetings" loading="lazy"></p>
+<table>
+<thead>
+<tr>
+<th>Pengaturan</th>
+<th>Fungsinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Game Awareness</strong></td>
+<td>Menampilkan game yang sedang jalan di notch (nyala secara default)</td>
+</tr>
+<tr>
+<td><strong>FPS monitoring</strong></td>
+<td>Membaca FPS asli game (nyala secara default; hanya jalan selama game jalan)</td>
+</tr>
+<tr>
+<td><strong>Gaming mascot</strong></td>
+<td>Maskot bereaksi pada frame rate</td>
+</tr>
+<tr>
+<td><strong>Allow FPS reading…</strong></td>
+<td>Muncul kalau Windows belum memberi izin. Klik, setujui permintaan administrator (kamu ditambahkan ke grup Windows <em>Performance Log Users</em>), lalu sign out dan masuk lagi</td>
+</tr>
+<tr>
+<td><strong>Mascot faces by FPS</strong></td>
+<td>FPS di mana tiap ekspresi mulai. Tiap angka harus lebih kecil dari angka sebelumnya (misalnya 120, 90, 60, 40, 25). <strong>Save</strong> menyimpannya; <strong>Defaults</strong> mengembalikan angka aslinya</td>
+</tr>
+<tr>
+<td><strong>Not games</strong></td>
+<td>Program yang tidak boleh dianggap game, berdasarkan nama file (mis. <code>game.exe, other.exe</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>Catatan: game dalam layar penuh <em>eksklusif</em> menggambar di atas semua jendela, termasuk notch. Layar penuh borderless tetap bisa.</p>
+<h2 id="18-meeting-awareness">18. Meeting Awareness</h2>
+<p>Selama panggilan, notch menampilkan apakah kamera dan mikrofon kamu sedang menyala, di Mac di samping kamera (<code>Mic ON [notch] Cam OFF</code>) dan di Windows dalam satu baris:</p>
+<p><code>[kamera] Cam ON • [mikrofon] Mic ON</code></p>
+<p><img src="guide/media/win-meeting-on.png" alt="Kamera dan mikrofon menyala" loading="lazy"></p>
+<p><img src="guide/media/win-meeting-cam-off.png" alt="Kamera mati" loading="lazy"></p>
+<ul>
+<li><strong>Hijau</strong> artinya menyala, <strong>merah</strong> artinya mati, <strong>abu-abu UNKNOWN</strong> artinya Windows tidak memberi tahu. Masing-masing beranimasi hanya saat berubah: kamera membuka atau menutup, mikrofon berdenyut atau dicoret.</li>
+<li><strong>Panggilan mana saja</strong>: Zoom, Microsoft Teams, Webex, Slack, Discord, Skype, dan Google Meet (atau Zoom, Teams, Webex, Whereby, Jitsi) di browser. Panggilan baru dihitung selama aplikasinya benar-benar memakai kamera atau mikrofon; jendela Zoom yang sekadar terbuka bukan meeting.</li>
+<li>Meeting didahulukan: tampil di atas game dan jam idle. Notifikasi tetap masuk, lalu Cam dan Mic kembali. Saat panggilan selesai, notch kembali ke tampilan sebelumnya.</li>
+<li>Panggilan dihitung selama kamera atau mikrofon benar-benar dipakai (status perangkat macOS, catatan privasi Windows). Mute dan kamera dibaca dari tombol panggilan itu sendiri (Google Meet, Zoom, Microsoft Teams), jadi mikrofon yang di-mute terbaca <strong>OFF</strong> walaupun aplikasinya tetap membukanya.</li>
+<li>Hanya dua notifikasi: <strong>Meeting started</strong> dan <strong>Meeting ended</strong>. Baris Cam dan Mic tampil di antaranya.</li>
+</ul>
+<p><strong>Settings › Privacy &amp; Network</strong> (Mac) atau <strong>Settings › Gaming &amp; Meetings › Meetings</strong> (Windows), nyala secara default:</p>
+<table>
+<thead>
+<tr>
+<th>Pengaturan</th>
+<th>Fungsinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Meeting Awareness</strong></td>
+<td>Memantau panggilan (tidak ada yang dipantau selama mati)</td>
+</tr>
+<tr>
+<td><strong>Camera</strong></td>
+<td>Menampilkan Cam ON / OFF</td>
+</tr>
+<tr>
+<td><strong>Microphone</strong></td>
+<td>Menampilkan Mic ON / OFF</td>
+</tr>
+</tbody>
+</table>
+<h2 id="19-jam-idle-windows">19. Jam idle (Windows)</h2>
+<p>Saat tidak ada yang lain, notch tetap tampil sebagai <strong>jam</strong> kecil dengan maskot di sampingnya, bukan melipat jadi garis bercahaya.</p>
+<p><img src="guide/media/win-idle-clock.png" alt="Jam idle" loading="lazy"></p>
+<p><img src="guide/media/win-idle-aura.png" alt="Dengan Idle Aura" loading="lazy"></p>
+<ul>
+<li>Mengikuti jam dan zona waktu PC kamu.</li>
+<li>Maskot berkedip sesekali dan tertidur saat kamu pergi. Maskot minggir saat kamu mengarahkan pointer ke notch (notch terbuka) atau ke tab browser (notch melipat seperti biasa).</li>
+<li><strong>Urutan prioritas</strong>: meeting, lalu game, lalu tab browser di bawah pointer, lalu musik atau timer, lalu jam idle. Di layar penuh notch disembunyikan.</li>
+</ul>
+<p><strong>Settings › Appearance › Idle clock</strong></p>
+<table>
+<thead>
+<tr>
+<th>Pengaturan</th>
+<th>Fungsinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Idle clock</strong></td>
+<td>Jam saat tidak ada yang lain (nyala secara default)</td>
+</tr>
+<tr>
+<td><strong>Clock format</strong></td>
+<td><strong>12 jam</strong> (12:20 PM, default) atau <strong>24 jam</strong> (12:20)</td>
+</tr>
+<tr>
+<td><strong>Mascot beside the clock</strong></td>
+<td>Tampilkan atau sembunyikan maskot</td>
+</tr>
+<tr>
+<td><strong>Idle Aura</strong></td>
+<td>Cahaya lembut dengan warna tema kamu di sekitar jam (mati secara default)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="20-tampilan-tema-aura-glow-dan-maskot">20. Tampilan: tema, Aura Glow, dan maskot</h2>
+<p>Buat Polaric jadi milikmu di <strong>Settings › Appearance</strong> dan <strong>Settings › Music &amp; Mascot</strong>.</p>
+<p><strong>Aura Glow</strong>: cahaya hidup di sekitar notch saat musik diputar. Pilih satu dari 20 warna (campuran banyak warna seperti Prism, Aurora, atau Tropical, pasangan dua warna, atau satu warna), dan atur kecepatan dan terangnya.</p>
+<p><video src="guide/media/mac-glow.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Warna Aura Glow"></video></p>
+<p><strong>Maskot</strong>: 35 karakter tinggal di samping kamera. Di sini Hopper; Foxy, Ribbit, Luna, Draco, Bao, Gem, Frost, dan banyak lagi tinggal sekali klik.</p>
+<p><video src="guide/media/mac-mascots.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Memilih maskot"></video></p>
+<p><strong>Tema</strong>: 40 tema, dari yang cerah (Ocean, Aurora, Sunset, Emerald) sampai mewah (Gold, Sapphire, Noir). Tema mewarnai mata maskot, cincin timer, progress bar, dan cahaya lembut di sudut notch yang terbuka dan pemberitahuannya.</p>
+<p><video src="guide/media/mac-themes.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Tema"></video></p>
+<p>Maskot juga:</p>
+<ul>
+<li><strong>Berjoget</strong> saat musik diputar (intensitas, tempo, gerakan, lompat saat lagu berganti).</li>
+<li><strong>Bereaksi</strong>: senang saat tugas selesai, khawatir saat baterai rendah, kaget saat mendekati batas AI, dan di Windows pada FPS game kamu.</li>
+<li><strong>Beristirahat</strong> saat kamu pergi, <strong>melambai</strong> saat kamu kembali, dan <strong>tertidur</strong> setelah beberapa saat.</li>
+</ul>
+<p><video src="guide/media/mac-mascot.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Maskot beristirahat"></video></p>
+<h2 id="21-browser-aware-mode-dan-adaptive-notch">21. Browser-Aware Mode dan Adaptive Notch</h2>
+<p><strong>Browser-Aware Mode</strong> (Mac dan Windows): saat pointer ada di tab browser tepat di bawah notch, Polaric melipat jadi garis tipis bercahaya supaya tab kamu tetap bisa diklik. Sentuh garisnya untuk memunculkannya lagi. Saat kamu mengarah ke tab, <strong>semuanya</strong> ikut terlipat (lirik, notifikasi, baris Cam/Mic meeting) dan muncul lagi begitu pointer meninggalkan tab.</p>
+<p><video src="guide/media/mac-browser-aware.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Garis Browser-Aware"></video></p>
+<p><strong>Adaptive Notch</strong> (Windows): notch membesar untuk musik, timer, notifikasi, game, dan meeting. Saat tidak ada apa-apa, notch menampilkan <a href="#19-jam-idle-windows">jam idle</a>, atau melipat jadi garis kalau jam idle kamu matikan. Supaya tetap terbuka, pakai <em>Keep notch expanded</em> di ikon tray.</p>
+<h2 id="22-pengaturan-backup-privasi-dan-about">22. Pengaturan, backup, privasi, dan About</h2>
+<p>Settings berupa sidebar yang dikelompokkan: <strong>General</strong> dan <strong>Appearance</strong>; <strong>Notch</strong> (Modules, Music &amp; Mascot, Notifications, Gaming &amp; Meetings di Windows); <strong>Tools</strong> (Calendar, AutoText, Screenshots, Window Management, Shortcuts); <strong>Privacy</strong> (Privacy &amp; Network, Privacy &amp; Data); dan About. Setiap bagian punya <strong>ⓘ</strong> berisi fungsinya, kenapa dipakai, dan cara mengaturnya, dan Settings bisa memakai English atau Bahasa Indonesia (lihat <a href="#25-bahasa-dan-bantuan-di-settings">Bahasa dan bantuan di Settings</a>).</p>
+<p><strong>Shortcut</strong>: setiap shortcut dicek saat kamu mengubahnya. Yang sudah dipakai macOS/Windows, Polaric, atau aplikasi lain ditolak, dengan tawaran yang masih kosong (<strong>Use … instead</strong>).</p>
+<p><strong>About</strong> menampilkan versi kamu dan:</p>
+<ul>
+<li><strong>User guide</strong>: panduan ini, dalam English atau Bahasa Indonesia.</li>
+<li><strong>What's new</strong>: membuka jendela berisi yang <strong>New</strong> (baru), <strong>Improved</strong> (ditingkatkan), dan <strong>Fixed</strong> (diperbaiki) di versi kamu.</li>
+<li><strong>Polaric Disclaimer</strong>: apa yang disimpan Polaric, setiap koneksi internet yang dibuatnya dan alasannya, dan kenapa Polaric hanya boleh diunduh dari <strong>polaricdev.github.io</strong>.</li>
+<li>Tombol <strong>Support Our Development</strong>, dan alamat untuk masukan, ide, dan laporan bug: <strong>polaric.dev@gmail.com</strong>.</li>
+</ul>
+<p><img src="guide/media/mac-whats-new.png" alt="What&#x27;s new" loading="lazy"></p>
+<p><img src="guide/media/win-disclaimer.png" alt="Polaric Disclaimer" loading="lazy"></p>
+<p><strong>Privacy &amp; Data</strong>:</p>
+<ul>
+<li><strong>Export backup…</strong>: satu file <code>.polaric</code> tersegel berisi semua pengaturan, template dan variabel, to-do, meeting, dan link kalender. Bisa <strong>dipulihkan di Mac maupun Windows</strong>. (Folder screenshot tetap milik masing-masing komputer.)</li>
+<li><strong>Restore from backup…</strong>: dicek utuh dulu; kalau ada yang gagal, pengaturan kamu yang sekarang dikembalikan.</li>
+<li><strong>Reset settings to default</strong>: hanya pengaturan; data kamu tetap.</li>
+<li><strong>Delete saved Polaric data</strong>: template, to-do, meeting, link kalender, riwayat notifikasi, riwayat clipboard, dan daftar screenshot yang diambil Polaric (gambarnya sendiri tetap di foldernya). Pengaturan tetap.</li>
+</ul>
+<p>Semuanya tetap di perangkat kamu. Tanpa analitik, tanpa pelacakan, tanpa akun. Polaric Disclaimer mendaftar setiap koneksi yang dibuat Polaric: cek update, lirik, cek internet, link kalender kamu, AI usage (kalau kamu nyalakan), dan ShareZone.</p>
+<h2 id="23-polaric-untuk-windows">23. Polaric untuk Windows</h2>
+<p>Semua di atas bekerja sama di Windows, ditambah Game Awareness, Meeting Awareness, dan jam idle. Notch ada di tengah atas layar.</p>
+<p><video src="guide/media/win-music.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: musik"></video></p>
+<p><video src="guide/media/win-pages.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: halaman"></video></p>
+<p><video src="guide/media/win-chat-email.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: email dan chat"></video></p>
+<p><video src="guide/media/win-alerts.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: pemberitahuan"></video></p>
+<p><video src="guide/media/win-system.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: notifikasi sistem"></video></p>
+<p><video src="guide/media/win-sharezone.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: ShareZone"></video></p>
+<p><video src="guide/media/win-snap.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: Window Snap"></video></p>
+<p><img src="guide/media/win-privacy-network.png" alt="Windows: Privacy &amp; Network" loading="lazy"></p>
+<p><video src="guide/media/win-settings.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Windows: Settings"></video></p>
+<p>Catatan Windows:</p>
+<ul>
+<li>Shortcut: <strong>Ctrl+Alt+N</strong> (buka), <strong>Ctrl+Alt+V</strong> (clipboard), <strong>Ctrl+Alt+S</strong> (snap), <strong>Alt+O</strong> (text capture), <strong>Alt+Shift+S</strong> (screenshot).</li>
+<li>ShareZone: iPhone dan Android sama-sama memakai kode QR.</li>
+<li>Ikon tray berisi Settings, About, <em>Keep notch expanded</em>, dan Quit.</li>
+<li>Notifikasi email dan chat diambil dari daftar notifikasi Windows sendiri, jadi tetap jalan walau <em>Do not disturb</em> menyala. Chrome harus diizinkan menampilkan notifikasi.</li>
+</ul>
+<h2 id="24-notifikasi-tugas-ai">24. Notifikasi tugas AI</h2>
+<p>Mulai tugas panjang di tool AI, kerjakan hal lain, dan notch memberi tahu begitu tugasnya selesai:</p>
+<p><img src="guide/media/mac-ai-task.png" alt="Claude Code selesai mengerjakan tugas" loading="lazy"></p>
+<p><code>[logo beranimasi] Claude Code › PolaricNotch</code> · <strong>Task Completed</strong> · <em>Claude Code has finished executing your prompt. Your task is ready for review.</em> (dalam Bahasa Indonesia: <strong>Tugas Selesai</strong> · <em>Claude Code sudah selesai mengerjakan prompt-mu. Tugasmu siap ditinjau.</em>)</p>
+<ul>
+<li><strong>Open</strong> (Buka) membawa kembali terminal, editor, atau aplikasi tempat tugas itu berjalan; <strong>OK</strong> menutup notifikasinya.</li>
+<li>Tugas yang berhenti karena error tampil sebagai <strong>Task Stopped</strong> (Tugas Berhenti).</li>
+<li>Namanya selalu sesuai asalnya: <strong>Claude Code</strong> di terminal atau editor, <strong>Claude AI</strong> di claude.ai atau aplikasi Claude.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>AI</th>
+<th>Cara Polaric tahu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Claude Code</strong></td>
+<td>Hook Stop bawaannya (tekan <strong>Connect</strong> sekali)</td>
+</tr>
+<tr>
+<td><strong>Codex</strong></td>
+<td>Pengaturan <code>notify</code> bawaannya (tekan <strong>Connect</strong> sekali)</td>
+</tr>
+<tr>
+<td><strong>Antigravity</strong> (aplikasi, IDE, dan CLI)</td>
+<td>Hook Stop bawaannya, satu untuk ketiganya; notifikasinya menyebut Antigravity, Antigravity IDE, atau Antigravity CLI</td>
+</tr>
+<tr>
+<td><strong>Claude AI</strong>, <strong>ChatGPT</strong>, <strong>Gemini</strong></td>
+<td>Notifikasi yang mereka kirim di Chrome atau aplikasinya (izinkan notifikasinya sekali)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Settings › Notifications › AI tasks</strong> (Notifikasi › Tugas AI)</p>
+<table>
+<thead>
+<tr>
+<th>Pengaturan</th>
+<th>Fungsinya</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>When an AI finishes a task</strong></td>
+<td>Notifikasinya (nyala secara default)</td>
+</tr>
+<tr>
+<td><strong>Also while you're looking at it</strong></td>
+<td>Mati: tidak ada notifikasi selama jendela tempat tugas itu berjalan ada di depan, karena kamu sudah melihatnya</td>
+</tr>
+<tr>
+<td><strong>Connect</strong> / <strong>Disconnect</strong></td>
+<td>Di samping Claude Code, Codex, dan Antigravity. Connect menambah satu entri di file pengaturan tool itu sendiri (<code>~/.claude/settings.json</code>, <code>~/.codex/config.toml</code>, <code>~/.gemini/config/hooks.json</code>), menyimpan cadangannya di sebelahnya (<code>.polaric-backup</code>), dan tidak mengubah yang lain. Disconnect menghapus entri itu lagi</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Kalau Codex sudah menjalankan sesuatu milikmu saat giliran selesai, Polaric membiarkannya dan memberi tahu kamu.</li>
+<li>Di belakang notifikasi meeting atau timer, tugas yang selesai menunggu gilirannya. Tugas yang sama yang dilaporkan dua kali hanya tampil sekali.</li>
+<li>Polaric hanya tahu bahwa tugas selesai, dan nama folder proyeknya (atau judul chat-nya). Tidak pernah prompt atau jawabannya.</li>
+</ul>
+<p><img src="guide/media/win-ai-task.png" alt="Di Windows" loading="lazy"></p>
+<h2 id="25-bahasa-dan-bantuan-di-settings">25. Bahasa dan bantuan di Settings</h2>
+<p><strong>Bahasa</strong>: Settings › General › <strong>Language</strong> (Umum › Bahasa): <strong>English</strong> atau <strong>Bahasa Indonesia</strong>. Langsung berubah di mana-mana: Settings, notch, notifikasi, dan menu tray di Windows. Data milikmu tetap seperti aslinya: lagu, lirik, nama pengirim, subjek email, to-do, dan template.</p>
+<p><img src="guide/media/mac-settings-language-id.png" alt="Settings dalam Bahasa Indonesia" loading="lazy"></p>
+<p><img src="guide/media/mac-ai-task-id.png" alt="Notifikasi dalam Bahasa Indonesia" loading="lazy"></p>
+<p><strong>ⓘ di samping setiap bagian</strong>: klik untuk melihat <strong>Fungsinya</strong>, <strong>Kenapa dipakai</strong>, dan <strong>Cara mengaturnya</strong>, dalam bahasamu.</p>
+<p><strong>Panduan pengguna</strong>: About › <strong>User guide</strong> (Tentang › Panduan pengguna) membuka panduan ini dalam English atau Bahasa Indonesia.</p>
+<h2 id="26-kalau-ada-masalah">26. Kalau ada masalah</h2>
+<table>
+<thead>
+<tr>
+<th>Masalah</th>
+<th>Solusi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AutoText, Window Snap, atau notifikasi tidak jalan (Mac)</td>
+<td>System Settings › Privacy &amp; Security › Accessibility: hapus Polaric (−), buka Polaric lagi, nyalakan</td>
+</tr>
+<tr>
+<td>Tidak ada notifikasi saat Claude Code, Codex, atau Antigravity selesai</td>
+<td>Settings › Notifications › AI tasks: tekan <strong>Connect</strong> di sampingnya, lalu mulai sesi baru tool itu. Tidak ada notifikasi selama kamu sedang melihat jendelanya, kecuali <em>Also while you're looking at it</em> dinyalakan</td>
+</tr>
+<tr>
+<td>Tidak ada notifikasi dari Claude AI, ChatGPT, atau Gemini</td>
+<td>Izinkan notifikasi situsnya di Chrome (dan pengaturan situsnya sendiri untuk memberi tahu saat jawaban siap), atau notifikasi aplikasinya</td>
+</tr>
+<tr>
+<td>Codex: <em>already runs something when a turn ends</em></td>
+<td>Polaric membiarkan <code>notify</code> milikmu; hapus baris itu dari <code>~/.codex/config.toml</code> dulu kalau mau memakai milik Polaric</td>
+</tr>
+<tr>
+<td>Tidak ada notifikasi email atau chat</td>
+<td>Izinkan notifikasi untuk Chrome / aplikasinya; cek Settings › Notifications › Email and chats; modul Notifications harus nyala (Settings › Modules)</td>
+</tr>
+<tr>
+<td>Link kalender ditolak</td>
+<td>Harus alamat <strong>https</strong> publik (<em>Public address in iCal format</em> dari Google)</td>
+</tr>
+<tr>
+<td>Shortcut terpicu di tengah kata</td>
+<td>Pakai awalan seperti <code>.</code> (mis. <code>.daily</code>)</td>
+</tr>
+<tr>
+<td>Windows bilang "Windows protected your PC"</td>
+<td>More info › Run anyway (aplikasinya ditandatangani dengan sertifikat buatan sendiri)</td>
+</tr>
+<tr>
+<td>⌥O atau ⌥⇧S tidak jalan (Mac)</td>
+<td>Accessibility dan Screen Recording harus sama-sama nyala untuk Polaric; setelah pasang ulang, matikan lalu nyalakan lagi</td>
+</tr>
+<tr>
+<td>Shortcut ditolak di Settings</td>
+<td>Sudah dipakai macOS/Windows, Polaric, atau aplikasi lain: tekan <strong>Use … instead</strong>, atau pilih tombol lain</td>
+</tr>
+<tr>
+<td>"Folder unavailable · saved in Polaric Screenshots"</td>
+<td>Folder pilihan kamu tidak ada atau hanya-baca (drive dicabut). Colok lagi, atau pilih folder lain di Settings › Screenshots</td>
+</tr>
+<tr>
+<td>Screenshot lama tidak terhapus</td>
+<td>Hanya screenshot yang diambil Polaric dan belum berubah yang dihapus; file yang kamu pindah, ganti nama, atau edit dibiarkan</td>
+</tr>
+<tr>
+<td>Text capture bilang "No text found"</td>
+<td>Tarik kotak lebih besar di sekitar teks; teks yang sangat kecil atau buram mungkin tidak terbaca</td>
+</tr>
+<tr>
+<td>Privacy &amp; Network menampilkan Unavailable</td>
+<td>Sistem tidak memberi sinyal yang bisa dipercaya untuk yang itu (di Mac: Screen Recording dan Location). Lihat indikatornya di menu bar</td>
+</tr>
+<tr>
+<td>Cek internet bilang <em>Skipped: metered connection</em></td>
+<td>Kamu sedang di hotspot atau koneksi berkuota; tekan <strong>Test now</strong> untuk tetap mengukur</td>
+</tr>
+<tr>
+<td>Game menampilkan <strong>FPS --</strong> (Windows)</td>
+<td>Settings › Gaming &amp; Meetings › <strong>Allow FPS reading…</strong>, lalu sign out dan masuk lagi. Sebagian game Vulkan/OpenGL tidak bisa diukur</td>
+</tr>
+<tr>
+<td>Game saya tidak terdeteksi (Windows)</td>
+<td>Pasang lewat store (Steam, Epic…) atau buka sekali dengan Game Bar Windows; pastikan tidak ada di <em>Not games</em></td>
+</tr>
+<tr>
+<td>Tidak ada Cam/Mic saat panggilan</td>
+<td>Cek Meeting Awareness, Camera, dan Microphone (Mac: Settings › Privacy &amp; Network; Windows: Settings › Gaming &amp; Meetings)</td>
+</tr>
+<tr>
+<td>HP Android tidak menerima file</td>
+<td>Wi-Fi sama; Quick Share nyala; pindai kode dengan kamera HP dan biarkan HP terbuka sampai <strong>Sent to …</strong></td>
+</tr>
+<tr>
+<td>iPhone tidak bisa membuka halaman kodenya</td>
+<td>Wi-Fi sama dengan komputer; di Windows izinkan Polaric di jaringan privat saat firewall bertanya</td>
+</tr>
+</tbody>
+</table>
+<h2 id="27-yang-baru-di-130">27. Yang baru di 1.3.0</h2>
+<p><strong>Baru</strong></p>
+<ul>
+<li><strong>Notifikasi tugas AI</strong> (Mac dan Windows): <em>Claude Code › proyekmu · Task Completed</em> dengan logo AI beranimasi, untuk Claude Code, Codex, Antigravity (aplikasi, IDE, CLI), Claude AI, ChatGPT, dan Gemini.</li>
+<li><strong>Bahasa Indonesia</strong> untuk seluruh Polaric, dipilih di Settings › General › Language.</li>
+<li><strong>Bantuan ⓘ</strong> di samping setiap bagian Settings, dan Settings dikelompokkan jadi Notch, Tools, dan Privacy.</li>
+<li><strong>Meeting Awareness di Mac</strong>, dengan notifikasi <strong>Meeting started</strong> / <strong>Meeting ended</strong> di keduanya.</li>
+<li>Link <strong>User guide</strong> di About.</li>
+</ul>
+<p><strong>Ditingkatkan</strong></p>
+<ul>
+<li>Mikrofon tampil <strong>Muted</strong> selama panggilan me-mute-nya, dibaca dari tombol Google Meet, Zoom, dan Teams sendiri; baris kamera menyebut nama aplikasinya saat panggilan.</li>
+<li><strong>Browser-Aware</strong> melipat semuanya (lirik, notifikasi) saat kamu mengarah ke tab browser.</li>
+<li>Notch <strong>tidak pernah memotong tulisan</strong>: melebar sesuai panjang tulisannya, juga saat hitungan pesan atau timer berubah.</li>
+<li>Pengirim WhatsApp yang tersimpan sebagai nomor HP tampil seperti di WhatsApp.</li>
+</ul>
+<p><strong>Diperbaiki</strong></p>
+<ul>
+<li>Tidak ada lagi garis tipis di sekeliling notch saat diam.</li>
+<li>Windows: semua keterangan di Settings sudah diterjemahkan; baris cadangan yang panjang terlipat di dalam kartunya.</li>
+</ul>
+<h3 id="di-120">Di 1.2.0</h3>
+<p><strong>Baru</strong></p>
+<ul>
+<li><strong>Screenshot</strong> (Mac dan Windows): ⌥⇧S / Alt+Shift+S, tarik kotak di area mana saja, tersimpan dengan nama aplikasinya, di folder pilihan kamu, dibersihkan setelah jumlah hari yang kamu pilih.</li>
+<li><strong>Privacy &amp; Network</strong> (Mac dan Windows): apa yang benar-benar memakai kamera, mikrofon, perekaman layar, lokasi, dan Bluetooth sekarang, plus download, upload, dan ping setiap jam atau kapan saja.</li>
+<li><strong>Game Awareness</strong> (Windows): FPS asli game kamu di notch, dengan maskot yang bereaksi.</li>
+<li><strong>Meeting Awareness</strong> (Windows): Cam ON / Mic ON hijau dan merah selama panggilan (mati sampai kamu nyalakan).</li>
+<li><strong>Jam idle</strong> (Windows): jam kecil dengan maskot saat tidak ada apa-apa, dengan Idle Aura opsional.</li>
+<li><strong>Polaric Disclaimer</strong> dan <strong>What's new</strong> di About.</li>
+</ul>
+<p><strong>Ditingkatkan</strong></p>
+<ul>
+<li><strong>Pengaturan dan AutoText kamu aman setiap update</strong>: semua yang kamu atur tetap persis sama, fitur baru mulai dengan nilai default-nya, dan file yang tidak bisa dibaca Polaric disalin ke samping (<code>….unreadable-&lt;tanggal&gt;</code>), tidak pernah diganti atau di-reset. Sudah dites dengan data asli dari 1.1.2.</li>
+<li><strong>ShareZone</strong> hanya mengirim lewat AirDrop atau kode QR, jadi file tidak pernah nyasar ke HP lain, dan setiap pengiriman bisa dibatalkan.</li>
+<li><strong>Shortcut</strong> yang sudah dipakai sistem atau aplikasi lain langsung ketahuan, dengan saran shortcut yang masih kosong.</li>
+</ul>
+<p><strong>Sejak 1.1.0</strong></p>
+<ul>
+<li>Polaric <strong>update sendiri</strong> (1.1.1).</li>
+<li>Windows: notch kembali sembunyi di atas tab browser; notifikasi dan lagu yang diputar dibaca dalam satu baris (1.1.2).</li>
+</ul>
+<hr />
+<p>Polaric 1.3.0 · Dibuat oleh polaric.dev@gmail.com · Download hanya dari <a href="https://polaricdev.github.io/">polaricdev.github.io</a></p>
+</main>
+<footer>Polaric · polaric.dev@gmail.com · <a href="./">polaricdev.github.io</a></footer>
+</body>
+</html>
