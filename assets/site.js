@@ -1,7 +1,7 @@
 /* Polaric website: analytics events, the live notch in the hero, the video, clips that play when seen. */
 (function () {
   "use strict";
-  var VERSION = "1.2.0";
+  var VERSION = "1.3.0";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function gtagReady() { return typeof window.gtag === "function"; }
