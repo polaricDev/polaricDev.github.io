@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Polaric: your notch, alive. Free for Mac and Windows</title>
 <meta name="description" content="Polaric turns the notch at the top of your MacBook or Windows screen into a living island: music with synced lyrics, every notification, meetings, AI task alerts, Privacy Mode and 35 mascots. Free for macOS 14+ and Windows 10 and 11.">
-<meta name="theme-color" content="#FF5B1F">
+<meta name="theme-color" content="#FFFFFF">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <meta property="og:type" content="website">
@@ -52,21 +52,40 @@
 
 <main id="main">
 
-<!-- 1. Hero -->
-<section class="ch ch-fire hero" data-notch="hero" aria-labelledby="hero-title">
-  <h1 id="hero-title"><span class="pale">Your notch,</span> <span>alive.</span></h1>
-  <div class="hero-foot">
+<!-- 1. Hero: what it is, and the features right away on a live screen -->
+<section class="ch hero" data-notch="hero" aria-labelledby="hero-title">
+  <div class="hero-copy">
+    <h1 id="hero-title">Your notch, alive.</h1>
+    <p class="hero-lede">Polaric turns the notch at the top of your MacBook or Windows screen into a living island: your music, every notification, meetings, AI alerts, Privacy Mode and 35 little mascots.</p>
     <div class="hero-actions">
       <a class="btn btn-ink" data-download="macos" href="https://github.com/polaricDev/polaricDev.github.io/releases/latest/download/Polaric-Notch.dmg">Download for macOS</a>
       <a class="btn btn-line" data-download="windows" href="https://github.com/polaricDev/polaricDev.github.io/releases/latest/download/Polaric-Setup.exe">Download for Windows</a>
     </div>
-    <p class="hero-lede">Polaric turns the notch at the top of your MacBook or Windows screen into a living island: your music, every notification, meetings, AI alerts and Privacy Mode. Free, version 1.3.2.</p>
-    <p class="tally" hidden><strong data-count="total"></strong> <span data-count-label="total">downloads</span> so far</p>
+    <p class="tally" hidden>Free · version 1.3.2 · <strong data-count="total"></strong> <span data-count-label="total">downloads</span> so far</p>
+  </div>
+  <div class="hero-stage" data-ui>
+    <div class="stage-screen" id="stage-screen">
+      <div class="stage-bar"><span>Finder</span><span>File</span><span>Edit</span><span>View</span><span class="stage-time">Tue 9:41</span></div>
+      <div class="stage-notch"><img id="stage-a" src="assets/img/notch/music.webp" alt="Polaric's notch showing what's playing" width="375" height="82"><img id="stage-b" src="assets/img/notch/music.webp" alt="" width="375" height="82" aria-hidden="true"></div>
+      <div class="stage-window" aria-hidden="true"><b>Saturday</b><span class="done">Pick up the cake at 10</span><span class="done">Pack the picnic blanket</span><span>Text the group the meeting spot</span><span>Charge the speaker</span></div>
+      <div class="stage-cover" id="stage-cover" aria-hidden="true"><p>Polaric <b>Privacy</b></p></div>
+      <p class="stage-caption" id="stage-caption" aria-live="polite">Music with lyrics that move line by line.</p>
+    </div>
+    <div class="picks" role="tablist" aria-label="Polaric's features">
+      <button type="button" role="tab" aria-selected="true" data-pick="music">Music</button>
+      <button type="button" role="tab" aria-selected="false" data-pick="notify">Notifications</button>
+      <button type="button" role="tab" aria-selected="false" data-pick="meeting">Meetings</button>
+      <button type="button" role="tab" aria-selected="false" data-pick="ai">AI tasks</button>
+      <button type="button" role="tab" aria-selected="false" data-pick="privacy">Privacy Mode</button>
+      <button type="button" role="tab" aria-selected="false" data-pick="network">Network</button>
+      <button type="button" role="tab" aria-selected="false" data-pick="mascots">Mascots</button>
+      <button type="button" role="tab" aria-selected="false" data-pick="gaming">Gaming</button>
+    </div>
   </div>
 </section>
 
 <!-- 2. Video -->
-<section class="ch ch-paper film" id="video" data-notch="music" aria-labelledby="video-title">
+<section class="ch ch-stone film" id="video" data-notch="music" aria-labelledby="video-title">
   <div class="film-head">
     <h2 id="video-title">A day with Polaric</h2>
     <p>Four minutes, morning to night: the playlist, the pings, the stand-up, the AI that finishes while you're away, and the moment someone walks up behind you.</p>
@@ -81,29 +100,29 @@
 </section>
 
 <!-- 3. Every notification -->
-<section class="ch ch-citrus notices" id="notifications" data-notch="whatsapp" aria-labelledby="notices-title">
+<section class="ch ch-paper notices" id="notifications" data-notch="whatsapp" aria-labelledby="notices-title">
   <div class="ch-head">
     <h2 id="notices-title">Every ping, one place</h2>
     <p>No pile of banners in the corner. Each one shows in the notch for a moment, then gets out of the way. Tap a tile and the notch at the top of this page plays it.</p>
   </div>
   <div class="wall">
-    <button type="button" class="tile t-ink" data-show="whatsapp"><img src="assets/img/notch/whatsapp.webp" alt="New message received from Alex on WhatsApp" loading="lazy"><span>Chats: WhatsApp, Telegram, Slack, Discord, Teams</span></button>
-    <button type="button" class="tile t-paper" data-show="email"><img src="assets/img/notch/email.webp" alt="Email received with its subject" loading="lazy"><span>Email with the whole subject</span></button>
-    <button type="button" class="tile t-fire" data-show="meeting"><img src="assets/img/notch/meeting.webp" alt="Meeting in 1 min with a Join button" loading="lazy"><span>A minute before each meeting, with Join</span></button>
-    <button type="button" class="tile t-lime" data-show="mic-cam"><img src="assets/img/notch/mic-cam.webp" alt="Mic on, Cam off during a call" loading="lazy"><span>Mic and camera during a call</span></button>
-    <button type="button" class="tile t-paper" data-show="ai-task"><img src="assets/img/notch/ai-task.webp" alt="Claude Code, Task Completed" loading="lazy"><span>Your AI finished its task</span></button>
-    <button type="button" class="tile t-ink" data-show="ai-free"><img src="assets/img/notch/ai-free.webp" alt="Claude Code limit is available again" loading="lazy"><span>AI limits, free again</span></button>
-    <button type="button" class="tile t-mint" data-show="download"><img src="assets/img/notch/download.webp" alt="Download complete" loading="lazy"><span>Downloads, then Complete</span></button>
-    <button type="button" class="tile t-fire" data-show="airpods"><img src="assets/img/notch/airpods.webp" alt="AirPods Pro connected with battery" loading="lazy"><span>Earbuds with their battery</span></button>
-    <button type="button" class="tile t-paper" data-show="network"><img src="assets/img/notch/network.webp" alt="Network Unstable, some apps may respond slowly" loading="lazy"><span>Network Unstable, told once (new)</span></button>
-    <button type="button" class="tile t-lime" data-show="camera"><img src="assets/img/notch/camera.webp" alt="Camera in use" loading="lazy"><span>An app starts using your camera</span></button>
-    <button type="button" class="tile t-ink" data-show="todo"><img src="assets/img/notch/todo.webp" alt="A to-do reminder with Done and Snooze" loading="lazy"><span>Reminders and to-dos when due</span></button>
-    <button type="button" class="tile t-mint" data-show="volume"><img src="assets/img/notch/volume.webp" alt="Volume at 62" loading="lazy"><span>Volume, battery, Wi-Fi, Caps Lock</span></button>
+    <button type="button" class="tile" data-show="whatsapp"><img src="assets/img/notch/whatsapp.webp" alt="New message received from Alex on WhatsApp" loading="lazy"><span>Chats: WhatsApp, Telegram, Slack, Discord, Teams</span></button>
+    <button type="button" class="tile" data-show="email"><img src="assets/img/notch/email.webp" alt="Email received with its subject" loading="lazy"><span>Email with the whole subject</span></button>
+    <button type="button" class="tile" data-show="meeting"><img src="assets/img/notch/meeting.webp" alt="Meeting in 1 min with a Join button" loading="lazy"><span>A minute before each meeting, with Join</span></button>
+    <button type="button" class="tile" data-show="mic-cam"><img src="assets/img/notch/mic-cam.webp" alt="Mic on, Cam off during a call" loading="lazy"><span>Mic and camera during a call</span></button>
+    <button type="button" class="tile" data-show="ai-task"><img src="assets/img/notch/ai-task.webp" alt="Claude Code, Task Completed" loading="lazy"><span>Your AI finished its task</span></button>
+    <button type="button" class="tile" data-show="ai-free"><img src="assets/img/notch/ai-free.webp" alt="Claude Code limit is available again" loading="lazy"><span>AI limits, free again</span></button>
+    <button type="button" class="tile" data-show="download"><img src="assets/img/notch/download.webp" alt="Download complete" loading="lazy"><span>Downloads, then Complete</span></button>
+    <button type="button" class="tile" data-show="airpods"><img src="assets/img/notch/airpods.webp" alt="AirPods Pro connected with battery" loading="lazy"><span>Earbuds with their battery</span></button>
+    <button type="button" class="tile" data-show="network"><img src="assets/img/notch/network.webp" alt="Network Unstable, some apps may respond slowly" loading="lazy"><span>Network Unstable, told once (new)</span></button>
+    <button type="button" class="tile" data-show="camera"><img src="assets/img/notch/camera.webp" alt="Camera in use" loading="lazy"><span>An app starts using your camera</span></button>
+    <button type="button" class="tile" data-show="todo"><img src="assets/img/notch/todo.webp" alt="A to-do reminder with Done and Snooze" loading="lazy"><span>Reminders and to-dos when due</span></button>
+    <button type="button" class="tile" data-show="volume"><img src="assets/img/notch/volume.webp" alt="Volume at 62" loading="lazy"><span>Volume, battery, Wi-Fi, Caps Lock</span></button>
   </div>
 </section>
 
 <!-- 4. Privacy Mode -->
-<section class="ch ch-ink privacy" id="privacy" data-notch="privacy-page" aria-labelledby="privacy-title">
+<section class="ch ch-stone privacy" id="privacy" data-notch="privacy-page" aria-labelledby="privacy-title">
   <div class="privacy-copy">
     <h2 id="privacy-title">Privacy Mode</h2>
     <p class="lead">Someone walks up behind you. Press <kbd>⌥⇧L</kbd> on a Mac or <kbd>Alt+Shift+L</kbd> on Windows and every screen goes dark frosted glass.</p>
@@ -125,7 +144,7 @@
       </div>
     </div>
     <div class="pm-controls">
-      <button type="button" class="btn btn-paper" id="pm-toggle" aria-pressed="false">Try it: <span id="pm-key">⌥⇧L</span></button>
+      <button type="button" class="btn btn-ink" id="pm-toggle" aria-pressed="false">Try it: <span id="pm-key">⌥⇧L</span></button>
       <label class="pm-field"><span>Text on the cover</span><input id="pm-text" type="text" maxlength="60" value="Polaric Privacy" autocomplete="off"></label>
     </div>
     <p class="pm-status" id="pm-status" aria-live="polite">Press the button or <kbd>⌥⇧L</kbd>. Then unlock by tapping the corners in the default order: top right, top left, top right, bottom left.</p>
@@ -133,7 +152,7 @@
 </section>
 
 <!-- 5. Customize -->
-<section class="ch ch-lime custom" id="customize" data-notch="gold" aria-labelledby="custom-title">
+<section class="ch ch-paper custom" id="customize" data-notch="gold" aria-labelledby="custom-title">
   <div class="board">
     <div class="b-head"><h2 id="custom-title">Make it yours</h2><p>Every piece of Polaric is a setting. Try a few here.</p></div>
     <div class="b-tile b-themes" data-ui>
@@ -184,7 +203,7 @@
 </section>
 
 <!-- 6. Mascots -->
-<section class="ch ch-mint crew" id="mascots" data-notch="wave" aria-labelledby="crew-title">
+<section class="ch ch-stone crew" id="mascots" data-notch="wave" aria-labelledby="crew-title">
   <div class="ch-head">
     <h2 id="crew-title">Meet the crew</h2>
     <p>35 mascots live beside your camera. They dance to your music, cheer when a task is done, doze off when you're away and wave when you're back. Here are twelve.</p>
@@ -206,7 +225,7 @@
 </section>
 
 <!-- 7. One day, four moments -->
-<section class="day" id="day" data-notch="lyric" aria-labelledby="day-title">
+<section class="ch-paper day" id="day" data-notch="lyric" aria-labelledby="day-title">
   <div class="day-field d1">
     <h2 id="day-title">One day with it</h2>
     <img src="assets/img/notch/lyric2.webp" alt="Synced lyrics under the notch" loading="lazy">
@@ -227,7 +246,7 @@
 </section>
 
 <!-- 8. Everything -->
-<section class="ch ch-sand everything" id="features" data-notch="calendar" aria-labelledby="everything-title">
+<section class="ch ch-stone everything" id="features" data-notch="calendar" aria-labelledby="everything-title">
   <h2 id="everything-title">Everything in Polaric</h2>
   <div class="list-cols">
     <dl>
@@ -267,7 +286,7 @@
 </section>
 
 <!-- 9. Mac and Windows -->
-<section class="ch ch-peach platforms" id="platforms" data-notch="clock" aria-labelledby="platforms-title">
+<section class="ch ch-paper platforms" id="platforms" data-notch="clock" aria-labelledby="platforms-title">
   <h2 id="platforms-title">Same Polaric, Mac and Windows</h2>
   <div class="plat">
     <figure>
@@ -288,7 +307,7 @@
 </section>
 
 <!-- 10. Download -->
-<section class="ch ch-fire download" id="download" data-notch="download" aria-labelledby="download-title">
+<section class="ch ch-stone download" id="download" data-notch="download" aria-labelledby="download-title">
   <div class="dl-figure">
     <h2 id="download-title">Get Polaric, free</h2>
     <p class="big-count"><strong data-count="total">71</strong> <span data-count-label="total">downloads</span> so far</p>
@@ -313,8 +332,8 @@
       <li>WhatsApp numbers shown whole</li>
     </ul>
     <div class="guide-links">
-      <a class="btn btn-paper" data-guide="en" href="guide-en.html">User guide (English)</a>
-      <a class="btn btn-paper" data-guide="id" href="guide-id.html">Panduan (Indonesia)</a>
+      <a class="btn btn-line" data-guide="en" href="guide-en.html">User guide (English)</a>
+      <a class="btn btn-line" data-guide="id" href="guide-id.html">Panduan (Indonesia)</a>
     </div>
   </div>
 </section>
@@ -342,7 +361,7 @@
 </section>
 
 <!-- 12. Support -->
-<section class="ch ch-citrus support" id="support" data-notch="todo" aria-labelledby="support-title">
+<section class="ch ch-stone support" id="support" data-notch="todo" aria-labelledby="support-title">
   <h2 id="support-title">Buy us a coffee</h2>
   <div class="support-copy">
     <p class="lead">If Polaric makes your day a little better, a coffee or a tip gives us more time to build new features, polish the details and fix bugs.</p>

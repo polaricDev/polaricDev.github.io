@@ -155,7 +155,7 @@
     rest: "The mascot rests.", "game-excited": "A game at 144 FPS, the mascot cheering.", battery: "Battery level.", wifi: "Wi-Fi connected."
   };
   var MOMENTS = {
-    hero: ["wave", "music", "lyric", "whatsapp", "network", "airpods"],
+    hero: ["wave"],
     music: ["music", "lyric", "lyric2"], whatsapp: ["whatsapp", "email", "airpods", "download"], "privacy-page": ["camera", "mic-cam"],
     gold: ["lyric2", "music", "wave"], wave: ["wave", "rest"], lyric: ["lyric2", "meeting", "ai-task", "game-excited"], calendar: ["todo", "timer"],
     clock: ["clock", "clock-aura", "game-excited"], download: ["download", "wifi"], "ai-free": ["ai-free", "battery"], todo: ["todo"], rest: ["rest", "wave"]
@@ -206,6 +206,10 @@
       document.querySelectorAll("[data-notch]").forEach(function (s) { io.observe(s); });
     }
     play();
+    var heroEl = document.querySelector(".hero");
+    if (heroEl && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { notch.classList.toggle("away", en[0].isIntersecting); }, { threshold: 0.12 }).observe(heroEl);
+    }
     /* Folds to a strip while a heading or the menu would sit under it (Polaric's Browser-Aware Mode does the same over browser tabs). */
     var heads = Array.prototype.slice.call(document.querySelectorAll("h1, h2, .bar nav, .bar .mark"));
     var ticking = false;
@@ -232,6 +236,63 @@
     window.addEventListener("resize", tuck);
     setTimeout(tuck, 400);
   }
+
+  /* The hero's screen: each feature plays in a real notch; it moves on by itself until the visitor picks one. */
+  (function () {
+    var screen = document.getElementById("stage-screen");
+    if (!screen) return;
+    var A = document.getElementById("stage-a"), B = document.getElementById("stage-b"), cover = document.getElementById("stage-cover"), cap = document.getElementById("stage-caption");
+    var picks = Array.prototype.slice.call(document.querySelectorAll(".picks [role=tab]"));
+    var FEATURES = {
+      music: [["music", "Music with lyrics that move line by line."], ["lyric", "Music with lyrics that move line by line."], ["lyric2", "Synced lyrics, right under the camera."]],
+      notify: [["whatsapp", "Chats: who wrote, the moment they write."], ["email", "Email with the whole subject."], ["airpods", "Earbuds connected, with their battery."], ["download", "A download finished."]],
+      meeting: [["meeting", "A minute before each meeting, with Join."], ["mic-cam", "Mic on, camera off, during the call."]],
+      ai: [["ai-task", "Your AI finished its task. Go see."], ["ai-free", "Your AI limit is free again."]],
+      privacy: [["music", "Privacy Mode: one shortcut, every screen frosted."]],
+      network: [["network", "Network Unstable, told once, no spam."], ["lost", "Connection Lost, when nothing gets through."]],
+      mascots: [["wave", "35 mascots wave, dance and doze beside the camera."], ["rest", "35 mascots wave, dance and doze beside the camera."]],
+      gaming: [["game-excited", "On Windows: your game's FPS, and a mascot that cheers."], ["clock", "On Windows: a calm idle clock."]]
+    };
+    var front = A, back = B, cur = "music", step = 0, auto = !reduced, timer = null;
+    B.classList.add("out");
+    function size(img) { if (img.naturalWidth) img.style.width = (img.naturalWidth / 2) / 820 * screen.clientWidth + "px"; }
+    [A, B].forEach(function (i) { if (i.complete) size(i); else i.addEventListener("load", function () { size(i); }); });
+    window.addEventListener("resize", function () { size(front); });
+    function put(name, text) {
+      back.src = "assets/img/notch/" + name + ".webp";
+      back.alt = "Polaric's notch: " + text;
+      var go = function () { size(back); back.classList.remove("out"); front.classList.add("out"); var x = front; front = back; back = x; };
+      if (back.complete && back.naturalWidth) go(); else back.onload = go;
+      cap.textContent = text;
+    }
+    function choose(id, by) {
+      cur = id; step = 0;
+      picks.forEach(function (b) { var on = b.getAttribute("data-pick") === id; b.setAttribute("aria-selected", on ? "true" : "false"); b.tabIndex = on ? 0 : -1; });
+      var on = id === "privacy";
+      cover.classList.toggle("on", on); screen.classList.toggle("covered", on);
+      var f = FEATURES[id][0]; put(f[0], f[1]);
+      if (by) sendEvent("notch_preview_select", { moment: id });
+    }
+    function tick() {
+      var list = FEATURES[cur];
+      if (step + 1 < list.length) { step++; put(list[step][0], list[step][1]); return; }
+      if (!auto) { step = -1; return tick(); }
+      var ids = Object.keys(FEATURES); choose(ids[(ids.indexOf(cur) + 1) % ids.length]);
+    }
+    timer = setInterval(tick, 2800);
+    picks.forEach(function (b, i) {
+      b.addEventListener("click", function () { auto = false; choose(b.getAttribute("data-pick"), true); });
+      b.addEventListener("keydown", function (e) {
+        var k = e.key, t = null;
+        if (k === "ArrowRight") t = picks[(i + 1) % picks.length];
+        if (k === "ArrowLeft") t = picks[(i - 1 + picks.length) % picks.length];
+        if (t) { e.preventDefault(); t.focus(); t.click(); }
+      });
+    });
+    picks.forEach(function (b) { b.tabIndex = b.getAttribute("aria-selected") === "true" ? 0 : -1; });
+    // preload
+    Object.keys(FEATURES).forEach(function (k) { FEATURES[k].forEach(function (f) { var i = new Image(); i.src = "assets/img/notch/" + f[0] + ".webp"; }); });
+  })();
 
   /* Notification tiles: the notch at the top plays the one you pick. */
   document.querySelectorAll(".tile[data-show]").forEach(function (t) {
