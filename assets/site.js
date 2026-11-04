@@ -237,61 +237,55 @@
     setTimeout(tuck, 400);
   }
 
-  /* The hero's screen: each feature plays in a real notch; it moves on by itself until the visitor picks one. */
+  /* The giant notch: each button shows one of Polaric's real notch states with the words that go with it.
+     It moves on by itself (every 3.5 s) until the visitor picks one; then it stays on that one. */
   (function () {
     var screen = document.getElementById("stage-screen");
     if (!screen) return;
     var A = document.getElementById("stage-a"), B = document.getElementById("stage-b"), cover = document.getElementById("stage-cover"), cap = document.getElementById("stage-caption");
     var picks = Array.prototype.slice.call(document.querySelectorAll(".picks [role=tab]"));
     var FEATURES = {
-      music: [["music", "Music with lyrics that move line by line."], ["lyric", "Music with lyrics that move line by line."], ["lyric2", "Synced lyrics, right under the camera."]],
-      notify: [["whatsapp", "Chats: who wrote, the moment they write."], ["email", "Email with the whole subject."], ["airpods", "Earbuds connected, with their battery."], ["download", "A download finished."]],
-      meeting: [["meeting", "A minute before each meeting, with Join."], ["mic-cam", "Mic on, camera off, during the call."]],
-      ai: [["ai-task", "Your AI finished its task. Go see."], ["ai-free", "Your AI limit is free again."]],
-      privacy: [["music", "Privacy Mode: one shortcut, every screen frosted."]],
-      network: [["network", "Network Unstable, told once, no spam."], ["lost", "Connection Lost, when nothing gets through."]],
-      mascots: [["wave", "35 mascots wave, dance and doze beside the camera."], ["rest", "35 mascots wave, dance and doze beside the camera."]],
-      gaming: [["game-excited", "On Windows: your game's FPS, and a mascot that cheers."], ["clock", "On Windows: a calm idle clock."]]
+      music: ["lyric", "Music: what's playing, and the lyrics line by line."],
+      notify: ["whatsapp", "Notifications: a WhatsApp from Alex, right where you look."],
+      meeting: ["meeting", "Meetings: a minute before each one, with Join."],
+      ai: ["ai-task", "AI tasks: Claude Code finished. Go see."],
+      privacy: ["music", "Privacy Mode: one shortcut, every screen frosted."],
+      network: ["network", "Network: Unstable or Failed, told once."],
+      mascots: ["wave", "Mascots: 35 characters wave, dance and doze."],
+      gaming: ["game-excited", "Gaming on Windows: your FPS, and a mascot that cheers."]
     };
-    var front = A, back = B, cur = "music", step = 0, auto = !reduced, timer = null;
+    var ids = Object.keys(FEATURES), cur = "music", auto = !reduced, front = A, back = B, token = 0;
     B.classList.add("out");
     function size(img) { if (img.naturalWidth) img.style.width = Math.min(screen.clientWidth, (img.naturalWidth / 2) / 520 * screen.clientWidth) + "px"; }
     [A, B].forEach(function (i) { if (i.complete) size(i); else i.addEventListener("load", function () { size(i); }); });
     window.addEventListener("resize", function () { size(front); });
-    function put(name, text) {
-      back.src = "assets/img/notch/" + name + ".webp";
-      back.alt = "Polaric's notch: " + text;
-      var go = function () { size(back); back.classList.remove("out"); front.classList.add("out"); var x = front; front = back; back = x; };
-      if (back.complete && back.naturalWidth) go(); else back.onload = go;
-      cap.textContent = text;
-    }
-    function choose(id, by) {
-      cur = id; step = 0;
+    function show(id, by) {
+      cur = id;
+      var f = FEATURES[id], mine = ++token;
       picks.forEach(function (b) { var on = b.getAttribute("data-pick") === id; b.setAttribute("aria-selected", on ? "true" : "false"); b.tabIndex = on ? 0 : -1; });
-      var on = id === "privacy";
-      cover.classList.toggle("on", on); screen.classList.toggle("covered", on);
-      var f = FEATURES[id][0]; put(f[0], f[1]);
+      var img = new Image();
+      img.onload = function () {
+        if (mine !== token) return; // a later choice won
+        back.src = img.src; back.alt = "Polaric's notch. " + f[1]; size(back);
+        back.classList.remove("out"); front.classList.add("out");
+        var x = front; front = back; back = x;
+        cap.textContent = f[1]; // the words change with the picture, never before
+        cover.classList.toggle("on", id === "privacy");
+      };
+      img.src = "assets/img/notch/" + f[0] + ".webp";
       if (by) sendEvent("notch_preview_select", { moment: id });
     }
-    function tick() {
-      var list = FEATURES[cur];
-      if (step + 1 < list.length) { step++; put(list[step][0], list[step][1]); return; }
-      if (!auto) { step = -1; return tick(); }
-      var ids = Object.keys(FEATURES); choose(ids[(ids.indexOf(cur) + 1) % ids.length]);
-    }
-    timer = setInterval(tick, 2800);
+    setInterval(function () { if (auto) show(ids[(ids.indexOf(cur) + 1) % ids.length]); }, 3500);
     picks.forEach(function (b, i) {
-      b.addEventListener("click", function () { auto = false; choose(b.getAttribute("data-pick"), true); });
+      b.addEventListener("click", function () { auto = false; show(b.getAttribute("data-pick"), true); });
       b.addEventListener("keydown", function (e) {
-        var k = e.key, t = null;
-        if (k === "ArrowRight") t = picks[(i + 1) % picks.length];
-        if (k === "ArrowLeft") t = picks[(i - 1 + picks.length) % picks.length];
+        var t = e.key === "ArrowRight" ? picks[(i + 1) % picks.length] : e.key === "ArrowLeft" ? picks[(i - 1 + picks.length) % picks.length] : null;
         if (t) { e.preventDefault(); t.focus(); t.click(); }
       });
+      b.tabIndex = b.getAttribute("aria-selected") === "true" ? 0 : -1;
     });
-    picks.forEach(function (b) { b.tabIndex = b.getAttribute("aria-selected") === "true" ? 0 : -1; });
-    // preload
-    Object.keys(FEATURES).forEach(function (k) { FEATURES[k].forEach(function (f) { var i = new Image(); i.src = "assets/img/notch/" + f[0] + ".webp"; }); });
+    ids.forEach(function (k) { var i = new Image(); i.src = "assets/img/notch/" + FEATURES[k][0] + ".webp"; });
+    show("music");
   })();
 
   /* Notification tiles: the notch at the top plays the one you pick. */
