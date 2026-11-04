@@ -5,5 +5,11 @@
   "releases": [
     "v1.1.0",
     "v1.1.1"
-  ]
+  ],
+  "snapshot": {
+    "note": "Live releases' downloads when this was last updated; used only when GitHub's API can't be reached.",
+    "macos": 13,
+    "windows": 21,
+    "at": "2026-11-04"
+  }
 }

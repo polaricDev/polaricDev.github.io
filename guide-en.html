@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Polaric 1.3.1 — User Guide</title>
+<title>Polaric 1.3.2 — User Guide</title>
 <meta name="description" content="Polaric user guide">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
@@ -41,8 +41,8 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <body>
 <nav class="bar"><a href="./">Polaric</a><span class="lang"><a href="guide-en.html" aria-current="page">English</a><a href="guide-id.html">Bahasa Indonesia</a></span></nav>
 <main>
-<h1 id="polaric-131-user-guide">Polaric 1.3.1 — User Guide</h1>
-<p>Polaric turns the top of your screen into a living notch: music with synced lyrics, your meetings, messages and email at a glance, tasks, timers, ambient sound, <strong>Text capture</strong> (copy text from anything on screen), <strong>Screenshots</strong>, <strong>Privacy &amp; Network</strong>, window snapping, AutoText and a small mascot that keeps you company. It shows your <strong>camera and microphone during calls</strong>, tells you when an <strong>AI finishes a task</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), and speaks <strong>English or Bahasa Indonesia</strong>. On Windows it also shows your <strong>game's FPS</strong> and a small <strong>idle clock</strong>. It runs on <strong>macOS 14 or later on a Mac with Apple silicon</strong> (MacBook with or without a notch) and on <strong>Windows 10 and 11</strong> (64-bit).</p>
+<h1 id="polaric-132-user-guide">Polaric 1.3.2 — User Guide</h1>
+<p>Polaric turns the top of your screen into a living notch: music with synced lyrics, your meetings, messages and email at a glance, tasks, timers, ambient sound, <strong>Text capture</strong> (copy text from anything on screen), <strong>Screenshots</strong>, <strong>Privacy &amp; Network</strong>, <strong>Privacy Mode</strong> (a frosted cover for your screens), window snapping, AutoText and a small mascot that keeps you company. It shows your <strong>camera and microphone during calls</strong>, tells you when an <strong>AI finishes a task</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), and speaks <strong>English or Bahasa Indonesia</strong>. On Windows it also shows your <strong>game's FPS</strong> and a small <strong>idle clock</strong>. It runs on <strong>macOS 14 or later on a Mac with Apple silicon</strong> (MacBook with or without a notch) and on <strong>Windows 10 and 11</strong> (64-bit).</p>
 <blockquote>
 <p>🇮🇩 Versi Bahasa Indonesia: <a href="guide-id.html">Bahasa Indonesia</a></p>
 </blockquote>
@@ -72,10 +72,11 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><a href="#21-browser-aware-mode-and-adaptive-notch">Browser-Aware Mode and Adaptive Notch</a></li>
 <li><a href="#22-settings-backup-privacy-and-about">Settings, backup, privacy and About</a></li>
 <li><a href="#23-polaric-for-windows">Polaric for Windows</a></li>
-<li><a href="#24-ai-task-alerts">AI task alerts</a> — new</li>
-<li><a href="#25-language-and-help-in-settings">Language and help in Settings</a> — new</li>
-<li><a href="#26-troubleshooting">Troubleshooting</a></li>
-<li><a href="#27-whats-new-in-131">What's new in 1.3.1</a></li>
+<li><a href="#24-ai-task-alerts">AI task alerts</a></li>
+<li><a href="#25-language-and-help-in-settings">Language and help in Settings</a></li>
+<li><a href="#26-privacy-mode">Privacy Mode</a> — new</li>
+<li><a href="#27-troubleshooting">Troubleshooting</a></li>
+<li><a href="#28-whats-new-in-132">What's new in 1.3.2</a></li>
 </ol>
 <hr />
 <h2 id="1-install-or-update">1. Install or update</h2>
@@ -320,18 +321,27 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p>Polaric gathers meetings from three places:</p>
 <ol>
 <li><strong>Your calendars</strong> (Mac): the Calendar app, including Google once it's added under System Settings › Internet Accounts. On Windows, use links (below).</li>
-<li><strong>Public calendar links</strong> (iCal). Use these when your calendar can't be added to the Mac. In Google Calendar: <em>Settings › your calendar › Integrate calendar › Public address in iCal format</em>. Paste it in <strong>Settings › Calendar › Public calendar links</strong> and click <strong>Add calendar</strong>. Polaric checks it every few minutes (adjustable).</li>
+<li><strong>Public calendar links</strong> (iCal). Use these when your calendar can't be added to the Mac. In Google Calendar: <em>Settings › Settings for my calendars › your calendar › Integrate calendar › Secret address in iCal format</em>. Paste it in <strong>Settings › Calendar › Public calendar links</strong> and click <strong>Add calendar</strong>. Polaric checks it every few minutes (adjustable).</li>
 <li><strong>Meetings you add in Polaric</strong>: Settings › Calendar › <strong>Add meeting…</strong> (name, time, link, place, notes).</li>
 </ol>
 <h3 id="how-to-get-your-google-calendars-ical-address">How to get your Google Calendar's iCal address</h3>
 <ol>
 <li>Open <strong>calendar.google.com</strong> on a computer (not the phone app).</li>
-<li>On the left, under <strong>My calendars</strong>, point at your calendar, click <strong>⋮</strong> › <strong>Settings and sharing</strong>.</li>
-<li>Under <strong>Access permissions for events</strong>, tick <strong>Make available to public</strong>. (Choose <em>See all event details</em> if you want the meeting names in Polaric.)</li>
-<li>Scroll down to <strong>Integrate calendar</strong> and copy <strong>Public address in iCal format</strong> (it ends in <code>basic.ics</code>). Polaric also takes the <strong>Public URL to this calendar</strong> (<code>…/embed?src=…</code>) and finds the iCal address by itself.</li>
+<li>Click the <strong>⚙ gear</strong> › <strong>Settings</strong>. On the left, under <strong>Settings for my calendars</strong>, click your calendar.</li>
+<li>Click <strong>Integrate calendar</strong> and find <strong>Secret address in iCal format</strong>. Press the <strong>copy</strong> button beside it (the address shows as dots; you don't need to reveal it). The calendar doesn't need to be public.</li>
 <li>In Polaric: <strong>Settings › Calendar › Public calendar links</strong>, give it a name, paste the address and click <strong>Add calendar</strong>. Its meetings show in the notch within a minute.</li>
 </ol>
-<p>A public calendar can be seen by anyone who has its link. If you'd rather not, use <strong>Secret address in iCal format</strong> (same page, under <em>Integrate calendar</em>): it works without making the calendar public. Keep it to yourself, like a password.</p>
+<p>The secret address works like a password: anyone who has it can see your meetings. Keep it to yourself, and if it ever leaks press <strong>Reset</strong> under it in Google Calendar (the old one stops working). Polaric also takes the <strong>Public address in iCal format</strong> or the <strong>Public URL to this calendar</strong> of a calendar you've made public.</p>
+<h3 id="on-windows-get-the-address-in-google-chrome">On Windows: get the address in Google Chrome</h3>
+<p>Windows has no calendar app Polaric can read, so on a PC your Google Calendar comes in through its address:</p>
+<ol>
+<li>Open <strong>Google Chrome</strong> and go to <strong>calendar.google.com</strong>. Sign in with the Google account whose calendar you want.</li>
+<li>Click the <strong>⚙ gear</strong> at the top right › <strong>Settings</strong>.</li>
+<li>On the left, under <strong>Settings for my calendars</strong>, click your calendar (your name), then <strong>Integrate calendar</strong>.</li>
+<li>At <strong>Secret address in iCal format</strong>, press the <strong>copy</strong> button on the right.</li>
+<li>Click Polaric's icon in the taskbar's tray (^ beside the clock) › <strong>Settings… › Calendar › Public calendar links</strong>. Give it a name, paste with <strong>Ctrl + V</strong> and click <strong>Add calendar</strong>.</li>
+</ol>
+<p>The Mac works the same way in any browser, or add the account to <strong>System Settings › Internet Accounts</strong> instead.</p>
 <blockquote>
 <p><strong>Work email:</strong> many companies' administrators block sharing calendars outside the company for security. Then a work calendar has no public or secret iCal address, and a link only opens for people signed in to it. A <strong>personal Google account</strong> works. On a <strong>Mac</strong>, you can also add the work account in <strong>System Settings › Internet Accounts › Calendars</strong>: Polaric reads it from there.</p>
 </blockquote>
@@ -349,6 +359,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p>Settings › Music &amp; Mascot › Ambient sounds: volume, and whether the last sound plays again when Polaric starts (off by default).</p>
 <h2 id="10-system-alerts">10. System alerts</h2>
 <p>Volume, brightness, Caps Lock, keyboard language, battery and charging, Wi-Fi (with an optional speed test when it connects), Bluetooth devices such as AirPods with their battery, and headphones. Choose which ones show in <strong>Settings › Notifications</strong>. On Mac, Polaric can replace the macOS volume and brightness popup.</p>
+<p><strong>Network Unstable</strong> and <strong>Connection Lost</strong>: Polaric quietly checks that the internet really answers (not just that Wi-Fi is connected), every 30 seconds in the background. When the connection is fine you see nothing. When it gets slow or patchy the notch says <em>Network Unstable · Some apps may respond slowly</em>; when Wi-Fi is up but nothing gets through, <em>Connection Lost · Some apps may fail to connect or time out</em>. Each one shows once, never over and over. Turn them off with <strong>Settings › Notifications › Network problems</strong>.</p>
 <p><video src="guide/media/mac-system.mp4" autoplay loop muted playsinline preload="metadata" aria-label="System alerts"></video></p>
 <h2 id="11-window-snap">11. Window Snap</h2>
 <p>Drag any window to the notch: a layout bar appears. Drop the window on a zone (halves, quarters, 60/40, Left + 2…) and it snaps there. With the keyboard, press <strong>⌃⌥S</strong> (Windows: <strong>Ctrl+Alt+S</strong>), then use the arrow keys and Return. Edge snapping, labels, preview and animation are in <strong>Settings › Window Management</strong>.</p>
@@ -833,7 +844,44 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p><strong>ⓘ beside every section</strong>: click it for <strong>What it does</strong>, <strong>Why use it</strong> and <strong>How to set it</strong>, in your language, with a moving picture of where it shows in the notch.</p>
 <p><strong>Search</strong>: type at the top of the Settings sidebar (for example <em>lyrics</em>, <em>glow</em> or <em>calendar</em>). Matching settings appear; click one to open its page. It also finds words from the ⓘ help, in English or Bahasa Indonesia.</p>
 <p><strong>User guide</strong>: About › <strong>User guide</strong> opens this guide in English or Bahasa Indonesia.</p>
-<h2 id="26-troubleshooting">26. Troubleshooting</h2>
+<h2 id="26-privacy-mode">26. Privacy Mode</h2>
+<p>Someone walks up, you're on a call sharing your face but not your screen, or you just stepped away for a coffee: <strong>Privacy Mode</strong> lays a <strong>dark frosted glass</strong> over every screen in one shortcut. Nobody can read what's on it, but <strong>everything underneath keeps running</strong>.</p>
+<p><video src="guide/media/privacy-mode.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Privacy Mode: the shortcut covers the screen, the other one takes it away"></video></p>
+<h3 id="turn-it-on">Turn it on</h3>
+<ul>
+<li><strong>Mac:</strong> press <strong>⌥⇧L</strong> (Option + Shift + L).</li>
+<li><strong>Windows:</strong> press <strong>Alt + Shift + L</strong>.</li>
+<li>Or: the Polaric menu / tray icon › <strong>Turn on Privacy Mode</strong>, or <strong>Settings › Privacy Mode › Turn on</strong>.</li>
+</ul>
+<p>Every monitor gets covered. The words in the middle are yours: <strong>Settings › Privacy Mode › Text on the cover</strong> (the last word is bold). Leave it empty for just the glass, or press <strong>Use the default</strong> for <em>Polaric <strong>Privacy</strong></em>.</p>
+<h3 id="what-keeps-running-underneath">What keeps running underneath</h3>
+<p>Privacy Mode is <strong>only a layer on top of your screen</strong>. It doesn't pause, freeze or close anything:</p>
+<ul>
+<li>Code that's compiling, tests, an AI agent working in your terminal (Claude Code, Codex, Antigravity…) keep going, and their <strong>Task Completed</strong> alert still shows when they finish.</li>
+<li>Music and videos keep playing, downloads and uploads keep going, calls stay connected.</li>
+<li>Nothing you type reaches the apps underneath while the cover is up, so a curious hand on the keyboard can't do anything.</li>
+</ul>
+<h3 id="take-it-away">Take it away</h3>
+<ol>
+<li><strong>Shortcut:</strong> <strong>⌥⇧U</strong> on a Mac, <strong>Alt + Shift + U</strong> on Windows.</li>
+<li><strong>Your hidden pattern:</strong> click the screen's invisible quarters in your order. The default is <strong>top right → top left → top right → bottom left</strong>. Nothing on the screen shows where to click, and a wrong click starts over.</li>
+<li><strong>Emergency unlock:</strong> lock the computer (Mac: Control + Command + Q; Windows: Win + L) and sign back in with your password, Touch ID or Windows Hello. Polaric sees the signed-in session and takes the cover away. Just waking the computer or opening the lid doesn't.</li>
+</ol>
+<p><video src="guide/media/privacy-unlock-pattern.mp4" autoplay loop muted playsinline preload="metadata" aria-label="The hidden pattern: the quarters in order, a wrong click starts over"></video></p>
+<p><em>(The lines and chips in this picture only explain it: the real cover shows nothing.)</em></p>
+<h3 id="make-it-yours">Make it yours</h3>
+<p><strong>Settings › Privacy Mode</strong>:</p>
+<ul>
+<li><strong>Use Privacy Mode</strong>: the whole feature on or off. Off, its shortcuts and menu item do nothing.</li>
+<li><strong>Text on the cover</strong>: your words, or none.</li>
+<li><strong>Turn it on and off</strong>: change both shortcuts (Polaric refuses keys already used by the system or another app and suggests a free one).</li>
+<li><strong>Unlock pattern</strong>: <strong>Change pattern…</strong>, click the four quarters in a new order (4 to 8 steps), <strong>Save pattern</strong>.</li>
+</ul>
+<blockquote>
+<p><strong>Good to know:</strong> Privacy Mode is visual privacy, <strong>not a secure lock</strong>. It doesn't stop screenshots, screen recording or apps with special access. For real security, lock your computer.</p>
+</blockquote>
+<p>If Polaric was quitting or restarted while the cover was up, it comes back covered.</p>
+<h2 id="27-troubleshooting">27. Troubleshooting</h2>
 <table>
 <thead>
 <tr>
@@ -864,7 +912,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 <tr>
 <td>Calendar link refused</td>
-<td>It must be a public <strong>https</strong> address (Google's <em>Public address in iCal format</em>)</td>
+<td>It must be an <strong>https</strong> iCal address (Google's <em>Secret address in iCal format</em>)</td>
 </tr>
 <tr>
 <td>A shortcut fires inside a word</td>
@@ -924,7 +972,22 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 </tbody>
 </table>
-<h2 id="27-whats-new-in-131">27. What's new in 1.3.1</h2>
+<h2 id="28-whats-new-in-132">28. What's new in 1.3.2</h2>
+<p><strong>New</strong></p>
+<ul>
+<li><strong>Privacy Mode</strong> (Mac and Windows): a dark frosted cover over every screen with <strong>⌥⇧L / Alt+Shift+L</strong>, with your own words or none. Everything keeps running underneath. Take it away with <strong>⌥⇧U / Alt+Shift+U</strong>, your hidden pattern, or by locking the computer and signing back in. See <a href="#26-privacy-mode">Privacy Mode</a>.</li>
+<li><strong>Network Unstable</strong> and <strong>Connection Lost</strong> in the notch, checked quietly in the background: nothing when the connection is fine, never repeated, and a switch to turn them off.</li>
+</ul>
+<p><strong>Improved</strong></p>
+<ul>
+<li><strong>Calendar</strong> points to Google's <em>Secret address in iCal format</em>, so your calendar doesn't have to be public. On Windows, see <a href="#on-windows-get-the-address-in-google-chrome">the steps in Chrome</a>.</li>
+<li>Windows: Settings fits every page in the sidebar.</li>
+</ul>
+<p><strong>Fixed</strong></p>
+<ul>
+<li>Shortcuts made of Option/Alt and Shift work while Polaric's own windows are in front.</li>
+</ul>
+<h3 id="in-131">In 1.3.1</h3>
 <p>Everything new since 1.2.0, in one update.</p>
 <p><strong>New</strong></p>
 <ul>

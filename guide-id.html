@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Polaric 1.3.1 — Panduan Pengguna</title>
+<title>Polaric 1.3.2 — Panduan Pengguna</title>
 <meta name="description" content="Panduan pengguna Polaric">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
@@ -41,7 +41,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <body>
 <nav class="bar"><a href="./">Polaric</a><span class="lang"><a href="guide-en.html">English</a><a href="guide-id.html" aria-current="page">Bahasa Indonesia</a></span></nav>
 <main>
-<h1 id="polaric-131-panduan-pengguna">Polaric 1.3.1 — Panduan Pengguna</h1>
+<h1 id="polaric-132-panduan-pengguna">Polaric 1.3.2 — Panduan Pengguna</h1>
 <p>Polaric mengubah bagian atas layar kamu jadi notch yang hidup: musik dengan lirik yang sinkron, meeting, pesan dan email sekilas lihat, to-do, timer, suara ambient, <strong>Text capture</strong> (salin teks dari apa saja di layar), <strong>Screenshot</strong>, <strong>Privacy &amp; Network</strong>, window snap, AutoText, dan maskot kecil yang menemani. Notch juga menampilkan <strong>kamera dan mikrofon saat meeting</strong>, memberi tahu saat <strong>AI selesai mengerjakan tugas</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), dan bisa memakai <strong>English atau Bahasa Indonesia</strong>. Di Windows, notch juga menampilkan <strong>FPS game</strong> kamu dan <strong>jam kecil saat idle</strong>. Polaric jalan di <strong>macOS 14 atau lebih baru di Mac dengan Apple silicon</strong> (MacBook dengan atau tanpa notch) dan <strong>Windows 10 dan 11</strong> (64-bit).</p>
 <blockquote>
 <p>🇬🇧 English version: <a href="guide-en.html">English</a></p>
@@ -72,10 +72,11 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><a href="#21-browser-aware-mode-dan-adaptive-notch">Browser-Aware Mode dan Adaptive Notch</a></li>
 <li><a href="#22-pengaturan-backup-privasi-dan-about">Pengaturan, backup, privasi, dan About</a></li>
 <li><a href="#23-polaric-untuk-windows">Polaric untuk Windows</a></li>
-<li><a href="#24-notifikasi-tugas-ai">Notifikasi tugas AI</a> — baru</li>
-<li><a href="#25-bahasa-dan-bantuan-di-settings">Bahasa dan bantuan di Settings</a> — baru</li>
-<li><a href="#26-kalau-ada-masalah">Kalau ada masalah</a></li>
-<li><a href="#27-yang-baru-di-131">Yang baru di 1.3.1</a></li>
+<li><a href="#24-notifikasi-tugas-ai">Notifikasi tugas AI</a></li>
+<li><a href="#25-bahasa-dan-bantuan-di-settings">Bahasa dan bantuan di Settings</a></li>
+<li><a href="#26-privacy-mode">Privacy Mode</a> — baru</li>
+<li><a href="#27-kalau-ada-masalah">Kalau ada masalah</a></li>
+<li><a href="#28-yang-baru-di-132">Yang baru di 1.3.2</a></li>
 </ol>
 <hr />
 <h2 id="1-pasang-atau-update">1. Pasang atau update</h2>
@@ -320,18 +321,27 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p>Polaric mengumpulkan meeting dari tiga tempat:</p>
 <ol>
 <li><strong>Kalender kamu</strong> (Mac): aplikasi Calendar, termasuk Google setelah ditambahkan di System Settings › Internet Accounts. Di Windows, pakai link (di bawah).</li>
-<li><strong>Link kalender publik</strong> (iCal). Pakai ini kalau kalender kamu tidak bisa ditambahkan ke Mac. Di Google Calendar: <em>Settings › kalender kamu › Integrate calendar › Public address in iCal format</em>. Tempel di <strong>Settings › Calendar › Public calendar links</strong> lalu klik <strong>Add calendar</strong>. Polaric mengeceknya setiap beberapa menit (bisa diatur).</li>
+<li><strong>Link kalender publik</strong> (iCal). Pakai ini kalau kalender kamu tidak bisa ditambahkan ke Mac. Di Google Calendar: <em>Setelan › Setelan untuk kalender saya › kalender kamu › Integrasikan kalender › Alamat rahasia dalam format iCal</em>. Tempel di <strong>Settings › Calendar › Public calendar links</strong> lalu klik <strong>Add calendar</strong>. Polaric mengeceknya setiap beberapa menit (bisa diatur).</li>
 <li><strong>Meeting yang kamu tambahkan di Polaric</strong>: Settings › Calendar › <strong>Add meeting…</strong> (nama, waktu, link, tempat, catatan).</li>
 </ol>
 <h3 id="cara-mengambil-alamat-ical-google-calendar-kamu">Cara mengambil alamat iCal Google Calendar kamu</h3>
 <ol>
 <li>Buka <strong>calendar.google.com</strong> di komputer (bukan aplikasi HP).</li>
-<li>Di kiri, di bawah <strong>Kalender saya</strong>, arahkan ke kalendermu, klik <strong>⋮</strong> › <strong>Setelan dan berbagi</strong>.</li>
-<li>Di <strong>Izin akses untuk acara</strong>, centang <strong>Sediakan untuk publik</strong>. (Pilih <em>Lihat semua detail acara</em> kalau kamu ingin nama rapatnya tampil di Polaric.)</li>
-<li>Gulir ke <strong>Integrasikan kalender</strong> dan salin <strong>Alamat publik dalam format iCal</strong> (ujungnya <code>basic.ics</code>). Polaric juga menerima <strong>URL publik untuk kalender ini</strong> (<code>…/embed?src=…</code>) dan mencari alamat iCal-nya sendiri.</li>
+<li>Klik <strong>⚙ roda gigi</strong> › <strong>Setelan</strong>. Di kiri, di bawah <strong>Setelan untuk kalender saya</strong>, klik kalendermu.</li>
+<li>Klik <strong>Integrasikan kalender</strong> dan cari <strong>Alamat rahasia dalam format iCal</strong>. Tekan tombol <strong>salin</strong> di sebelahnya (alamatnya tampil sebagai titik-titik; tidak perlu dibuka). Kalendernya tidak perlu publik.</li>
 <li>Di Polaric: <strong>Settings › Calendar › Public calendar links</strong>, beri nama, tempel alamatnya, lalu klik <strong>Add calendar</strong>. Rapatnya tampil di notch dalam semenit.</li>
 </ol>
-<p>Kalender publik bisa dilihat siapa pun yang punya link-nya. Kalau tidak mau, pakai <strong>Alamat rahasia dalam format iCal</strong> (di halaman yang sama, di bawah <em>Integrasikan kalender</em>): ini jalan tanpa membuat kalender publik. Simpan sendiri, seperti kata sandi.</p>
+<p>Alamat rahasia itu seperti kata sandi: siapa pun yang punya bisa melihat rapatmu. Simpan sendiri, dan kalau sampai bocor tekan <strong>Reset</strong> di bawahnya di Google Calendar (alamat lama berhenti bekerja). Polaric juga menerima <strong>Alamat publik dalam format iCal</strong> atau <strong>URL publik untuk kalender ini</strong> dari kalender yang sudah kamu buat publik.</p>
+<h3 id="di-windows-ambil-alamatnya-di-google-chrome">Di Windows: ambil alamatnya di Google Chrome</h3>
+<p>Windows tidak punya aplikasi kalender yang bisa dibaca Polaric, jadi di PC Google Calendar-mu masuk lewat alamatnya:</p>
+<ol>
+<li>Buka <strong>Google Chrome</strong> dan masuk ke <strong>calendar.google.com</strong>. Login dengan akun Google yang kalendernya mau dipakai.</li>
+<li>Klik <strong>⚙ roda gigi</strong> di kanan atas › <strong>Setelan</strong> (Settings).</li>
+<li>Di kiri, di bawah <strong>Setelan untuk kalender saya</strong> (Settings for my calendars), klik kalendermu (namamu), lalu <strong>Integrasikan kalender</strong> (Integrate calendar).</li>
+<li>Di <strong>Alamat rahasia dalam format iCal</strong> (Secret address in iCal format), tekan tombol <strong>salin</strong> di kanan.</li>
+<li>Klik ikon Polaric di tray taskbar (^ di sebelah jam) › <strong>Settings… › Calendar › Public calendar links</strong>. Beri nama, tempel dengan <strong>Ctrl + V</strong>, lalu klik <strong>Add calendar</strong>.</li>
+</ol>
+<p>Di Mac caranya sama di browser apa pun, atau tambahkan akunnya di <strong>System Settings › Internet Accounts</strong>.</p>
 <blockquote>
 <p><strong>Email kerja:</strong> banyak admin perusahaan memblokir berbagi kalender ke luar perusahaan demi keamanan. Kalau begitu, kalender kerja tidak punya alamat iCal publik maupun rahasia, dan link-nya hanya terbuka untuk orang yang login. <strong>Akun Google pribadi</strong> bisa dipakai. Di <strong>Mac</strong>, kamu juga bisa menambahkan akun kerja di <strong>System Settings › Internet Accounts › Calendars</strong>: Polaric membacanya dari sana.</p>
 </blockquote>
@@ -349,6 +359,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p>Settings › Music &amp; Mascot › Ambient sounds: volume, dan apakah suara terakhir diputar lagi saat Polaric jalan (mati secara default).</p>
 <h2 id="10-notifikasi-sistem">10. Notifikasi sistem</h2>
 <p>Volume, kecerahan, Caps Lock, bahasa keyboard, baterai dan mengisi daya, Wi-Fi (dengan tes kecepatan opsional saat tersambung), perangkat Bluetooth seperti AirPods dengan baterainya, dan headphone. Pilih yang mau ditampilkan di <strong>Settings › Notifications</strong>. Di Mac, Polaric bisa mengganti popup volume dan kecerahan bawaan macOS.</p>
+<p><strong>Network Unstable</strong> dan <strong>Connection Lost</strong>: Polaric diam-diam mengecek apakah internet benar-benar jalan (bukan cuma Wi-Fi tersambung), setiap 30 detik di latar belakang. Kalau koneksi lancar, tidak muncul apa-apa. Kalau lambat atau putus-putus, notch menampilkan <em>Network Unstable · Some apps may respond slowly</em>; kalau Wi-Fi tersambung tapi tidak ada yang tembus, <em>Connection Lost · Some apps may fail to connect or time out</em>. Masing-masing muncul sekali, tidak berulang-ulang. Matikan lewat <strong>Settings › Notifications › Network problems</strong>.</p>
 <p><video src="guide/media/mac-system.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Notifikasi sistem"></video></p>
 <h2 id="11-window-snap">11. Window Snap</h2>
 <p>Seret jendela mana pun ke notch: muncul bar tata letak. Lepas jendela di salah satu zona (setengah, seperempat, 60/40, Kiri + 2…) dan jendelanya langsung pas. Dengan keyboard, tekan <strong>⌃⌥S</strong> (Windows: <strong>Ctrl+Alt+S</strong>), lalu pakai tombol panah dan Return. Snap di tepi layar, label, pratinjau, dan animasi ada di <strong>Settings › Window Management</strong>.</p>
@@ -833,7 +844,44 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p><strong>ⓘ di samping setiap bagian</strong>: klik untuk melihat <strong>Fungsinya</strong>, <strong>Kenapa dipakai</strong>, dan <strong>Cara mengaturnya</strong>, dalam bahasamu, dengan gambar bergerak tempatnya muncul di notch.</p>
 <p><strong>Cari</strong>: ketik di atas sidebar Settings (misalnya <em>lirik</em>, <em>glow</em>, atau <em>kalender</em>). Pengaturan yang cocok muncul; klik salah satu untuk membuka halamannya. Kata-kata dari bantuan ⓘ juga ikut dicari, dalam English atau Bahasa Indonesia.</p>
 <p><strong>Panduan pengguna</strong>: About › <strong>User guide</strong> (Tentang › Panduan pengguna) membuka panduan ini dalam English atau Bahasa Indonesia.</p>
-<h2 id="26-kalau-ada-masalah">26. Kalau ada masalah</h2>
+<h2 id="26-privacy-mode">26. Privacy Mode</h2>
+<p>Ada orang lewat, lagi video call yang cuma share muka bukan layar, atau kamu cuma mau ambil kopi sebentar: <strong>Privacy Mode</strong> menutup setiap layar dengan <strong>kaca buram gelap</strong> cukup dengan satu shortcut. Nggak ada yang bisa baca isi layarmu, tapi <strong>semua di baliknya tetap jalan</strong>.</p>
+<p><video src="guide/media/privacy-mode.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Privacy Mode: shortcut menutup layar, shortcut lain membukanya"></video></p>
+<h3 id="menyalakan">Menyalakan</h3>
+<ul>
+<li><strong>Mac:</strong> tekan <strong>⌥⇧L</strong> (Option + Shift + L).</li>
+<li><strong>Windows:</strong> tekan <strong>Alt + Shift + L</strong>.</li>
+<li>Atau: menu Polaric / ikon tray › <strong>Turn on Privacy Mode</strong>, atau <strong>Settings › Privacy Mode › Turn on</strong>.</li>
+</ul>
+<p>Semua monitor tertutup. Tulisan di tengahnya terserah kamu: <strong>Settings › Privacy Mode › Text on the cover</strong> (kata terakhir ditebalkan). Kosongkan kalau mau kacanya saja, atau tekan <strong>Use the default</strong> untuk <em>Polaric <strong>Privacy</strong></em>.</p>
+<h3 id="yang-tetap-jalan-di-baliknya">Yang tetap jalan di baliknya</h3>
+<p>Privacy Mode <strong>cuma lapisan di atas layar</strong>. Nggak ada yang di-pause, dibekukan, atau ditutup:</p>
+<ul>
+<li>Kode yang lagi di-compile, test, agen AI yang lagi kerja di terminal (Claude Code, Codex, Antigravity…) tetap jalan, dan notifikasi <strong>Task Completed</strong> tetap muncul waktu selesai.</li>
+<li>Musik dan video tetap main, download dan upload tetap jalan, call tetap tersambung.</li>
+<li>Selama penutup aktif, ketikan nggak sampai ke aplikasi di baliknya, jadi tangan iseng di keyboard nggak bisa ngapa-ngapain.</li>
+</ul>
+<h3 id="membuka-lagi">Membuka lagi</h3>
+<ol>
+<li><strong>Shortcut:</strong> <strong>⌥⇧U</strong> di Mac, <strong>Alt + Shift + U</strong> di Windows.</li>
+<li><strong>Pola rahasiamu:</strong> klik bagian layar yang tak terlihat sesuai urutanmu. Bawaannya <strong>kanan atas → kiri atas → kanan atas → kiri bawah</strong>. Tidak ada tanda di layar di mana harus klik, dan klik yang salah mengulang dari awal.</li>
+<li><strong>Buka darurat:</strong> kunci komputer (Mac: Control + Command + Q; Windows: Win + L) lalu masuk lagi dengan kata sandi, Touch ID, atau Windows Hello. Polaric melihat sesi yang sudah masuk dan membuka penutupnya. Sekadar membangunkan komputer atau membuka layar laptop tidak membukanya.</li>
+</ol>
+<p><video src="guide/media/privacy-unlock-pattern.mp4" autoplay loop muted playsinline preload="metadata" aria-label="Pola rahasia: bagian layar berurutan, klik salah mengulang dari awal"></video></p>
+<p><em>(Garis dan label di gambar ini cuma penjelasan: penutup aslinya tidak menampilkan apa-apa.)</em></p>
+<h3 id="atur-sesukamu">Atur sesukamu</h3>
+<p><strong>Settings › Privacy Mode</strong>:</p>
+<ul>
+<li><strong>Use Privacy Mode</strong>: menyalakan atau mematikan seluruh fitur. Kalau mati, shortcut dan item menunya tidak berfungsi.</li>
+<li><strong>Text on the cover</strong>: kata-katamu, atau tanpa kata.</li>
+<li><strong>Turn it on and off</strong>: ganti kedua shortcut (Polaric menolak tombol yang sudah dipakai sistem atau aplikasi lain dan menyarankan yang kosong).</li>
+<li><strong>Unlock pattern</strong>: <strong>Change pattern…</strong>, klik keempat bagian dengan urutan baru (4 sampai 8 langkah), <strong>Save pattern</strong>.</li>
+</ul>
+<blockquote>
+<p><strong>Perlu diingat:</strong> Privacy Mode itu privasi tampilan, <strong>bukan kunci pengaman</strong>. Ia tidak mencegah screenshot, perekaman layar, atau aplikasi dengan akses khusus. Untuk keamanan sungguhan, kunci komputermu.</p>
+</blockquote>
+<p>Kalau Polaric tertutup atau di-restart saat penutup aktif, layarnya langsung tertutup lagi.</p>
+<h2 id="27-kalau-ada-masalah">27. Kalau ada masalah</h2>
 <table>
 <thead>
 <tr>
@@ -864,7 +912,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 <tr>
 <td>Link kalender ditolak</td>
-<td>Harus alamat <strong>https</strong> publik (<em>Public address in iCal format</em> dari Google)</td>
+<td>Harus alamat iCal <strong>https</strong> (<em>Alamat rahasia dalam format iCal</em> dari Google)</td>
 </tr>
 <tr>
 <td>Shortcut terpicu di tengah kata</td>
@@ -924,7 +972,22 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 </tbody>
 </table>
-<h2 id="27-yang-baru-di-131">27. Yang baru di 1.3.1</h2>
+<h2 id="28-yang-baru-di-132">28. Yang baru di 1.3.2</h2>
+<p><strong>Baru</strong></p>
+<ul>
+<li><strong>Privacy Mode</strong> (Mac dan Windows): penutup kaca buram gelap di setiap layar dengan <strong>⌥⇧L / Alt+Shift+L</strong>, dengan kata-katamu sendiri atau tanpa kata. Semua tetap jalan di baliknya. Buka lagi dengan <strong>⌥⇧U / Alt+Shift+U</strong>, pola rahasiamu, atau dengan mengunci komputer lalu masuk lagi. Lihat <a href="#26-privacy-mode">Privacy Mode</a>.</li>
+<li><strong>Network Unstable</strong> dan <strong>Connection Lost</strong> di notch, dicek diam-diam di latar belakang: tidak ada apa-apa saat koneksi lancar, tidak diulang-ulang, dan ada tombol untuk mematikannya.</li>
+</ul>
+<p><strong>Ditingkatkan</strong></p>
+<ul>
+<li><strong>Kalender</strong> mengarahkan ke <em>Alamat rahasia dalam format iCal</em> milik Google, jadi kalendermu tidak perlu publik. Di Windows, lihat <a href="#di-windows-ambil-alamatnya-di-google-chrome">langkahnya di Chrome</a>.</li>
+<li>Windows: Settings memuat semua halaman di sidebar.</li>
+</ul>
+<p><strong>Diperbaiki</strong></p>
+<ul>
+<li>Shortcut dari Option/Alt dan Shift berfungsi saat jendela Polaric sendiri ada di depan.</li>
+</ul>
+<h3 id="di-131">Di 1.3.1</h3>
 <p>Semua yang baru sejak 1.2.0, dalam satu update.</p>
 <p><strong>Baru</strong></p>
 <ul>

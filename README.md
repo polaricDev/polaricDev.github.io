@@ -1,12 +1,13 @@
 # Polaric Notch
 
-**Your notch, alive.** Polaric turns the top of your screen into a living notch: music with synced lyrics, meetings with one-click Join, email and chats at a glance, ShareZone (files to your phone), Text capture, Window Snap, AutoText, ambient sounds, 40 themes and 35 mascots.
+**Your notch, alive.** Polaric turns the notch at the top of your screen into a living island: music with synced lyrics, every notification (chats, email, meetings with one-click Join, AI task alerts, network problems), Privacy Mode, Text capture, Screenshots, Window Snap, AutoText, ambient sounds, 40 themes and 35 mascots.
 
 Free for **macOS 14 or later** and **Windows 10 and 11**.
 
 - Website: https://polaricdev.github.io/
 - Download: [latest release](https://github.com/polaricDev/polaricDev.github.io/releases/latest)
-- Introduction video: https://youtu.be/n1G_pY94t-M
+- Video: https://polaricdev.github.io/#video
+- User guide: https://polaricdev.github.io/guide-en.html · Panduan: https://polaricdev.github.io/guide-id.html
 - Support us: https://sociabuzz.com/polaric_dev/tribe
 - Feedback: polaric.dev@gmail.com
 
