@@ -255,7 +255,7 @@
     };
     var front = A, back = B, cur = "music", step = 0, auto = !reduced, timer = null;
     B.classList.add("out");
-    function size(img) { if (img.naturalWidth) img.style.width = (img.naturalWidth / 2) / 820 * screen.clientWidth + "px"; }
+    function size(img) { if (img.naturalWidth) img.style.width = Math.min(screen.clientWidth, (img.naturalWidth / 2) / 520 * screen.clientWidth) + "px"; }
     [A, B].forEach(function (i) { if (i.complete) size(i); else i.addEventListener("load", function () { size(i); }); });
     window.addEventListener("resize", function () { size(front); });
     function put(name, text) {
