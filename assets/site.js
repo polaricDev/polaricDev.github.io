@@ -1,8 +1,8 @@
-/* Polaric website, 1.3.2: analytics events, download counts, the notch fixed at the top that plays each
+/* Polaric website, 1.4.0: analytics events, download counts, the notch fixed at the top that plays each
    chapter's moment, the Privacy Mode demo, the customize board, the video, the rating. */
 (function () {
   "use strict";
-  var VERSION = "1.3.2";
+  var VERSION = "1.4.0";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.add("js");
 
@@ -251,7 +251,7 @@
       ai: ["ai-task", "AI tasks: Claude Code finished. Go see."],
       privacy: ["music", "Privacy Mode: one shortcut, every screen frosted."],
       network: ["network", "Network: Unstable or Failed, told once."],
-      mascots: ["wave", "Mascots: 35 characters wave, dance and doze."],
+      mascots: ["wave", "Mascots: 74 characters wave, dance and doze."],
       gaming: ["game-excited", "Gaming on Windows: your FPS, and a mascot that cheers."]
     };
     var ids = Object.keys(FEATURES), cur = "music", auto = !reduced, front = A, back = B, token = 0;
