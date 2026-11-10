@@ -2,7 +2,7 @@
    chapter's moment, the Privacy Mode demo, the customize board, the video, the rating. */
 (function () {
   "use strict";
-  var VERSION = "1.4.0";
+  var VERSION = "1.4.2";
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   document.documentElement.classList.add("js");
 
