@@ -565,3 +565,7 @@ footer.closing { background: linear-gradient(180deg, transparent, rgb(10 41 115 
 .cz__preview .pn-menubar { z-index: 1; }
 .cz__preview { aspect-ratio: 1000 / 400; }
 .pn-rec--cz { width: 112%; }
+
+/* on a slow connection the hero never waits: 2.6 s after the first paint everything in it shows */
+.pn-shown .pn-hero .hero__c > *, .pn-shown .pn-hero .hero__c > * > * { opacity: 1 !important; translate: none !important; }
+.pn-shown .pn-hero .hero__c > :not(.btn-row) { transform: none !important; }
