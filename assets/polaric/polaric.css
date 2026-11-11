@@ -569,3 +569,47 @@ footer.closing { background: linear-gradient(180deg, transparent, rgb(10 41 115 
 /* on a slow connection the hero never waits: 2.6 s after the first paint everything in it shows */
 .pn-shown .pn-hero .hero__c > *, .pn-shown .pn-hero .hero__c > * > * { opacity: 1 !important; translate: none !important; }
 .pn-shown .pn-hero .hero__c > :not(.btn-row) { transform: none !important; }
+
+/* ---------------------------------------------------------------- the night behind the page (parallax)
+   One fixed layer behind everything: the ground turns from black into deep blue as the page goes down,
+   three soft lights and a field of faint stars drift at their own speeds. The words never move. */
+html { background: #02040d; }
+body { background: transparent !important; }
+.pn-sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; --sy: 0; --sp: 0;
+  background: linear-gradient(180deg, #02040d 0%, color-mix(in oklab, #02040d, #0a2973 calc(var(--sp) * 70%)) 100%); }
+.pn-sky i { position: absolute; display: block; border-radius: 50%; filter: blur(60px); will-change: transform; }
+.pn-sky__a { width: 70vw; height: 70vw; left: -15vw; top: -20vw; background: radial-gradient(circle, rgb(26 64 160 / .55), transparent 65%);
+  transform: translate3d(0, calc(var(--sy) * -0.08px), 0); }
+.pn-sky__b { width: 60vw; height: 60vw; right: -20vw; top: 30vh; background: radial-gradient(circle, rgb(58 144 246 / .28), transparent 65%);
+  transform: translate3d(0, calc(var(--sy) * -0.16px + 20vh), 0); }
+.pn-sky__c { width: 80vw; height: 50vw; left: 10vw; top: 90vh; background: radial-gradient(ellipse, rgb(16 44 108 / .7), transparent 65%);
+  transform: translate3d(0, calc(var(--sy) * -0.24px), 0); }
+.pn-sky__stars { inset: -50vh 0 auto 0 !important; height: 300vh; border-radius: 0 !important; filter: none !important; opacity: .55;
+  background-image: radial-gradient(1px 1px at 12% 18%, #fff8, transparent), radial-gradient(1px 1px at 72% 8%, #fff6, transparent), radial-gradient(1.5px 1.5px at 38% 42%, #9fd6ff99, transparent),
+    radial-gradient(1px 1px at 86% 36%, #fff5, transparent), radial-gradient(1px 1px at 24% 66%, #fff5, transparent), radial-gradient(1.5px 1.5px at 58% 78%, #9fd6ff88, transparent),
+    radial-gradient(1px 1px at 92% 88%, #fff5, transparent), radial-gradient(1px 1px at 6% 92%, #fff4, transparent);
+  background-size: 640px 640px; transform: translate3d(0, calc(var(--sy) * -0.04px), 0); }
+@media (prefers-reduced-motion: reduce) { .pn-sky i { transform: none !important; } }
+
+/* ---------------------------------------------------------------- where Polaric is downloaded */
+.pn-world { background: transparent; }
+.pn-map { position: relative; border-radius: 24px; border: 1px solid var(--pn-line); padding: var(--s-5);
+  background: radial-gradient(80% 80% at 50% 40%, rgb(16 44 108 / .45), transparent 70%), rgb(5 11 35 / .55); }
+.pn-map__svg { width: 100%; height: auto; display: block; overflow: visible; }
+.pn-map__land { fill: none; stroke: rgb(159 208 255 / .26); stroke-width: 4.4; stroke-linecap: round; }
+.pn-pin__ring { fill: rgb(34 211 238 / .16); stroke: rgb(34 211 238 / .7); stroke-width: 1.5; transform-box: fill-box; transform-origin: center;
+  animation: pn-pin 2.6s cubic-bezier(.22,1,.36,1) var(--d, 0s) infinite; }
+.pn-pin__dot { fill: #7cf3ff; filter: drop-shadow(0 0 6px #22d3ee); }
+.pn-pin text { font: 600 15px/1 var(--font-mono); fill: #eef3ff; opacity: .9; transition: opacity .2s; paint-order: stroke; stroke: #050b23; stroke-width: 4px; }
+.pn-pin.is-on text, .pn-pin:hover text { opacity: 1; }
+.pn-pin.is-on .pn-pin__dot { fill: #ffd25a; filter: drop-shadow(0 0 8px #ffd25a); }
+@keyframes pn-pin { 0% { transform: scale(.6); opacity: 1; } 100% { transform: scale(1.8); opacity: 0; } }
+.pn-legend { display: grid; gap: var(--s-4); align-content: start; }
+.pn-legend__total { margin: 0; color: var(--pn-mist); font: 400 16px/1.4 var(--font-text); }
+.pn-legend__n { display: block; font: 500 clamp(40px, 4vw, 56px)/1 var(--font-display); letter-spacing: -0.04em; color: var(--pn-frost); margin-bottom: 6px; }
+.pn-legend .st__countries { margin: 0; }
+.pn-legend .st__countries li { grid-template-columns: minmax(0, 1fr) 90px 44px; padding: 6px 8px; border-radius: 10px; transition: background .15s; }
+.pn-legend .st__countries li.is-on { background: rgb(58 144 246 / .14); }
+.pn-legend .st__empty { margin: 0; }
+@media (prefers-reduced-motion: reduce) { .pn-pin__ring { animation: none; } }
+@media (max-width: 1023px) { .pn-map { padding: var(--s-3); } }

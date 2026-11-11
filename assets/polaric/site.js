@@ -302,26 +302,72 @@ function stats() {
     }
   }).catch(() => {});
 
+}
+
+/* ---------- Where Polaric is downloaded: a dot on each country, the legend beside the map ---------- */
+
+// Each country's centre (lat, lon), for its dot on the map.
+const CENTRE = { ID: [-2.5, 118], MY: [3.8, 102], SG: [1.35, 103.8], TH: [15.5, 101], PH: [12.5, 122], VN: [16, 107], IN: [22, 79], JP: [36.5, 138.5],
+  KR: [36.3, 127.8], CN: [35, 104], TW: [23.7, 121], HK: [22.3, 114.2], AU: [-25, 134], NZ: [-41.5, 172.5], US: [39.5, -98.5], CA: [57, -101],
+  MX: [23.5, -102], BR: [-10, -52], AR: [-35, -65], CL: [-33, -71], CO: [4, -73], PE: [-9.5, -75], GB: [53.5, -2], IE: [53.3, -8], FR: [46.6, 2.4],
+  DE: [51.2, 10.4], NL: [52.2, 5.5], BE: [50.6, 4.6], ES: [40.2, -3.7], PT: [39.6, -8], IT: [42.8, 12.6], CH: [46.8, 8.2], AT: [47.6, 14.1], SE: [62.5, 16],
+  NO: [61, 9], DK: [56, 10], FI: [64, 26], PL: [52, 19.4], CZ: [49.8, 15.5], RO: [45.9, 25], HU: [47.2, 19.4], GR: [39.2, 22], TR: [39, 35], UA: [49, 31.5],
+  RU: [58, 60], IL: [31.4, 35], AE: [24.2, 54.3], SA: [24, 45], QA: [25.3, 51.2], EG: [26.8, 30.8], MA: [31.8, -7.1], NG: [9.1, 8.7], KE: [0.2, 37.9],
+  ZA: [-29, 24.7], PK: [30, 69.3], BD: [23.7, 90.3], LK: [7.9, 80.7], NP: [28.4, 84.1] };
+
+function world() {
+  const root = $('[data-pn="world"]');
+  if (!root) return;
+  const pins = $('.pn-map__pins', root);
   const list = $('.st__countries', root);
   const names = (() => { try { return new Intl.DisplayNames(['en'], { type: 'region' }); } catch { return null; } })();
-  const load = () => countryCounts().then(c => {
+  const load = async () => {
+    const map = await fetch('assets/polaric/worldmap.json').then(r => r.json()).catch(() => null);
+    if (map) $('.pn-map__land', root).setAttribute('d', map.d);
+    const W = map?.w || 1000, H = map?.h || 480, T = map?.top ?? 84, B = map?.bottom ?? -60;
+    const xy = ([lat, lon]) => [((lon + 180) / 360) * W, ((T - lat) / (T - B)) * H];
+    const c = await countryCounts().catch(() => ({}));
     const rows = Object.entries(c).sort((a, b) => b[1] - a[1]);
     const total = rows.reduce((s, [, v]) => s + v, 0);
-    $$('[data-count="countries"]').forEach(el => (el.textContent = fmt(rows.filter(([k]) => k !== 'other').length)));
-    $$('[data-count="tracked"]').forEach(el => (el.textContent = fmt(total)));
+    $$('[data-count="countries"]', root).forEach(el => (el.textContent = fmt(rows.filter(([k]) => k !== 'other').length)));
+    $$('[data-count="tracked"]', root).forEach(el => (el.textContent = fmt(total)));
+    const max = rows.length ? rows[0][1] : 1;
+    pins.innerHTML = rows.filter(([k]) => CENTRE[k.toUpperCase()]).map(([k, v], i) => {
+      const [x, y] = xy(CENTRE[k.toUpperCase()]);
+      const r = 8 + 12 * Math.sqrt(v / max);
+      return `<g class="pn-pin" data-cc="${k}" style="--d:${i * 0.25}s"><circle class="pn-pin__ring" cx="${x}" cy="${y}" r="${r}"/><circle class="pn-pin__dot" cx="${x}" cy="${y}" r="${r * 0.55}"/><text x="${x}" y="${y - r - 6}" text-anchor="middle">${fmt(v)}</text></g>`;
+    }).join('');
     if (!rows.length) { list.dataset.state = 'empty'; return; }
     list.dataset.state = 'ready';
-    list.innerHTML = rows.slice(0, 8).map(([k, v]) => {
+    list.innerHTML = rows.slice(0, 10).map(([k, v]) => {
       const cc = k.toUpperCase();
       const name = k === 'other' ? 'Other countries' : names?.of(cc) || cc;
-      return `<li><span class="st__c">${k === 'other' ? '' : `<span class="st__flag" aria-hidden="true">${flag(cc)}</span>`}${name}</span><span class="st__bar" style="--w:${Math.max(4, Math.round((v / rows[0][1]) * 100))}%"><i></i></span><span class="st__n">${fmt(v)}</span></li>`;
+      return `<li data-cc="${k}"><span class="st__c">${k === 'other' ? '' : `<span class="st__flag" aria-hidden="true">${flag(cc)}</span>`}${name}</span><span class="st__bar" style="--w:${Math.max(4, Math.round((v / max) * 100))}%"><i></i></span><span class="st__n">${fmt(v)}</span></li>`;
     }).join('');
-  }).catch(() => { list.dataset.state = 'empty'; });
-  // Asked for only when the section comes near, never at load.
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); load(); } }, { rootMargin: '400px' });
-    io.observe(root);
-  } else load();
+    // The legend and the map point at each other.
+    const light = cc => { $$('.pn-pin', pins).forEach(p => p.classList.toggle('is-on', p.dataset.cc === cc)); $$('li', list).forEach(l => l.classList.toggle('is-on', l.dataset.cc === cc)); };
+    root.addEventListener('pointerover', e => { const t = e.target.closest('[data-cc]'); light(t ? t.dataset.cc : null); });
+  };
+  const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); load(); } }, { rootMargin: '500px' });
+  io.observe(root);
+}
+
+/* ---------- Scrolling: the night moves behind the page (black into blue), never the words ---------- */
+
+function sky() {
+  const el = $('.pn-sky');
+  if (!el || reduced()) return;
+  let y = -1;
+  const tick = () => {
+    if (scrollY !== y) {
+      y = scrollY;
+      const max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+      el.style.setProperty('--sy', y.toFixed(1));
+      el.style.setProperty('--sp', (y / max).toFixed(4));
+    }
+    requestAnimationFrame(tick);
+  };
+  tick();
 }
 
 /* ---------- Small things: links that report, the GitHub star count ---------- */
@@ -339,4 +385,6 @@ simulator();
 customise();
 downloads();
 stats();
+world();
+sky();
 links();
