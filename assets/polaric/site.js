@@ -410,7 +410,17 @@ function links() {
   });
 }
 
+/* ---------- Support: a mascot waves thank you, still (the page's one loop is the hero's) ---------- */
+
+function thanks() {
+  const stage = $('[data-pn="thanks"]');
+  if (!stage) return;
+  const n = new Notch(stage, { scale: stage.clientWidth < 520 ? 1.05 : 1.5, palette: 'polaric', mode: 'toast', amount: 1.2 });
+  n.show('toast', `<div class="pn-line pn-line--thanks"><img class="pn-logo" src="assets/img/polaric-icon.png" alt=""><b>Thank you</b><span class="pn-sep">|</span><span class="pn-dim">for keeping Polaric free</span></div>`);
+}
+
 hero();
+thanks();
 customise();
 simulator();
 downloads();
