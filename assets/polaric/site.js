@@ -163,28 +163,50 @@ const COUNTRIES = 'ID MY SG TH PH VN IN JP KR CN TW HK AU NZ US CA MX BR AR CL C
 const COUNTER = 'https://abacus.jasoncameron.dev';
 const NS = 'polaric-site';
 
-async function country() {
+// Where this download comes from: country, city and position (from the visitor's IP, asked only on a download click).
+async function geo() {
   try {
-    const r = await fetch('https://get.geojs.io/v1/ip/country.json', { cache: 'no-store' });
-    if (r.ok) { const j = await r.json(); if (j.country) return String(j.country).toUpperCase(); }
+    const r = await fetch('https://get.geojs.io/v1/ip/geo.json', { cache: 'no-store' });
+    if (r.ok) { const j = await r.json(); if (j.country_code) return { cc: String(j.country_code).toUpperCase(), city: j.city || '', lat: +j.latitude, lon: +j.longitude }; }
   } catch {}
   try {
-    const r = await fetch('https://ipwho.is/?fields=country_code', { cache: 'no-store' });
-    if (r.ok) { const j = await r.json(); if (j.country_code) return String(j.country_code).toUpperCase(); }
+    const r = await fetch('https://ipwho.is/?fields=country_code,city,latitude,longitude', { cache: 'no-store' });
+    if (r.ok) { const j = await r.json(); if (j.country_code) return { cc: String(j.country_code).toUpperCase(), city: j.city || '', lat: +j.latitude, lon: +j.longitude }; }
   } catch {}
-  return '';
+  return { cc: '' };
+}
+
+// Cities come from assets/polaric/cities/<CC>.json ([name, lat, lon], order frozen). A download is stored as one
+// number: country letters * 100000 + the city's place in that list (0 = city unknown).
+const citiesOf = cc => cached(`pn-cities-${cc}`, 864e5, () => fetch(`assets/polaric/cities/${cc}.json`).then(r => (r.ok ? r.json() : [])).catch(() => []));
+const ccNum = cc => (cc.charCodeAt(0) - 65) * 26 + (cc.charCodeAt(1) - 65);
+const ccOf = n => String.fromCharCode(65 + Math.floor(n / 26), 65 + (n % 26));
+const plain = t => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+
+async function cityCode(g) {
+  if (!/^[A-Z]{2}$/.test(g.cc)) return 0;
+  const list = await citiesOf(g.cc);
+  let i = g.city ? list.findIndex(([n]) => plain(n) === plain(g.city)) : -1;
+  if (i < 0 && isFinite(g.lat) && isFinite(g.lon)) {
+    // The nearest city within about 40 km, when the names are written differently.
+    let best = 0.4 * 0.4;
+    list.forEach(([, la, lo], k) => { const d = (la - g.lat) ** 2 + ((lo - g.lon) * Math.cos(g.lat * Math.PI / 180)) ** 2; if (d < best) { best = d; i = k; } });
+  }
+  return ccNum(g.cc) * 100000 + (i + 1);
 }
 
 function countDownload(platform) {
   window.gtag?.('event', platform === 'macos' ? 'download_macos' : 'download_windows', { platform, app_version: VERSION, transport_type: 'beacon' });
-  // One download from this page: the visitor's country (from their IP, asked only now) gets one more.
-  country().then(cc => {
-    const key = COUNTRIES.includes(cc) ? `dl-${cc.toLowerCase()}` : 'dl-other';
-    return Promise.all([
-      fetch(`${COUNTER}/hit/${NS}/${key}`, { keepalive: true, cache: 'no-store' }),
-      fetch(`${COUNTER}/hit/${NS}/dl-${platform}-site`, { keepalive: true, cache: 'no-store' }),
-    ]);
-  }).then(() => { try { sessionStorage.removeItem('pn-countries'); } catch {} }).catch(() => {});
+  const hit = key => fetch(`${COUNTER}/hit/${NS}/${key}`, { keepalive: true, cache: 'no-store' });
+  geo().then(async g => {
+    const key = COUNTRIES.includes(g.cc) ? `dl-${g.cc.toLowerCase()}` : 'dl-other';
+    await Promise.all([hit(key), hit(`dl-${platform}-site`)]);
+    // One numbered note per download, written once, holding its city.
+    const code = await cityCode(g).catch(() => 0);
+    if (!code) return;
+    const n = (await hit('dl-seq').then(r => r.json())).value;
+    if (n > 0) await fetch(`${COUNTER}/create/${NS}/dl-log-${n}?initializer=${code}`, { keepalive: true, cache: 'no-store' });
+  }).then(() => { try { sessionStorage.removeItem('pn-countries'); sessionStorage.removeItem('pn-places'); } catch {} }).catch(() => {});
 }
 
 function downloads() {
@@ -220,6 +242,7 @@ function downloads() {
 }
 
 const fmt = n => n.toLocaleString('en-US');
+const esc = t => String(t).replace(/[&<>"']/g, ch => `&#${ch.charCodeAt(0)};`);
 
 async function cached(key, ms, get) {
   try { const c = JSON.parse(sessionStorage.getItem(key) || 'null'); if (c && Date.now() - c.t < ms) return c.d; } catch {}
@@ -268,6 +291,28 @@ async function countryCounts() {
           if (!r.ok) return;
           const j = await r.json();
           if (j.value > 0) out[k] = j.value;
+        } catch {}
+      }));
+    }
+    return out;
+  });
+}
+
+// Every download's city, from its numbered note: { 'ID:12': n, ... } (index into that country's list).
+async function placeCounts() {
+  return cached('pn-places', 10 * 60e3, async () => {
+    const out = {};
+    const r = await fetch(`${COUNTER}/get/${NS}/dl-seq`, { cache: 'no-store' }).catch(() => null);
+    const n = r?.ok ? (await r.json()).value : 0;
+    for (let i = 1; i <= n; i += 8) {
+      await Promise.all(Array.from({ length: Math.min(8, n - i + 1) }, async (_, k) => {
+        try {
+          const q = await fetch(`${COUNTER}/get/${NS}/dl-log-${i + k}`, { cache: 'no-store' });
+          if (!q.ok) return;
+          const v = (await q.json()).value;
+          const cc = ccOf(Math.floor(v / 100000)), idx = (v % 100000) - 1;
+          if (!/^[A-Z]{2}$/.test(cc) || idx < 0) return;
+          out[`${cc}:${idx}`] = (out[`${cc}:${idx}`] || 0) + 1;
         } catch {}
       }));
     }
@@ -326,23 +371,46 @@ function world() {
     if (map) $('.pn-map__land', root).setAttribute('d', map.d);
     const W = map?.w || 1000, H = map?.h || 480, T = map?.top ?? 84, B = map?.bottom ?? -60;
     const xy = ([lat, lon]) => [((lon + 180) / 360) * W, ((T - lat) / (T - B)) * H];
-    const c = await countryCounts().catch(() => ({}));
-    const rows = Object.entries(c).sort((a, b) => b[1] - a[1]);
-    const total = rows.reduce((s, [, v]) => s + v, 0);
-    $$('[data-count="countries"]', root).forEach(el => (el.textContent = fmt(rows.filter(([k]) => k !== 'other').length)));
-    $$('[data-count="tracked"]', root).forEach(el => (el.textContent = fmt(total)));
-    const max = rows.length ? rows[0][1] : 1;
-    pins.innerHTML = rows.filter(([k]) => CENTRE[k.toUpperCase()]).map(([k, v], i) => {
-      const [x, y] = xy(CENTRE[k.toUpperCase()]);
-      const r = 8 + 12 * Math.sqrt(v / max);
-      return `<g class="pn-pin" data-cc="${k}" style="--d:${i * 0.25}s"><circle class="pn-pin__ring" cx="${x}" cy="${y}" r="${r}"/><circle class="pn-pin__dot" cx="${x}" cy="${y}" r="${r * 0.55}"/><text x="${x}" y="${y - r - 6}" text-anchor="middle">${fmt(v)}</text></g>`;
+    const [c, places] = await Promise.all([countryCounts().catch(() => ({})), placeCounts().catch(() => ({}))]);
+    // Cities first (from the notes); whatever a country counted beyond its known cities stays on the country.
+    const rows = [], perCc = {};
+    for (const [k, v] of Object.entries(places)) {
+      const [cc, idx] = k.split(':');
+      const city = (await citiesOf(cc))[+idx];
+      if (!city) continue;
+      rows.push({ key: `${cc}-${idx}`, cc, city: city[0], at: [city[1], city[2]], v });
+      perCc[cc] = (perCc[cc] || 0) + v;
+    }
+    for (const [k, v] of Object.entries(c)) {
+      const cc = k.toUpperCase(), rest = v - (perCc[cc] || 0);
+      if (rest > 0) rows.push({ key: k, cc: k === 'other' ? '' : cc, city: '', at: CENTRE[cc], v: rest });
+    }
+    rows.sort((a, b) => b.v - a.v);
+    const total = rows.reduce((s, r) => s + r.v, 0);
+    const label = r => r.cc ? [r.city, names?.of(r.cc) || r.cc].filter(Boolean).join(', ') : 'Other countries';
+    // The big number is every download (GitHub's own count); places only exist from the day they were first counted.
+    const all = await platformCounts().then(n => n.total).catch(() => 0);
+    $$('[data-count="world-total"]', root).forEach(el => (el.textContent = fmt(Math.max(all, total))));
+    const nc = new Set(rows.filter(r => r.cc).map(r => r.cc)).size, ncity = rows.filter(r => r.city).length;
+    const plural = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
+    $$('[data-count="places"]', root).forEach(el => (el.textContent = [ncity && plural(ncity, 'city', 'cities'), plural(nc, 'country', 'countries')].filter(Boolean).join(' in ')));
+    const cs = $('.pn-legend__cs', root); if (cs) cs.hidden = !nc;
+    const max = rows.length ? rows[0].v : 1;
+    const labelled = [];
+    pins.innerHTML = rows.filter(r => r.at).map((r, i) => {
+      const [x, y] = xy(r.at);
+      const rad = (r.city ? 6 : 8) + 10 * Math.sqrt(r.v / max);
+      // Close cities share one number (the biggest); the others show theirs on hover.
+      const free = !labelled.some(([a, b]) => Math.hypot(a - x, b - y) < 34);
+      if (free) labelled.push([x, y]);
+      return `<g class="pn-pin${free ? '' : ' is-near'}" data-cc="${r.key}" style="--d:${i * 0.25}s"><title>${esc(label(r))}: ${fmt(r.v)}</title><circle class="pn-pin__ring" cx="${x}" cy="${y}" r="${rad}"/><circle class="pn-pin__dot" cx="${x}" cy="${y}" r="${rad * 0.55}"/><text x="${x}" y="${y - rad - 6}" text-anchor="middle">${fmt(r.v)}</text></g>`;
     }).join('');
     if (!rows.length) { list.dataset.state = 'empty'; return; }
     list.dataset.state = 'ready';
-    list.innerHTML = rows.slice(0, 10).map(([k, v]) => {
-      const cc = k.toUpperCase();
-      const name = k === 'other' ? 'Other countries' : names?.of(cc) || cc;
-      return `<li data-cc="${k}"><span class="st__c">${k === 'other' ? '' : `<span class="st__flag" aria-hidden="true">${flag(cc)}</span>`}${name}</span><span class="st__bar" style="--w:${Math.max(4, Math.round((v / max) * 100))}%"><i></i></span><span class="st__n">${fmt(v)}</span></li>`;
+    list.innerHTML = rows.slice(0, 10).map(r => {
+      const name = esc(label(r));
+      const where = r.city ? `<span class="st__city">${esc(r.city)}</span><span class="st__cn">${esc(names?.of(r.cc) || r.cc)}</span>` : `<span class="st__city">${name}</span>${r.cc ? '<span class="st__cn">City not recorded</span>' : ''}`;
+      return `<li data-cc="${r.key}" title="${name}"><span class="st__c">${r.cc ? `<span class="st__flag" aria-hidden="true">${flag(r.cc)}</span>` : ''}<span class="st__place">${where}</span></span><span class="st__bar" style="--w:${Math.max(4, Math.round((r.v / max) * 100))}%"><i></i></span><span class="st__n">${fmt(r.v)}</span></li>`;
     }).join('');
     // The legend and the map point at each other.
     const light = cc => { $$('.pn-pin', pins).forEach(p => p.classList.toggle('is-on', p.dataset.cc === cc)); $$('li', list).forEach(l => l.classList.toggle('is-on', l.dataset.cc === cc)); };

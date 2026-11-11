@@ -613,3 +613,10 @@ body { background: transparent !important; }
 .pn-legend .st__empty { margin: 0; }
 @media (prefers-reduced-motion: reduce) { .pn-pin__ring { animation: none; } }
 @media (max-width: 1023px) { .pn-map { padding: var(--s-3); } }
+
+/* Download places: city on top, country under it */
+.st__place { display: flex; flex-direction: column; min-width: 0; line-height: 1.2; }
+.st__city, .st__cn { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.st__cn { color: var(--muted); font-size: 13px; }
+.pn-pin.is-near text { opacity: 0; }
+.pn-pin.is-near.is-on text, .pn-pin.is-near:hover text { opacity: 1; }
