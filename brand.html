@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en" data-type="software" data-radius="round" data-buttons="solid" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Polaric design identity: logo, colour, type and the glow</title>
+<meta name="description" content="How Polaric looks: the app icon, the night colours, Bricolage Grotesque, the notch shape and its living glow.">
+<meta property="og:title" content="Polaric design identity">
+<meta property="og:description" content="The app icon, the night colours, the type and the living glow.">
+<meta property="og:image" content="https://polaricdev.github.io/share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
+<meta name="theme-color" content="#030712">
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Funnel+Sans:wght@400..600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/system.css">
+<link rel="stylesheet" href="assets/motion/motion.css">
+<link rel="stylesheet" href="assets/layout/layout.css">
+<style>
+@font-face { font-family: "Bricolage Grotesque"; src: url("assets/fonts/BricolageGrotesque.woff2") format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; font-display: swap; }
+:root {
+  --p-bg: #030712; --p-surface: #0a1530; --p-ink: #eef3ff; --p-muted: #93a4c8;
+  --p-accent: #3a90f6; --p-accent-ink: #030712; --p-action: #3a90f6; --p-action-ink: #030712;
+  --p-inv-bg: #0a2973; --p-inv-surface: #10357f; --p-inv-ink: #f4f7ff; --p-inv-muted: #b8c7ea;
+  --p-inv-accent: #7cc4ff; --p-inv-accent-ink: #030712; --p-inv-action: #eef3ff; --p-inv-action-ink: #071436;
+  --font-display: "Bricolage Grotesque", "Funnel Sans", system-ui, sans-serif;
+  --font-text: "Funnel Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, Menlo, monospace;
+  --display-weight: 500; --display-tracking: -0.03em; --display-tracking-xl: -0.04em; --ly-scale: 0.98;
+}
+</style>
+<link rel="stylesheet" href="assets/polaric/polaric.css?v=2">
+<style>
+.br-hero h1 { max-width: 14ch; }
+.br-hero .hero-text { display: flex; flex-direction: column; height: 100%; }
+.br-heroart { position: relative; border-radius: 28px; border: 1px solid var(--pn-line); overflow: hidden; flex: 1 1 0; min-height: 200px; margin-top: var(--s-6);
+  background: radial-gradient(70% 70% at 50% 120%, rgb(16 44 108 / .9), transparent 70%), linear-gradient(180deg, #050a1d, #071233 60%, #0a1d4f); }
+.br-heroart__stage { position: absolute; inset: 0; }
+
+.br-logo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
+.br-tile { border-radius: var(--r-lg); border: 1px solid var(--pn-line); min-height: 240px; display: grid; place-items: center; gap: var(--s-3); padding: var(--s-6); }
+.br-tile--dark { background: #000; } .br-tile--navy { background: linear-gradient(160deg, #050b23, #0a2973); } .br-tile--light { background: #eef3ff; color: #071436; }
+.br-lockup { display: flex; align-items: center; gap: 14px; font: 600 34px/1 var(--font-display); letter-spacing: -0.02em; }
+.br-lockup img { width: 56px; height: 56px; border-radius: 13px; }
+.br-tile--light .br-lockup img { box-shadow: 0 0 0 10px #071436; border-radius: 13px; background: #071436; }
+.br-swatches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s-4); }
+.br-sw { border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--pn-line); }
+.br-sw i { display: block; height: 128px; }
+.br-sw div { padding: 14px 16px; display: grid; gap: 4px; }
+.br-sw b { font: 600 16px/1.2 var(--font-text); } .br-sw span { font: 400 13px/1.3 var(--font-mono); color: var(--pn-mist); }
+.br-type { display: grid; grid-template-columns: 7fr 5fr; gap: var(--s-6); align-items: end; }
+.br-specimen { font: 500 clamp(80px, 12vw, 180px)/.9 var(--font-display); letter-spacing: -0.045em; margin: 0; }
+.br-scale { display: grid; gap: var(--s-3); }
+.br-scale p { margin: 0; display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--pn-line); padding-bottom: 12px; }
+.br-scale span:last-child { font: 400 13px/1.4 var(--font-mono); color: var(--pn-mist); white-space: nowrap; }
+.br-glow { position: relative; min-height: 380px; border-radius: 24px; border: 1px solid var(--pn-line); overflow: hidden;
+  background: radial-gradient(70% 60% at 50% 0%, rgb(58 144 246 / .16), transparent 70%), linear-gradient(180deg, #050b23, #030712); }
+.br-glow__stage { position: absolute; inset: 0; }
+.br-rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); margin-top: var(--s-6); }
+.br-rules p { margin: 0; color: var(--pn-mist); } .br-rules b { display: block; color: var(--pn-frost); font: 500 18px/1.3 var(--font-display); margin-bottom: 6px; }
+@media (max-width: 1023px) { .br-logo, .br-swatches { grid-template-columns: 1fr 1fr; } .br-type { grid-template-columns: 1fr; } .br-rules { grid-template-columns: 1fr; } }
+@media (max-width: 639px) { .br-logo, .br-swatches { grid-template-columns: 1fr; } .br-tile { min-height: 160px; } .br-sw i { height: 72px; } }
+</style>
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+</head>
+<body>
+<header class="nav nav--centre">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="nav__logo" href="index.html"><img class="pn-applogo" src="assets/img/polaric-icon.png" alt="" width="28" height="28">Polaric</a>
+    <nav class="nav__links" aria-label="Main">
+      <div class="nav__item"><a class="nav__link" href="#logo">Logo</a></div>
+      <div class="nav__item"><a class="nav__link" href="#colour">Colour</a></div>
+      <div class="nav__item"><a class="nav__link" href="#type">Type</a></div>
+      <div class="nav__item"><a class="nav__link" href="#glow">Glow</a></div>
+    </nav>
+    <div class="nav__actions"><a class="btn btn--primary" href="index.html#download">Download free</a></div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--statement br-hero" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text">
+      <p class="t-label muted">Polaric design identity, v1.0</p>
+      <h1 id="hero-h">One black shape, lit from behind</h1>
+      <p class="hero__lead">Polaric is drawn from the notch at the top of the screen: a black shape on a night that fades from black into deep blue, with one moving light. Everything else stays quiet so that light can speak.</p>
+      <div class="btn-row"><a class="btn btn--primary" href="index.html#download">Download free</a><a class="btn btn--secondary" href="https://github.com/polaricDev/polaricDev.github.io/blob/main/docs/brand-guidelines.md">Read the full guide</a></div>
+      <div class="br-heroart" role="img" aria-label="The Polaric notch, lit by its glow"><div class="br-heroart__stage" data-pn="brand-hero"></div></div>
+    </div></div>
+  </section>
+
+  <section class="section" id="logo" aria-labelledby="logo-h">
+    <div class="wrap">
+      <div class="section-head"><h2 id="logo-h">The app icon is the logo. <span class="muted">Never redrawn, recoloured or cropped.</span></h2></div>
+      <div class="br-logo fill">
+        <div class="br-tile br-tile--dark"><span class="br-lockup"><img src="assets/img/polaric-icon.png" alt="Polaric app icon" width="56" height="56">Polaric</span></div>
+        <div class="br-tile br-tile--navy"><img src="assets/img/polaric-icon.png" alt="Polaric app icon on the night ground" width="132" height="132" style="border-radius:30px"></div>
+        <div class="br-tile br-tile--light"><span class="br-lockup"><img src="assets/img/polaric-icon.png" alt="Polaric app icon on its own dark tile" width="56" height="56">Polaric</span></div>
+      </div>
+      <div class="br-rules">
+        <p><b>Clear space</b>One notch height, a quarter of the icon's width, on every side.</p>
+        <p><b>Smallest size</b>20 px on screen, 96 px for the lockup with the name.</p>
+        <p><b>On light grounds</b>The icon sits on its own dark tile. No glow behind the icon: the glow belongs to the notch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="colour" aria-labelledby="colour-h">
+    <div class="wrap">
+      <div class="section-head"><h2 id="colour-h">The night palette. <span class="muted">Black into navy, one blue for every action.</span></h2></div>
+      <div class="br-swatches fill">
+        <div class="br-sw"><i style="background:#02040d"></i><div><b>Abyss</b><span>#02040D · the notch, the top</span></div></div>
+        <div class="br-sw"><i style="background:#050b23"></i><div><b>Midnight</b><span>#050B23 · the page ground</span></div></div>
+        <div class="br-sw"><i style="background:#0a2973"></i><div><b>Navy</b><span>#0A2973 · the band, the far end</span></div></div>
+        <div class="br-sw"><i style="background:#3a90f6"></i><div><b>Signal Blue</b><span>#3A90F6 · buttons, links, focus</span></div></div>
+        <div class="br-sw"><i style="background:linear-gradient(100deg,#22d3ee,#3a90f6,#5b8cff)"></i><div><b>Ice to Signal</b><span>#22D3EE → #3A90F6 · one word a screen</span></div></div>
+        <div class="br-sw"><i style="background:#eef3ff"></i><div><b>Frost</b><span>#EEF3FF · text, 16.9:1 on Midnight</span></div></div>
+        <div class="br-sw"><i style="background:#93a4c8"></i><div><b>Mist</b><span>#93A4C8 · second lines, 7.4:1</span></div></div>
+        <div class="br-sw"><i style="background:#34d399"></i><div><b>Mint</b><span>#34D399 · done, connected</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="type" aria-labelledby="type-h">
+    <div class="wrap">
+      <div class="section-head"><h2 id="type-h">Bricolage Grotesque, the app's own face. <span class="muted">Funnel Sans for reading, DM Mono for keys.</span></h2></div>
+      <div class="br-type fill">
+        <p class="br-specimen" aria-hidden="true">Aa ⌥⇧</p>
+        <div class="br-scale">
+          <p><span style="font:500 40px/1 var(--font-display);letter-spacing:-0.04em">Hero</span><span>72 / 40 · 500 · −4%</span></p>
+          <p><span style="font:500 28px/1 var(--font-display);letter-spacing:-0.03em">Heading</span><span>48 / 30 · 500 · −3%</span></p>
+          <p><span style="font:400 20px/1.3 var(--font-text)">Lead text</span><span>20 / 18 · Funnel Sans</span></p>
+          <p><span style="font:400 16px/1.5 var(--font-text)">Body text people read</span><span>16 · 400</span></p>
+          <p><span style="font:500 15px/1 var(--font-mono)">⌥⇧A · 1.4.2.1</span><span>DM Mono · keys, versions</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="glow" aria-labelledby="glow-h">
+    <div class="wrap">
+      <div class="section-head"><h2 id="glow-h">The glow is the signature. <span class="muted">Drawn the way the app draws it.</span></h2></div>
+      <div class="br-glow fill" role="img" aria-label="Polaric's notch with its Prism glow, live"><div class="br-glow__stage" data-pn="brand"></div></div>
+      <div class="br-rules">
+        <p><b>Outline</b>A blurred stroke along the notch, its colours turning 30° a second.</p>
+        <p><b>Foot</b>Six soft lights wander along the bottom edge and breathe, screen-blended.</p>
+        <p><b>Shape</b>Masked to the notch grown by its reach: round corners, never a box or a drop shadow.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing" id="contact">
+  <div class="wrap">
+    <div class="closing__cta close--type">
+      <div class="section-head"><h2>Download Polaric free</h2><p>The identity lives in the app. Version 1.4.2.1 for Mac and Windows.</p></div>
+      <a class="btn btn--primary btn--xl btn--wide" href="index.html#download">Download free</a>
+    </div>
+    <div class="closing__links">
+      <div class="footer__legal"><span>&copy; 2026 Polaric</span><a href="index.html">Back to polaricdev.github.io</a></div>
+    </div>
+  </div>
+</footer>
+<script type="module" src="assets/system.js"></script>
+<script type="module" src="assets/motion/motion.js"></script>
+<script type="module">
+import { Notch } from './assets/polaric/notch.js';
+const stage = document.querySelector('[data-pn="brand"]');
+const scale = () => (stage.clientWidth < 520 ? 1.1 : 1.7);
+const n = new Notch(stage, { scale: scale(), palette: 'prism', mode: 'resting' });
+n.show('resting', '<div class="pn-wings"><span class="pn-eye"></span><span class="pn-cam"></span><span class="pn-eye"></span></div>');
+const hs = document.querySelector('[data-pn="brand-hero"]');
+const h = new Notch(hs, { scale: hs.clientWidth < 520 ? 1 : 1.5, palette: 'polaric', mode: 'toast', amount: 1.4 });
+h.show('toast', '<div class="pn-line"><img class="pn-logo" src="assets/img/polaric-icon.png" alt=""><b>Polaric</b><span class="pn-sep">|</span><span class="pn-dim">Your notch, alive.</span></div>');
+addEventListener('resize', () => { n.scale = scale(); n.kick(); });
+</script>
+</body>
+</html>
