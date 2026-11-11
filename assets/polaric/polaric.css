@@ -526,7 +526,7 @@ footer.closing { background: linear-gradient(180deg, transparent, rgb(10 41 115 
 
 /* the avatar: Polaric's icon as a character */
 .pn-avatar { display: block; height: auto; pointer-events: none; }
-.pn-avatar--support { position: absolute; left: 50%; bottom: 6%; transform: translateX(-50%); width: min(300px, 60%); }
+.pn-avatar--support { position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); width: min(460px, 80%); }
 .pn-avatar--close { width: 150px; margin-top: var(--s-4); }
 .pn-support__art { display: block; }
 
@@ -667,8 +667,6 @@ body { background: transparent !important; }
 /* the moon runs off the right edge of the window, not off the column */
 .pn-hero__art .pn-mascot__stage { position: absolute; top: -14%; bottom: -12%; left: -8%; right: calc(-1 * max(10%, (100vw - 100%) / 4)); cursor: pointer; }
 .pn-mascot__stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-/* the moon fades out at the bottom instead of ending on a straight line */
-.pn-hero__art .pn-mascot__stage { -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent 97%); mask-image: linear-gradient(to bottom, #000 72%, transparent 97%); }
 .pn-mascot__stage .pn-avatar { position: absolute; left: 50%; top: 50%; width: 60%; translate: -50% -50%; }
 .pn-applogo { border-radius: 9px; filter: drop-shadow(0 0 8px rgb(139 92 246 / .55)); }
 @media (prefers-reduced-motion: reduce) { .pn-space > *, .pn-shine, .pn-pill__spark { animation: none !important; } .pn-space__shoot { display: none; } }
@@ -708,3 +706,39 @@ body { background: transparent !important; }
 .st__cn { color: var(--muted); font-size: 13px; }
 .pn-pin.is-near text { opacity: 0; }
 .pn-pin.is-near.is-on text, .pn-pin.is-near:hover text { opacity: 1; }
+
+/* ---------------------------------------------------------------- what we count */
+.pn-analytics__grid { row-gap: var(--s-4); }
+.pn-analytics__card { border: 1px solid var(--pn-line); border-radius: 20px; padding: var(--s-5); background: rgb(5 11 35 / .45); display: grid; align-content: start; gap: var(--s-3); }
+.pn-analytics__card h3 { margin: 0; font: 600 20px/1.2 var(--font-display); }
+.pn-analytics__card p { margin: 0; line-height: 1.55; }
+.pn-analytics__card a, .st__empty a { color: #c4b5fd; }
+
+/* ---------------------------------------------------------------- the puppy hero (2D, from the app icon) */
+.pn-hero .pn-space__neb--a { background: radial-gradient(circle, rgb(139 92 246 / .7), rgb(91 33 182 / .35) 45%, transparent 70%); }
+.pn-hero .pn-space__neb--b { background: radial-gradient(circle, rgb(109 40 217 / .55), transparent 68%); }
+.pn-hero .pn-space { background: radial-gradient(120% 90% at 70% 30%, #3b1a8f 0%, #22105e 40%, transparent 75%); }
+.pn-space__saturn { left: auto; right: 4%; top: 7%; }
+.pn-space__planet { width: 46px; height: 46px; left: 47%; top: 58%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #a58bff, #4b2bb8 70%);
+  box-shadow: 0 0 0 0 transparent, inset -6px -6px 12px rgb(0 0 0 / .3); animation: pn-float 8s ease-in-out -2s infinite; }
+.pn-space__planet::after { content: ""; position: absolute; inset: 40% -40%; border: 3px solid rgb(196 181 253 / .7); border-radius: 50%; transform: rotate(-18deg); }
+.pn-cloud { position: absolute; bottom: -2%; height: auto; filter: drop-shadow(0 -6px 24px rgb(124 58 237 / .45)); }
+.pn-cloud--l { left: -8%; width: 46vw; animation: pn-cloud 14s ease-in-out infinite alternate; }
+.pn-cloud--r { right: -10%; width: 50vw; bottom: 2%; animation: pn-cloud 17s ease-in-out -5s infinite alternate-reverse; }
+.pn-cloud--m { left: 30%; width: 44vw; bottom: -8%; opacity: .85; animation: pn-cloud 20s ease-in-out -9s infinite alternate; }
+.pn-hero .pn-space__cloud { display: none; }
+.pn-hero .pn-space { -webkit-mask-image: none; mask-image: none; }
+.pn-hero__art .pn-puppy { position: absolute; inset: -10% -6% -6% -4%; right: -6%; display: grid; place-items: center; cursor: pointer; perspective: 900px; }
+.pn-puppy img { width: 100%; height: 100%; object-fit: contain; display: block; pointer-events: none;
+  transform: rotateY(calc(var(--lx, 0) * 8deg)) rotateX(calc(var(--ly, 0) * -6deg)) translate3d(calc(var(--lx, 0) * 10px), calc(var(--ly, 0) * 6px), 0);
+  transition: transform .5s cubic-bezier(.23, 1, .32, 1); filter: drop-shadow(0 20px 40px rgb(76 29 149 / .55)); }
+.pn-puppy.is-hop img { animation: pn-hop .9s cubic-bezier(.34, 1.4, .64, 1); }
+@keyframes pn-hop { 0% { translate: 0 0; scale: 1 1; } 15% { translate: 0 6px; scale: 1.06 .92; } 45% { translate: 0 -46px; scale: .96 1.05; rotate: -6deg; }
+  75% { translate: 0 0; scale: 1.04 .96; rotate: 3deg; } 100% { translate: 0 0; scale: 1 1; rotate: 0deg; } }
+@media (prefers-reduced-motion: reduce) { .pn-cloud, .pn-space__planet { animation: none !important; } .pn-puppy img { transform: none; } }
+@media (max-width: 899px) {
+  .pn-hero__art { aspect-ratio: 1 / 1; margin-bottom: var(--s-4); }
+  .pn-hero__art .pn-puppy { inset: -6% -2% 0 -2%; }
+  .pn-cloud--l { width: 80vw; } .pn-cloud--r { width: 90vw; } .pn-cloud--m { display: none; }
+  .pn-space__planet { display: none; }
+}

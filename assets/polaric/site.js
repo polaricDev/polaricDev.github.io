@@ -162,62 +162,9 @@ function customise() {
 const COUNTER = 'https://abacus.jasoncameron.dev';
 const NS = 'polaric-site';
 
-// Where this download comes from: country, city and position (from the visitor's IP, asked only on a download click).
-async function geo() {
-  try {
-    const r = await fetch('https://get.geojs.io/v1/ip/geo.json', { cache: 'no-store' });
-    if (r.ok) { const j = await r.json(); if (j.country_code) return { cc: String(j.country_code).toUpperCase(), city: j.city || '', lat: +j.latitude, lon: +j.longitude }; }
-  } catch {}
-  try {
-    const r = await fetch('https://ipwho.is/?fields=country_code,city,latitude,longitude', { cache: 'no-store' });
-    if (r.ok) { const j = await r.json(); if (j.country_code) return { cc: String(j.country_code).toUpperCase(), city: j.city || '', lat: +j.latitude, lon: +j.longitude }; }
-  } catch {}
-  return { cc: '' };
-}
-
-// Cities come from assets/polaric/cities/<CC>.json ([name, lat, lon], order frozen). A download is stored as one
-// number: country letters * 100000 + the city's place in that list (0 = city unknown).
-const citiesOf = cc => cached(`pn-cities-${cc}`, 864e5, () => fetch(`assets/polaric/cities/${cc}.json`).then(r => (r.ok ? r.json() : [])).catch(() => []));
-const ccNum = cc => (cc.charCodeAt(0) - 65) * 26 + (cc.charCodeAt(1) - 65);
-const ccOf = n => String.fromCharCode(65 + Math.floor(n / 26), 65 + (n % 26));
-const plain = t => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
-
-async function cityCode(g) {
-  if (!/^[A-Z]{2}$/.test(g.cc)) return 0;
-  const list = await citiesOf(g.cc);
-  // "West Jakarta", "Kota Bandung", "Bekasi Regency" -> Jakarta, Bandung, Bekasi.
-  const words = t => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
-    .replace(/\b(north|south|east|west|central|greater|city|of|kota|kabupaten|regency|district|province|utara|selatan|timur|barat|pusat)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
-  const want = words(g.city || '');
-  const far = ([, la, lo]) => (isFinite(g.lat) && isFinite(g.lon) ? (la - g.lat) ** 2 + ((lo - g.lon) * Math.cos(g.lat * Math.PI / 180)) ** 2 : 0);
-  let hits = want ? list.map((c, k) => k).filter(k => words(list[k][0]) === want) : [];
-  if (!hits.length && want) {
-    // A known city named inside the visitor's (longest name wins).
-    const len = k => { const w = words(list[k][0]); return w && ` ${want} `.includes(` ${w} `) ? w.length : 0; };
-    const top = Math.max(0, ...list.map((c, k) => len(k)));
-    if (top) hits = list.map((c, k) => k).filter(k => len(k) === top);
-  }
-  // Two cities with the same name: the one nearer the visitor.
-  let i = hits.sort((x, y) => far(list[x]) - far(list[y]))[0] ?? -1;
-  if (i < 0 && isFinite(g.lat) && isFinite(g.lon)) {
-    // The nearest city within about 40 km, when the names are written differently.
-    let best = 0.4 * 0.4;
-    list.forEach(([, la, lo], k) => { const d = (la - g.lat) ** 2 + ((lo - g.lon) * Math.cos(g.lat * Math.PI / 180)) ** 2; if (d < best) { best = d; i = k; } });
-  }
-  return ccNum(g.cc) * 100000 + (i + 1);
-}
-
+// The website counts download clicks only in Google Analytics (see #analytics); countries come from the app.
 function countDownload(platform) {
   window.gtag?.('event', platform === 'macos' ? 'download_macos' : 'download_windows', { platform, app_version: VERSION, transport_type: 'beacon' });
-  const hit = key => fetch(`${COUNTER}/hit/${NS}/${key}`, { keepalive: true, cache: 'no-store' });
-  geo().then(async g => {
-    await hit(`dl-${platform}-site`);
-    // One numbered note per download, written once, holding its country and city.
-    const code = await cityCode(g).catch(() => 0);
-    if (!code) return;
-    const n = (await hit('dl-seq').then(r => r.json())).value;
-    if (n > 0) await fetch(`${COUNTER}/create/${NS}/dl-log-${n}?initializer=${code}`, { keepalive: true, cache: 'no-store' });
-  }).then(() => { try { sessionStorage.removeItem('pn-places'); } catch {} }).catch(() => {});
 }
 
 function downloads() {
@@ -290,26 +237,29 @@ async function platformCounts() {
   return n;
 }
 
-// Every download's place: { 'ID:12': n, 'ID:-1': n (city unknown) }. A GitHub Action sums the notes into
-// assets/places.json every few hours; the page reads that file and only the few notes written since.
+// Installs and updates by country, sent by the app itself (once per install, once per update).
+// A GitHub Action sums the notes into assets/places.json every few hours; the page reads that file and
+// only the few notes written since. A note = platform × 10000 + event × 1000 + country letters.
 // (The counter service allows about 20 requests in 10 s, so never read many.)
+const ccOf = n => String.fromCharCode(65 + Math.floor(n / 26), 65 + (n % 26));
+const centres = () => cached('pn-centres', 864e5, () => fetch('assets/polaric/countries.json').then(r => (r.ok ? r.json() : {})).catch(() => ({})));
 async function placeCounts() {
-  return cached('pn-places', 10 * 60e3, async () => {
+  return cached('pn-installs', 10 * 60e3, async () => {
     const base = await fetch('assets/places.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : {})).catch(() => ({}));
-    const out = { ...(base.places || {}) };
+    const out = {};
+    for (const [cc, [i, u]] of Object.entries(base.countries || {})) out[cc] = [+i || 0, +u || 0];
     const from = (+base.seq || 0) + 1;
-    const r = await fetch(`${COUNTER}/get/${NS}/dl-seq`, { cache: 'no-store' }).catch(() => null);
+    const r = await fetch(`${COUNTER}/get/${NS}/app-seq`, { cache: 'no-store' }).catch(() => null);
     const n = r?.ok ? (await r.json()).value : 0;
     const last = Math.min(n, from + 11);
     for (let i = from; i <= last; i += 3) {
       await Promise.all([i, i + 1, i + 2].filter(k => k <= last).map(async k => {
         try {
-          const q = await fetch(`${COUNTER}/get/${NS}/dl-log-${k}`, { cache: 'no-store' });
+          const q = await fetch(`${COUNTER}/get/${NS}/app-log-${k}`, { cache: 'no-store' });
           if (!q.ok) return;
-          const v = (await q.json()).value;
-          const cc = ccOf(Math.floor(v / 100000)), idx = (v % 100000) - 1;
-          if (!/^[A-Z]{2}$/.test(cc)) return;
-          out[`${cc}:${idx}`] = (out[`${cc}:${idx}`] || 0) + 1;
+          const v = (await q.json()).value, ev = Math.floor((v % 10000) / 1000), cc = ccOf(v % 1000);
+          if (!/^[A-Z]{2}$/.test(cc) || (ev !== 1 && ev !== 2)) return;
+          (out[cc] ||= [0, 0])[ev - 1]++;
         } catch {}
       }));
     }
@@ -368,42 +318,29 @@ function world() {
     if (map) $('.pn-map__land', root).setAttribute('d', map.d);
     const W = map?.w || 1000, H = map?.h || 480, T = map?.top ?? 84, B = map?.bottom ?? -60;
     const xy = ([lat, lon]) => [((lon + 180) / 360) * W, ((T - lat) / (T - B)) * H];
-    const places = await placeCounts().catch(() => ({}));
-    // A city gets its own dot; a country whose city is unknown gets one at its centre.
-    const rows = [];
-    for (const [k, v] of Object.entries(places)) {
-      const [cc, i] = k.split(':'), idx = +i, list = await citiesOf(cc);
-      if (idx >= 0 && list[idx]) { rows.push({ key: `${cc}-${idx}`, cc, city: list[idx][0], at: [list[idx][1], list[idx][2]], v }); continue; }
-      const mid = CENTRE[cc] || (list.length ? [list.reduce((s, c) => s + c[1], 0) / list.length, list.reduce((s, c) => s + c[2], 0) / list.length] : null);
-      rows.push({ key: cc, cc, city: '', at: mid, v });
-    }
-    rows.sort((a, b) => b.v - a.v);
+    const [counts, mid] = await Promise.all([placeCounts().catch(() => ({})), centres()]);
+    const rows = Object.entries(counts).map(([cc, [i, u]]) => ({ key: cc.toLowerCase(), cc, i, u, v: i + u, at: CENTRE[cc] || mid[cc] }))
+      .filter(r => r.v > 0).sort((a, b) => b.v - a.v);
     const total = rows.reduce((s, r) => s + r.v, 0);
-    const label = r => r.cc ? [r.city, names?.of(r.cc) || r.cc].filter(Boolean).join(', ') : 'Other countries';
-    // The big number is every download (GitHub's own count); places only exist from the day they were first counted.
-    const all = await platformCounts().then(n => n.total).catch(() => 0);
-    $$('[data-count="world-total"]', root).forEach(el => (el.textContent = fmt(Math.max(all, total))));
-    const nc = new Set(rows.filter(r => r.cc).map(r => r.cc)).size, ncity = rows.filter(r => r.city).length;
+    const label = r => names?.of(r.cc) || r.cc;
     const plural = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
-    $$('[data-count="places"]', root).forEach(el => (el.textContent = [ncity && plural(ncity, 'city', 'cities'), plural(nc, 'country', 'countries')].filter(Boolean).join(' in ')));
-    const cs = $('.pn-legend__cs', root); if (cs) cs.hidden = !nc;
+    const detail = r => [r.i && plural(r.i, 'install', 'installs'), r.u && plural(r.u, 'update', 'updates')].filter(Boolean).join(' · ');
+    $$('[data-count="world-total"]', root).forEach(el => (el.textContent = fmt(total)));
+    $$('[data-count="places"]', root).forEach(el => (el.textContent = plural(rows.length, 'country', 'countries')));
+    const cs = $('.pn-legend__cs', root); if (cs) cs.hidden = !rows.length;
     const max = rows.length ? rows[0].v : 1;
     const labelled = [];
     pins.innerHTML = rows.filter(r => r.at).map((r, i) => {
       const [x, y] = xy(r.at);
-      const rad = (r.city ? 6 : 8) + 10 * Math.sqrt(r.v / max);
-      // Close cities share one number (the biggest); the others show theirs on hover.
+      const rad = 7 + 11 * Math.sqrt(r.v / max);
+      // Close countries share one number (the biggest); the others show theirs on hover.
       const free = !labelled.some(([a, b]) => Math.hypot(a - x, b - y) < 34);
       if (free) labelled.push([x, y]);
-      return `<g class="pn-pin${free ? '' : ' is-near'}" data-cc="${r.key}" style="--d:${i * 0.25}s"><title>${esc(label(r))}: ${fmt(r.v)}</title><circle class="pn-pin__ring" cx="${x}" cy="${y}" r="${rad}"/><circle class="pn-pin__dot" cx="${x}" cy="${y}" r="${rad * 0.55}"/><text x="${x}" y="${y - rad - 6}" text-anchor="middle">${fmt(r.v)}</text></g>`;
+      return `<g class="pn-pin${free ? '' : ' is-near'}" data-cc="${r.key}" style="--d:${i * 0.25}s"><title>${esc(label(r))}: ${esc(detail(r))}</title><circle class="pn-pin__ring" cx="${x}" cy="${y}" r="${rad}"/><circle class="pn-pin__dot" cx="${x}" cy="${y}" r="${rad * 0.55}"/><text x="${x}" y="${y - rad - 6}" text-anchor="middle">${fmt(r.v)}</text></g>`;
     }).join('');
     if (!rows.length) { list.dataset.state = 'empty'; return; }
     list.dataset.state = 'ready';
-    list.innerHTML = rows.slice(0, 10).map(r => {
-      const name = esc(label(r));
-      const where = r.city ? `<span class="st__city">${esc(r.city)}</span><span class="st__cn">${esc(names?.of(r.cc) || r.cc)}</span>` : `<span class="st__city">${name}</span>${r.cc ? '<span class="st__cn">City not recorded</span>' : ''}`;
-      return `<li data-cc="${r.key}" title="${name}"><span class="st__c">${r.cc ? `<span class="st__flag" aria-hidden="true">${flag(r.cc)}</span>` : ''}<span class="st__place">${where}</span></span><span class="st__bar" style="--w:${Math.max(4, Math.round((r.v / max) * 100))}%"><i></i></span><span class="st__n">${fmt(r.v)}</span></li>`;
-    }).join('');
+    list.innerHTML = rows.slice(0, 10).map(r => `<li data-cc="${r.key}" title="${esc(label(r))}: ${esc(detail(r))}"><span class="st__c"><span class="st__flag" aria-hidden="true">${flag(r.cc)}</span><span class="st__place"><span class="st__city">${esc(label(r))}</span><span class="st__cn">${esc(detail(r))}</span></span></span><span class="st__bar" style="--w:${Math.max(4, Math.round((r.v / max) * 100))}%"><i></i></span><span class="st__n">${fmt(r.v)}</span></li>`).join('');
     // The legend and the map point at each other.
     const light = cc => { $$('.pn-pin', pins).forEach(p => p.classList.toggle('is-on', p.dataset.cc === cc)); $$('li', list).forEach(l => l.classList.toggle('is-on', l.dataset.cc === cc)); };
     root.addEventListener('pointerover', e => { const t = e.target.closest('[data-cc]'); light(t ? t.dataset.cc : null); });
@@ -414,13 +351,21 @@ function world() {
 
 /* ---------- Scrolling: the night moves behind the page (black into blue), never the words ---------- */
 
-/* ---------- Polaric's mascot in 3D (the SVG stays if WebGL or the module can't load) ---------- */
+/* ---------- Polaric's puppy: leans toward the pointer, hops when clicked ---------- */
 
 function mascot() {
-  const host = $('.pn-mascot__stage');
-  if (!host) return;
-  try { const c = document.createElement('canvas'); if (!(c.getContext('webgl2') || c.getContext('webgl'))) return; } catch { return; }
-  import('./mascot3d.js').then(m => m.mount(host, $('.pn-avatar', host))).catch(() => {});
+  const host = $('.pn-puppy');
+  if (!host || reduced()) return;
+  let raf = 0, x = 0, y = 0;
+  addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    x = (e.clientX / innerWidth - 0.5) * 2; y = (e.clientY / innerHeight - 0.5) * 2;
+    if (!raf) raf = requestAnimationFrame(() => { raf = 0; host.style.setProperty('--lx', x.toFixed(3)); host.style.setProperty('--ly', y.toFixed(3)); });
+  }, { passive: true });
+  host.addEventListener('click', () => {
+    host.classList.remove('is-hop'); void host.offsetWidth; host.classList.add('is-hop');
+  });
+  host.addEventListener('animationend', e => { if (e.animationName === 'pn-hop') host.classList.remove('is-hop'); });
 }
 
 function sky() {
