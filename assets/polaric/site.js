@@ -186,7 +186,20 @@ const plain = t => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCas
 async function cityCode(g) {
   if (!/^[A-Z]{2}$/.test(g.cc)) return 0;
   const list = await citiesOf(g.cc);
-  let i = g.city ? list.findIndex(([n]) => plain(n) === plain(g.city)) : -1;
+  // "West Jakarta", "Kota Bandung", "Bekasi Regency" -> Jakarta, Bandung, Bekasi.
+  const words = t => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .replace(/\b(north|south|east|west|central|greater|city|of|kota|kabupaten|regency|district|province|utara|selatan|timur|barat|pusat)\b/g, ' ').replace(/[^a-z0-9]+/g, ' ').trim();
+  const want = words(g.city || '');
+  const far = ([, la, lo]) => (isFinite(g.lat) && isFinite(g.lon) ? (la - g.lat) ** 2 + ((lo - g.lon) * Math.cos(g.lat * Math.PI / 180)) ** 2 : 0);
+  let hits = want ? list.map((c, k) => k).filter(k => words(list[k][0]) === want) : [];
+  if (!hits.length && want) {
+    // A known city named inside the visitor's (longest name wins).
+    const len = k => { const w = words(list[k][0]); return w && ` ${want} `.includes(` ${w} `) ? w.length : 0; };
+    const top = Math.max(0, ...list.map((c, k) => len(k)));
+    if (top) hits = list.map((c, k) => k).filter(k => len(k) === top);
+  }
+  // Two cities with the same name: the one nearer the visitor.
+  let i = hits.sort((x, y) => far(list[x]) - far(list[y]))[0] ?? -1;
   if (i < 0 && isFinite(g.lat) && isFinite(g.lon)) {
     // The nearest city within about 40 km, when the names are written differently.
     let best = 0.4 * 0.4;
