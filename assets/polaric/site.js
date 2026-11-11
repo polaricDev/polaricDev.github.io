@@ -159,7 +159,6 @@ function customise() {
 
 /* ---------- Downloads: the right file for this computer, counted by platform and by country ---------- */
 
-const COUNTRIES = 'ID MY SG TH PH VN IN JP KR CN TW HK AU NZ US CA MX BR AR CL CO PE GB IE FR DE NL BE ES PT IT CH AT SE NO DK FI PL CZ RO HU GR TR UA RU IL AE SA QA EG MA NG KE ZA PK BD LK NP'.split(' ');
 const COUNTER = 'https://abacus.jasoncameron.dev';
 const NS = 'polaric-site';
 
@@ -212,14 +211,13 @@ function countDownload(platform) {
   window.gtag?.('event', platform === 'macos' ? 'download_macos' : 'download_windows', { platform, app_version: VERSION, transport_type: 'beacon' });
   const hit = key => fetch(`${COUNTER}/hit/${NS}/${key}`, { keepalive: true, cache: 'no-store' });
   geo().then(async g => {
-    const key = COUNTRIES.includes(g.cc) ? `dl-${g.cc.toLowerCase()}` : 'dl-other';
-    await Promise.all([hit(key), hit(`dl-${platform}-site`)]);
-    // One numbered note per download, written once, holding its city.
+    await hit(`dl-${platform}-site`);
+    // One numbered note per download, written once, holding its country and city.
     const code = await cityCode(g).catch(() => 0);
     if (!code) return;
     const n = (await hit('dl-seq').then(r => r.json())).value;
     if (n > 0) await fetch(`${COUNTER}/create/${NS}/dl-log-${n}?initializer=${code}`, { keepalive: true, cache: 'no-store' });
-  }).then(() => { try { sessionStorage.removeItem('pn-countries'); sessionStorage.removeItem('pn-places'); } catch {} }).catch(() => {});
+  }).then(() => { try { sessionStorage.removeItem('pn-places'); } catch {} }).catch(() => {});
 }
 
 function downloads() {
@@ -292,39 +290,25 @@ async function platformCounts() {
   return n;
 }
 
-async function countryCounts() {
-  return cached('pn-countries', 10 * 60e3, async () => {
-    const keys = [...COUNTRIES.map(c => c.toLowerCase()), 'other'];
-    const out = {};
-    // A few at a time, so the counter service is never flooded.
-    for (let i = 0; i < keys.length; i += 8) {
-      await Promise.all(keys.slice(i, i + 8).map(async k => {
-        try {
-          const r = await fetch(`${COUNTER}/get/${NS}/dl-${k}`, { cache: 'no-store' });
-          if (!r.ok) return;
-          const j = await r.json();
-          if (j.value > 0) out[k] = j.value;
-        } catch {}
-      }));
-    }
-    return out;
-  });
-}
-
-// Every download's city, from its numbered note: { 'ID:12': n, ... } (index into that country's list).
+// Every download's place: { 'ID:12': n, 'ID:-1': n (city unknown) }. A GitHub Action sums the notes into
+// assets/places.json every few hours; the page reads that file and only the few notes written since.
+// (The counter service allows about 20 requests in 10 s, so never read many.)
 async function placeCounts() {
   return cached('pn-places', 10 * 60e3, async () => {
-    const out = {};
+    const base = await fetch('assets/places.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : {})).catch(() => ({}));
+    const out = { ...(base.places || {}) };
+    const from = (+base.seq || 0) + 1;
     const r = await fetch(`${COUNTER}/get/${NS}/dl-seq`, { cache: 'no-store' }).catch(() => null);
     const n = r?.ok ? (await r.json()).value : 0;
-    for (let i = 1; i <= n; i += 8) {
-      await Promise.all(Array.from({ length: Math.min(8, n - i + 1) }, async (_, k) => {
+    const last = Math.min(n, from + 11);
+    for (let i = from; i <= last; i += 3) {
+      await Promise.all([i, i + 1, i + 2].filter(k => k <= last).map(async k => {
         try {
-          const q = await fetch(`${COUNTER}/get/${NS}/dl-log-${i + k}`, { cache: 'no-store' });
+          const q = await fetch(`${COUNTER}/get/${NS}/dl-log-${k}`, { cache: 'no-store' });
           if (!q.ok) return;
           const v = (await q.json()).value;
           const cc = ccOf(Math.floor(v / 100000)), idx = (v % 100000) - 1;
-          if (!/^[A-Z]{2}$/.test(cc) || idx < 0) return;
+          if (!/^[A-Z]{2}$/.test(cc)) return;
           out[`${cc}:${idx}`] = (out[`${cc}:${idx}`] || 0) + 1;
         } catch {}
       }));
@@ -384,19 +368,14 @@ function world() {
     if (map) $('.pn-map__land', root).setAttribute('d', map.d);
     const W = map?.w || 1000, H = map?.h || 480, T = map?.top ?? 84, B = map?.bottom ?? -60;
     const xy = ([lat, lon]) => [((lon + 180) / 360) * W, ((T - lat) / (T - B)) * H];
-    const [c, places] = await Promise.all([countryCounts().catch(() => ({})), placeCounts().catch(() => ({}))]);
-    // Cities first (from the notes); whatever a country counted beyond its known cities stays on the country.
-    const rows = [], perCc = {};
+    const places = await placeCounts().catch(() => ({}));
+    // A city gets its own dot; a country whose city is unknown gets one at its centre.
+    const rows = [];
     for (const [k, v] of Object.entries(places)) {
-      const [cc, idx] = k.split(':');
-      const city = (await citiesOf(cc))[+idx];
-      if (!city) continue;
-      rows.push({ key: `${cc}-${idx}`, cc, city: city[0], at: [city[1], city[2]], v });
-      perCc[cc] = (perCc[cc] || 0) + v;
-    }
-    for (const [k, v] of Object.entries(c)) {
-      const cc = k.toUpperCase(), rest = v - (perCc[cc] || 0);
-      if (rest > 0) rows.push({ key: k, cc: k === 'other' ? '' : cc, city: '', at: CENTRE[cc], v: rest });
+      const [cc, i] = k.split(':'), idx = +i, list = await citiesOf(cc);
+      if (idx >= 0 && list[idx]) { rows.push({ key: `${cc}-${idx}`, cc, city: list[idx][0], at: [list[idx][1], list[idx][2]], v }); continue; }
+      const mid = CENTRE[cc] || (list.length ? [list.reduce((s, c) => s + c[1], 0) / list.length, list.reduce((s, c) => s + c[2], 0) / list.length] : null);
+      rows.push({ key: cc, cc, city: '', at: mid, v });
     }
     rows.sort((a, b) => b.v - a.v);
     const total = rows.reduce((s, r) => s + r.v, 0);
@@ -435,6 +414,15 @@ function world() {
 
 /* ---------- Scrolling: the night moves behind the page (black into blue), never the words ---------- */
 
+/* ---------- Polaric's mascot in 3D (the SVG stays if WebGL or the module can't load) ---------- */
+
+function mascot() {
+  const host = $('.pn-mascot__stage');
+  if (!host) return;
+  try { const c = document.createElement('canvas'); if (!(c.getContext('webgl2') || c.getContext('webgl'))) return; } catch { return; }
+  import('./mascot3d.js').then(m => m.mount(host, $('.pn-avatar', host))).catch(() => {});
+}
+
 function sky() {
   const el = $('.pn-sky');
   if (!el || reduced()) return;
@@ -468,4 +456,5 @@ downloads();
 stats();
 world();
 sky();
+mascot();
 links();
