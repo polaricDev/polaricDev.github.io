@@ -742,3 +742,9 @@ body { background: transparent !important; }
   .pn-cloud--l { width: 80vw; } .pn-cloud--r { width: 90vw; } .pn-cloud--m { display: none; }
   .pn-space__planet { display: none; }
 }
+
+/* platform marks: Apple logo + macOS, Windows logo + Windows */
+.pn-dl__os { display: inline-flex; align-items: center; gap: 8px; }
+.pn-dl__os svg { width: 16px; height: 16px; flex: none; }
+.pn-seg button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; }
+.pn-seg button svg { width: 14px; height: 14px; flex: none; }
