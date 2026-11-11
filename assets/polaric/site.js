@@ -1,7 +1,7 @@
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const VERSION = '1.4.2.2';
+const VERSION = '1.5.0';
 const REPO = 'polaricDev/polaricDev.github.io';
 const isWindows = /Win/i.test(navigator.userAgentData?.platform || navigator.platform || '');
 const isMac = /Mac/i.test(navigator.userAgentData?.platform || navigator.platform || '') && !('ontouchend' in document && navigator.maxTouchPoints > 1);
@@ -159,8 +159,6 @@ function customise() {
 
 /* ---------- Downloads: the right file for this computer, counted by platform and by country ---------- */
 
-const COUNTER = 'https://abacus.jasoncameron.dev';
-const NS = 'polaric-site';
 
 // The website counts download clicks only in Google Analytics (see #analytics); countries come from the app.
 function countDownload(platform) {
@@ -243,28 +241,22 @@ async function platformCounts() {
 // (The counter service allows about 20 requests in 10 s, so never read many.)
 const ccOf = n => String.fromCharCode(65 + Math.floor(n / 26), 65 + (n % 26));
 const centres = () => cached('pn-centres', 864e5, () => fetch('assets/polaric/countries.json').then(r => (r.ok ? r.json() : {})).catch(() => ({})));
+// Cities and countries from assets/places.json, which a GitHub Action fills from the app's notes every
+// hour (the counter service itself is too slow to ask from the page).
 async function placeCounts() {
-  return cached('pn-installs', 10 * 60e3, async () => {
-    const base = await fetch('assets/places.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : {})).catch(() => ({}));
-    const out = {};
-    for (const [cc, [i, u]] of Object.entries(base.countries || {})) out[cc] = [+i || 0, +u || 0];
-    const from = (+base.seq || 0) + 1;
-    const r = await fetch(`${COUNTER}/get/${NS}/app-seq`, { cache: 'no-store' }).catch(() => null);
-    const n = r?.ok ? (await r.json()).value : 0;
-    const last = Math.min(n, from + 11);
-    for (let i = from; i <= last; i += 3) {
-      await Promise.all([i, i + 1, i + 2].filter(k => k <= last).map(async k => {
-        try {
-          const q = await fetch(`${COUNTER}/get/${NS}/app-log-${k}`, { cache: 'no-store' });
-          if (!q.ok) return;
-          const v = (await q.json()).value, ev = Math.floor((v % 10000) / 1000), cc = ccOf(v % 1000);
-          if (!/^[A-Z]{2}$/.test(cc) || (ev !== 1 && ev !== 2)) return;
-          (out[cc] ||= [0, 0])[ev - 1]++;
-        } catch {}
-      }));
-    }
-    return out;
-  });
+  const base = await fetch('assets/places.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : {})).catch(() => ({}));
+  const rows = [];
+  const left = {};
+  for (const [cc, [i, u]] of Object.entries(base.countries || {})) left[cc] = [+i || 0, +u || 0];
+  for (const [key, c] of Object.entries(base.cities || {})) {
+    const [cc, city] = key.split('|');
+    const [i, u] = (c.n || []).map(x => +x || 0);
+    rows.push({ key: key.toLowerCase().replace(/[^a-z0-9]+/g, '-'), cc, city, i, u, at: c.at });
+    if (left[cc]) { left[cc][0] -= i; left[cc][1] -= u; }
+  }
+  // Older notes knew only the country.
+  for (const [cc, [i, u]] of Object.entries(left)) if (i > 0 || u > 0) rows.push({ key: cc.toLowerCase(), cc, city: null, i: Math.max(0, i), u: Math.max(0, u), at: null });
+  return rows;
 }
 
 function flag(cc) {
@@ -318,15 +310,16 @@ function world() {
     if (map) $('.pn-map__land', root).setAttribute('d', map.d);
     const W = map?.w || 1000, H = map?.h || 480, T = map?.top ?? 84, B = map?.bottom ?? -60;
     const xy = ([lat, lon]) => [((lon + 180) / 360) * W, ((T - lat) / (T - B)) * H];
-    const [counts, mid] = await Promise.all([placeCounts().catch(() => ({})), centres()]);
-    const rows = Object.entries(counts).map(([cc, [i, u]]) => ({ key: cc.toLowerCase(), cc, i, u, v: i + u, at: CENTRE[cc] || mid[cc] }))
-      .filter(r => r.v > 0).sort((a, b) => b.v - a.v);
+    const [places, mid] = await Promise.all([placeCounts().catch(() => []), centres()]);
+    const rows = places.map(r => ({ ...r, v: r.i + r.u, at: r.at || CENTRE[r.cc] || mid[r.cc] })).filter(r => r.v > 0).sort((a, b) => b.v - a.v);
     const total = rows.reduce((s, r) => s + r.v, 0);
-    const label = r => names?.of(r.cc) || r.cc;
+    const country = r => names?.of(r.cc) || r.cc;
+    const label = r => (r.city ? `${r.city}, ${country(r)}` : country(r));
     const plural = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
     const detail = r => [r.i && plural(r.i, 'install', 'installs'), r.u && plural(r.u, 'update', 'updates')].filter(Boolean).join(' · ');
+    const nCountries = new Set(rows.map(r => r.cc)).size, nCities = rows.filter(r => r.city).length;
     $$('[data-count="world-total"]', root).forEach(el => (el.textContent = fmt(total)));
-    $$('[data-count="places"]', root).forEach(el => (el.textContent = plural(rows.length, 'country', 'countries')));
+    $$('[data-count="places"]', root).forEach(el => (el.textContent = [nCities && plural(nCities, 'city', 'cities'), plural(nCountries, 'country', 'countries')].filter(Boolean).join(' · ')));
     const cs = $('.pn-legend__cs', root); if (cs) cs.hidden = !rows.length;
     const max = rows.length ? rows[0].v : 1;
     const labelled = [];
@@ -340,7 +333,7 @@ function world() {
     }).join('');
     if (!rows.length) { list.dataset.state = 'empty'; return; }
     list.dataset.state = 'ready';
-    list.innerHTML = rows.slice(0, 10).map(r => `<li data-cc="${r.key}" title="${esc(label(r))}: ${esc(detail(r))}"><span class="st__c"><span class="st__flag" aria-hidden="true">${flag(r.cc)}</span><span class="st__place"><span class="st__city">${esc(label(r))}</span><span class="st__cn">${esc(detail(r))}</span></span></span><span class="st__bar" style="--w:${Math.max(4, Math.round((r.v / max) * 100))}%"><i></i></span><span class="st__n">${fmt(r.v)}</span></li>`).join('');
+    list.innerHTML = rows.slice(0, 12).map(r => `<li data-cc="${r.key}" title="${esc(label(r))}: ${esc(detail(r))}"><span class="st__c"><span class="st__flag" aria-hidden="true">${flag(r.cc)}</span><span class="st__place"><span class="st__city">${esc(r.city || country(r))}</span><span class="st__cn">${esc(r.city ? `${country(r)} · ${detail(r)}` : detail(r))}</span></span></span><span class="st__bar" style="--w:${Math.max(4, Math.round((r.v / max) * 100))}%"><i></i></span><span class="st__n">${fmt(r.v)}</span></li>`).join('');
     // The legend and the map point at each other.
     const light = cc => { $$('.pn-pin', pins).forEach(p => p.classList.toggle('is-on', p.dataset.cc === cc)); $$('li', list).forEach(l => l.classList.toggle('is-on', l.dataset.cc === cc)); };
     root.addEventListener('pointerover', e => { const t = e.target.closest('[data-cc]'); light(t ? t.dataset.cc : null); });

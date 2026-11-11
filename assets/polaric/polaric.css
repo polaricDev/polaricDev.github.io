@@ -707,12 +707,17 @@ body { background: transparent !important; }
 .pn-pin.is-near text { opacity: 0; }
 .pn-pin.is-near.is-on text, .pn-pin.is-near:hover text { opacity: 1; }
 
-/* ---------------------------------------------------------------- what we count */
-.pn-analytics__grid { row-gap: var(--s-4); }
-.pn-analytics__card { border: 1px solid var(--pn-line); border-radius: 20px; padding: var(--s-5); background: rgb(5 11 35 / .45); display: grid; align-content: start; gap: var(--s-3); }
-.pn-analytics__card h3 { margin: 0; font: 600 20px/1.2 var(--font-display); }
-.pn-analytics__card p { margin: 0; line-height: 1.55; }
-.pn-analytics__card a, .st__empty a { color: #c4b5fd; }
+/* ---------------------------------------------------------------- Polaric Disclaimer */
+.pn-disc__lead { max-width: 820px; display: grid; gap: var(--s-3); margin-bottom: var(--s-6); }
+.pn-disc__lead p { margin: 0; line-height: 1.6; }
+.pn-disc__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--s-4); }
+.pn-disc__card { border: 1px solid var(--pn-line); border-radius: 20px; padding: var(--s-5); background: rgb(5 11 35 / .45); display: grid; align-content: start; gap: var(--s-3); }
+.pn-disc__card h3 { margin: 0; font: 600 19px/1.2 var(--font-display); }
+.pn-disc__card p { margin: 0; line-height: 1.55; }
+.pn-disc__card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 6px 12px; font-size: 14px; line-height: 1.45; }
+.pn-disc__card dt { color: #c4b5fd; font-weight: 600; }
+.pn-disc__card dd { margin: 0; color: var(--muted); overflow-wrap: anywhere; }
+.pn-disc__lead a, .st__empty a { color: #c4b5fd; }
 
 /* ---------------------------------------------------------------- the puppy hero (2D, from the app icon) */
 .pn-hero .pn-space__neb--a { background: radial-gradient(circle, rgb(139 92 246 / .7), rgb(91 33 182 / .35) 45%, transparent 70%); }
