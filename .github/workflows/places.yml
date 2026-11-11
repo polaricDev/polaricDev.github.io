@@ -1,0 +1,27 @@
+name: Download places
+# Sums the download notes into assets/places.json, so the map reads one file instead of many counters.
+on:
+  schedule:
+    - cron: '17 */3 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency: places
+jobs:
+  sum:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/places.mjs
+      - name: Commit when changed
+        run: |
+          git diff --quiet assets/places.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898699+github-actions[bot]@users.noreply.github.com"
+          git add assets/places.json
+          git commit -m "Download places: sum the latest notes"
+          git push
