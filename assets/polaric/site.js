@@ -1,7 +1,7 @@
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const VERSION = '1.4.2.1';
+const VERSION = '1.4.2.2';
 const REPO = 'polaricDev/polaricDev.github.io';
 const isWindows = /Win/i.test(navigator.userAgentData?.platform || navigator.platform || '');
 const isMac = /Mac/i.test(navigator.userAgentData?.platform || navigator.platform || '') && !('ontouchend' in document && navigator.maxTouchPoints > 1);
