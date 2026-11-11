@@ -42,7 +42,7 @@
   --ly-scale: 0.98;
 }
 </style>
-<link rel="stylesheet" href="assets/polaric/polaric.css?v=2">
+<link rel="stylesheet" href="assets/polaric/polaric.css?v=3">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script src="assets/backgrounds/backgrounds.js"></script>
 <script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
@@ -99,7 +99,13 @@
       <div class="nav__item"><a class="nav__link" href="#faq">Questions</a></div>
     </nav>
     <div class="nav__actions">
-      <a class="btn btn--primary" href="#download" data-download="auto">Download free</a>
+      <div class="pn-dl pn-dl--end">
+        <a class="btn btn--primary" href="#download" data-dl-toggle aria-haspopup="true" aria-expanded="false">Download free<svg class="pn-dl__chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="pn-dl__menu" hidden>
+          <a href="https://github.com/polaricDev/polaricDev.github.io/releases/latest/download/Polaric-Notch.dmg" data-download="macos"><span class="pn-dl__os">MacBook</span><span class="pn-dl__meta">macOS 14 or later · .dmg, 12.8 MB</span></a>
+          <a href="https://github.com/polaricDev/polaricDev.github.io/releases/latest/download/Polaric-Setup.exe" data-download="windows"><span class="pn-dl__os">Windows</span><span class="pn-dl__meta">Windows 10 and 11 · .exe, 126 MB</span></a>
+        </div>
+      </div>
     </div>
     <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu">
       <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -115,7 +121,13 @@
         <h1 id="hero-h">A living notch for Mac and Windows</h1>
         <p class="hero__lead">Polaric turns the notch at the top of your screen into an island for music, messages, meetings and AI answers, with 74 mascots beside the camera. Free, version 1.4.2.1.</p>
         <div class="btn-row">
-          <a class="btn btn--primary" href="#download" data-download="auto">Download free<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+          <div class="pn-dl">
+        <a class="btn btn--primary" href="#download" data-dl-toggle aria-haspopup="true" aria-expanded="false">Download free<svg class="pn-dl__chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="pn-dl__menu" hidden>
+          <a href="https://github.com/polaricDev/polaricDev.github.io/releases/latest/download/Polaric-Notch.dmg" data-download="macos"><span class="pn-dl__os">MacBook</span><span class="pn-dl__meta">macOS 14 or later · .dmg, 12.8 MB</span></a>
+          <a href="https://github.com/polaricDev/polaricDev.github.io/releases/latest/download/Polaric-Setup.exe" data-download="windows"><span class="pn-dl__os">Windows</span><span class="pn-dl__meta">Windows 10 and 11 · .exe, 126 MB</span></a>
+        </div>
+      </div>
           <a class="btn btn--secondary" href="#try">Try it in your browser</a>
         </div>
         <p class="pn-tally"><b data-count="total">126</b> downloads so far <span class="pn-tally__dot" aria-hidden="true"></span> <span data-count="macos">44</span> on Mac, <span data-count="windows">82</span> on Windows</p>
@@ -128,10 +140,10 @@
     </div></div>
   </section>
 
-  <section class="section pn-try" id="try" data-pn="sim" data-platform="mac" aria-labelledby="try-h">
+  <section class="section pn-try" id="try" style="--hm: 2" data-pn="sim" data-platform="mac" aria-labelledby="try-h">
     <div class="wrap">
       <div class="section-head pn-tryhead">
-        <h2 id="try-h">Polaric in your browser. <span class="muted">Pick a moment.</span></h2>
+        <h2 id="try-h">Polaric in your browser. <span class="muted">31 moments to play.</span></h2>
         <div class="pn-seg" role="group" aria-label="Computer">
           <button type="button" data-os="mac" aria-pressed="true">MacBook</button>
           <button type="button" data-os="windows" aria-pressed="false">Windows</button>
@@ -141,15 +153,36 @@
         <div class="sim__bar">
         <div class="sim__tabs" role="group" aria-label="Moments to play">
           <button type="button" data-play="music" aria-pressed="false">Music and lyrics</button>
-          <button type="button" data-play="messages" aria-pressed="false">Messages</button>
-          <button type="button" data-play="meeting" aria-pressed="false">Meeting</button>
+          <button type="button" data-play="hud" aria-pressed="false">Volume and brightness</button>
+          <button type="button" data-play="messages" aria-pressed="false">Chats</button>
+          <button type="button" data-play="email" aria-pressed="false">Email</button>
+          <button type="button" data-play="meeting" aria-pressed="false">Meetings</button>
+          <button type="button" data-play="cammic" aria-pressed="false">Camera and mic</button>
           <button type="button" data-play="ai" aria-pressed="false">AI Assistant</button>
+          <button type="button" data-play="aitask" aria-pressed="false">AI task done</button>
+          <button type="button" data-play="ailimit" aria-pressed="false">AI limits</button>
           <button type="button" data-play="privacy" aria-pressed="false">Privacy Mode</button>
+          <button type="button" data-play="applock" aria-pressed="false">App Lock</button>
+          <button type="button" data-play="remote" aria-pressed="false">Remote Active</button>
           <button type="button" data-play="autotext" aria-pressed="false">AutoText</button>
+          <button type="button" data-play="ocr" aria-pressed="false">Text capture</button>
           <button type="button" data-play="shot" aria-pressed="false">Screenshot</button>
-          <button type="button" data-play="timer" aria-pressed="false">Focus timer</button>
-          <button type="button" data-play="prompter" aria-pressed="false">Teleprompter</button>
+          <button type="button" data-play="record" aria-pressed="false">Screen recording</button>
+          <button type="button" data-play="snap" aria-pressed="false">Window Snap</button>
+          <button type="button" data-play="clipboard" aria-pressed="false">Clipboard</button>
           <button type="button" data-play="memo" aria-pressed="false">Sticky memo</button>
+          <button type="button" data-play="prompter" aria-pressed="false">Teleprompter</button>
+          <button type="button" data-play="timer" aria-pressed="false">Focus timer</button>
+          <button type="button" data-play="todo" aria-pressed="false">To-do</button>
+          <button type="button" data-play="prayer" aria-pressed="false">Prayer Times</button>
+          <button type="button" data-play="ambient" aria-pressed="false">Ambient sounds</button>
+          <button type="button" data-play="battery" aria-pressed="false">AirPods and battery</button>
+          <button type="button" data-play="network" aria-pressed="false">Wi-Fi and network</button>
+          <button type="button" data-play="publicwifi" aria-pressed="false">Public Wi-Fi</button>
+          <button type="button" data-play="data" aria-pressed="false">Data usage</button>
+          <button type="button" data-play="download" aria-pressed="false">Downloads</button>
+          <button type="button" data-play="game" aria-pressed="false">Game FPS</button>
+          <button type="button" data-play="clock" aria-pressed="false">Idle clock</button>
         </div>
 
         </div>
@@ -160,6 +193,13 @@
           <div class="sim__win" aria-hidden="true">
             <div class="sim__winbar"><i></i><i></i><i></i><span>Message to Dimas</span></div>
             <p class="sim__type">Hi Dimas, the slides are in the shared folder.</p>
+          </div>
+          <div class="sim__ocr" aria-hidden="true"><span>Invoice 2026-118<br>Due 20 November<br>Total Rp 4.250.000</span></div>
+          <div class="sim__rec" aria-hidden="true"><span class="sim__recpill">● Recording</span></div>
+          <div class="sim__memo" aria-hidden="true">
+            <div class="sim__memo-top"><b>Today</b><button type="button" class="sim__memo-close" tabindex="-1" aria-hidden="true">×</button></div>
+            <ul><li>Send the slides to Dimas</li><li>Book the dentist, Thursday</li><li>Ask Rina about the venue</li><li>Pay the internet bill</li></ul>
+            <span class="sim__memo-key">⌥M</span>
           </div>
           <div class="sim__flash" aria-hidden="true"></div>
           <div class="sim__shot" hidden aria-hidden="true">
@@ -195,9 +235,9 @@
           <div class="cz__group">
             <p class="t-label">Mascot</p>
             <div class="cz__mascots" role="group" aria-label="Mascot">
-              <button type="button" data-mascot="foxy" aria-pressed="true" aria-label="Foxy"><img src="assets/img/mascots/foxy.webp" alt="" width="72" height="27"></button>
+              <button type="button" data-mascot="foxy" aria-pressed="false" aria-label="Foxy"><img src="assets/img/mascots/foxy.webp" alt="" width="72" height="27"></button>
               <button type="button" data-mascot="nyanko" aria-pressed="false" aria-label="Nyanko"><img src="assets/img/mascots/nyanko.webp" alt="" width="72" height="27"></button>
-              <button type="button" data-mascot="kitsune" aria-pressed="false" aria-label="Kitsune"><img src="assets/img/mascots/kitsune.webp" alt="" width="72" height="27"></button>
+              <button type="button" data-mascot="kitsune" aria-pressed="true" aria-label="Kitsune"><img src="assets/img/mascots/kitsune.webp" alt="" width="72" height="27"></button>
               <button type="button" data-mascot="mochi" aria-pressed="false" aria-label="Mochi"><img src="assets/img/mascots/mochi.webp" alt="" width="72" height="27"></button>
               <button type="button" data-mascot="aurora" aria-pressed="false" aria-label="Aurora"><img src="assets/img/mascots/aurora.webp" alt="" width="72" height="27"></button>
               <button type="button" data-mascot="draco" aria-pressed="false" aria-label="Draco"><img src="assets/img/mascots/draco.webp" alt="" width="72" height="27"></button>
@@ -322,7 +362,13 @@
         <h2 id="close-h">Download Polaric free</h2>
         <p>Version 1.4.2.1 for macOS 14 or later and Windows 10 and 11.</p>
       </div>
-      <a class="btn btn--primary btn--xl btn--wide" href="#download" data-download="auto">Download free<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+      <div class="pn-dl pn-dl--wide pn-dl--up">
+        <a class="btn btn--primary btn--xl btn--wide" href="#download" data-dl-toggle aria-haspopup="true" aria-expanded="false">Download free<svg class="pn-dl__chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="pn-dl__menu" hidden>
+          <a href="https://github.com/polaricDev/polaricDev.github.io/releases/latest/download/Polaric-Notch.dmg" data-download="macos"><span class="pn-dl__os">MacBook</span><span class="pn-dl__meta">macOS 14 or later · .dmg, 12.8 MB</span></a>
+          <a href="https://github.com/polaricDev/polaricDev.github.io/releases/latest/download/Polaric-Setup.exe" data-download="windows"><span class="pn-dl__os">Windows</span><span class="pn-dl__meta">Windows 10 and 11 · .exe, 126 MB</span></a>
+        </div>
+      </div>
     </div>
     <div class="closing__links">
       <div class="grid">
@@ -346,6 +392,6 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
-<script type="module" src="assets/polaric/site.js?v=2"></script>
+<script type="module" src="assets/polaric/site.js?v=3"></script>
 </body>
 </html>

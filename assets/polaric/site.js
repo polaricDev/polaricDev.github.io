@@ -15,26 +15,57 @@ const isMac = /Mac/i.test(navigator.userAgentData?.platform || navigator.platfor
 
 /* ---------- What the notch shows: the app's own layouts and words ---------- */
 
+const IC = {"sun": "<circle cx=\"10\" cy=\"10\" r=\"3.4\" fill=\"currentColor\"/><path d=\"M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M4.7 15.3l1.4-1.4M13.9 6.1l1.4-1.4\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>", "bat": "<rect x=\"2\" y=\"6\" width=\"14\" height=\"8\" rx=\"2\" stroke=\"currentColor\" stroke-width=\"1.5\" fill=\"none\"/><rect x=\"3.6\" y=\"7.6\" width=\"3\" height=\"4.8\" rx=\"1\" fill=\"#ff5f7e\"/><path d=\"M17.5 8.5v3\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>", "pods": "<path d=\"M6 4a2.5 2.5 0 0 1 2.5 2.5V12a1.5 1.5 0 0 1-3 0V9.5A2.5 2.5 0 0 1 6 4zM14 4a2.5 2.5 0 0 0-2.5 2.5V12a1.5 1.5 0 0 0 3 0V9.5A2.5 2.5 0 0 0 14 4z\" stroke=\"currentColor\" stroke-width=\"1.4\" fill=\"none\"/>", "wifi": "<path d=\"M2.5 8a10.5 10.5 0 0 1 15 0M5 10.6a7 7 0 0 1 10 0M7.6 13.2a3.4 3.4 0 0 1 4.8 0\" stroke=\"currentColor\" stroke-width=\"1.6\" fill=\"none\" stroke-linecap=\"round\"/><circle cx=\"10\" cy=\"15.6\" r=\"1.2\" fill=\"currentColor\"/>", "down": "<path d=\"M10 3v9M6 8.5l4 4 4-4M4 16h12\" stroke=\"currentColor\" stroke-width=\"1.7\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>", "cam": "<rect x=\"2.5\" y=\"5.5\" width=\"10\" height=\"9\" rx=\"2\" stroke=\"currentColor\" stroke-width=\"1.6\" fill=\"none\"/><path d=\"m12.5 9 5-3v8l-5-3z\" fill=\"currentColor\"/>", "moon": "<path d=\"M14.5 13.5A6.5 6.5 0 0 1 8 3.6a6.5 6.5 0 1 0 6.5 9.9z\" fill=\"currentColor\"/>", "text": "<path d=\"M3 5h14M3 9h14M3 13h9\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\"/>", "clip": "<rect x=\"5\" y=\"3.5\" width=\"10\" height=\"14\" rx=\"2\" stroke=\"currentColor\" stroke-width=\"1.6\" fill=\"none\"/><path d=\"M8 3.5h4v2H8z\" fill=\"currentColor\"/>", "rec": "<circle cx=\"10\" cy=\"10\" r=\"5\" fill=\"#ff4d5e\"/>", "lock": "<rect x=\"4.5\" y=\"9\" width=\"11\" height=\"8\" rx=\"2\" fill=\"currentColor\"/><path d=\"M7 9V7a3 3 0 0 1 6 0v2\" stroke=\"currentColor\" stroke-width=\"1.7\" fill=\"none\"/>", "remote": "<rect x=\"2.5\" y=\"4\" width=\"15\" height=\"10\" rx=\"1.8\" stroke=\"currentColor\" stroke-width=\"1.6\" fill=\"none\"/><path d=\"M7 17h6M10 14v3\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/><path d=\"M8 8l2.5 1.5L8 11z\" fill=\"currentColor\"/>", "chart": "<path d=\"M4 16V9M8.5 16V5M13 16v-5M17 16V7\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"/>", "warn": "<path d=\"M10 3 18 17H2z\" stroke=\"currentColor\" stroke-width=\"1.6\" fill=\"none\" stroke-linejoin=\"round\"/><path d=\"M10 8v4\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\"/><circle cx=\"10\" cy=\"14.4\" r=\"1\" fill=\"currentColor\"/>", "rain": "<path d=\"M6 11a4 4 0 0 1 .3-8A5 5 0 0 1 15.6 5 3 3 0 0 1 15 11z\" fill=\"currentColor\"/><path d=\"M7 14l-1 3M11 14l-1 3M15 14l-1 3\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/>", "check": "<circle cx=\"10\" cy=\"10\" r=\"7.5\" stroke=\"currentColor\" stroke-width=\"1.6\" fill=\"none\"/><path d=\"m6.8 10.2 2.2 2.2 4.2-4.6\" stroke=\"currentColor\" stroke-width=\"1.7\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>", "game": "<path d=\"M6 7h8a4 4 0 0 1 3.9 4.8l-.6 2.8a2 2 0 0 1-3.4.9L12 13.5H8l-1.9 2a2 2 0 0 1-3.4-.9l-.6-2.8A4 4 0 0 1 6 7z\" stroke=\"currentColor\" stroke-width=\"1.5\" fill=\"none\"/><path d=\"M7 9.5v2.5M5.8 10.75h2.4\" stroke=\"currentColor\" stroke-width=\"1.4\" stroke-linecap=\"round\"/>", "caps": "<path d=\"M10 3 4 10h3.5v4h5v-4H16z\" stroke=\"currentColor\" stroke-width=\"1.6\" fill=\"none\" stroke-linejoin=\"round\"/><path d=\"M7.5 17h5\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\"/>"};
+const ic = (k, c = "") => `<svg class="pn-ic ${c}" viewBox="0 0 20 20" aria-hidden="true">${IC[k]}</svg>`;
+let mascotChoice = "kitsune";
+
 const SHOW = {
-  rest: () => ['resting', `<div class="pn-wings"><span class="pn-eye"></span><span class="pn-cam"></span><span class="pn-eye"></span></div>`],
+  rest: (m = mascotChoice) => ['toast', `<img class="pn-mascot" src="assets/img/mascots/${m}.webp" alt="" width="150" height="56">`],
   closed: () => ['closed', ''],
   music: () => ['wings', `<div class="pn-wings"><span class="pn-art" aria-hidden="true"></span><span class="pn-cam"></span><span class="pn-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span></div>`],
   song: () => ['toast', `<div class="pn-line">${logo('media-spotify')}<b>Midnight Drive</b><span class="pn-dim">· Polaric FM</span></div>`],
   lyric: (line = 'City lights are calling out my name') => ['toast', `<div class="pn-line pn-line--lyric"><span class="pn-eq pn-eq--sm" aria-hidden="true"><i></i><i></i><i></i></span><b>${line}</b></div>`],
   whatsapp: (n = 1) => ['toast', `<div class="pn-line">${logo('notify-whatsapp')}<b>Rina</b><span class="pn-sep">|</span><span>${n} New message${n > 1 ? 's' : ''} received</span></div>`],
+  telegram: () => ['toast', `<div class="pn-line">${logo('notify-telegram')}<b>Family</b><span class="pn-sep">|</span><span>1 New message received</span></div>`],
   email: () => ['toast', `<div class="pn-line">${logo('notify-gmail')}<span>Email received from <b>Dimas</b></span><span class="pn-sep">|</span><span class="pn-dim">Slides for Friday</span></div>`],
   slack: () => ['toast', `<div class="pn-line">${logo('notify-slack')}<b>#design</b><span class="pn-sep">|</span><span>1 New message received</span></div>`],
+  teams: () => ['toast', `<div class="pn-line">${logo('notify-teams')}<b>Budi</b><span class="pn-sep">|</span><span>1 New message received</span></div>`],
   meeting: () => ['alert', `<div class="pn-alert"><div class="pn-alert__txt"><span class="pn-small">Meeting in 1 minute</span><b class="pn-big">Daily stand-up</b><span class="pn-small pn-dim">10:00 to 10:15 · Google Meet</span></div><div class="pn-alert__btns"><span class="pn-btn pn-btn--go">Join</span><span class="pn-btn">Later</span></div></div>`],
   inCall: () => ['meetingLine', `<div class="pn-wings"><span class="pn-pill pn-pill--red">Mic</span><span class="pn-cam"></span><span class="pn-pill pn-pill--green">Cam · 03:12</span></div>`],
   aiWorking: (phase = 'Analyzing context') => ['aiWorking', `<div class="pn-wings pn-wings--ai"><span class="pn-spark" aria-hidden="true"></span><span class="pn-ai-txt">${phase === 'Analyzing context' ? 'Processing' : 'Evaluating'} <span class="pn-sep">|</span> <span class="pn-dim">${phase}</span></span></div>`],
   aiDone: () => ['ai', `<div class="pn-ai"><div class="pn-ai__head"><span class="pn-ok" aria-hidden="true"></span><span>Analysis <b class="pn-green">Complete</b></span></div><b class="pn-ai__ans">Canberra</b><p class="pn-ai__why">Many people guess Sydney, but Australia's capital is Canberra, a city built to be the seat of government.</p></div>`],
+  aiTask: () => ['alert', `<div class="pn-alert"><div class="pn-alert__txt"><span class="pn-small">${logo('claude')} Claude Code › website</span><b class="pn-big">Task <span class="pn-green">Completed</span></b><span class="pn-small pn-dim">Finished while you were away · 4 min</span></div><div class="pn-alert__btns"><span class="pn-btn pn-btn--go">Open</span></div></div>`],
+  aiAsk: () => ['toast', `<div class="pn-line">${logo('claude')}<b>Claude is asking you a question</b><span class="pn-sep">|</span><span class="pn-dim">website</span></div>`],
+  aiLimit: () => ['level', `<div class="pn-level">${logo('claude')}<span class="pn-small">Claude</span><span class="pn-bar pn-bar--warn"><i style="width:82%"></i></span><span class="pn-mono pn-sm">82%</span></div>`],
   volume: (v = 0.62) => ['level', `<div class="pn-level"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3 8h3l4-3v10l-4-3H3z" fill="currentColor"/><path d="M13 7.5a3.5 3.5 0 0 1 0 5M15 5.5a6.5 6.5 0 0 1 0 9" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg><span class="pn-bar"><i style="width:${Math.round(v * 100)}%"></i></span></div>`],
+  bright: (v = 0.5) => ['level', `<div class="pn-level">${ic('sun')}<span class="pn-bar"><i style="width:${Math.round(v * 100)}%"></i></span></div>`],
+  caps: () => ['toast', `<div class="pn-line">${ic('caps')}<b>Caps Lock</b><span class="pn-sep">|</span><span class="pn-green">On</span></div>`],
+  battery: () => ['toast', `<div class="pn-line">${ic('bat', 'pn-ic--warn')}<b>Battery 18%</b><span class="pn-sep">|</span><span class="pn-dim">About 40 minutes left</span></div>`],
+  pods: () => ['toast', `<div class="pn-line">${ic('pods')}<b>AirPods Pro</b><span class="pn-sep">|</span><span class="pn-dim">L 80% · R 76% · Case 62%</span></div>`],
+  wifi: () => ['toast', `<div class="pn-line">${ic('wifi')}<b>Wi-Fi</b><span class="pn-sep">|</span><span class="pn-dim">Connected to Home 5G · 412 Mbps</span></div>`],
+  unstable: () => ['toast', `<div class="pn-line">${ic('warn', 'pn-ic--warn')}<b>Network unstable</b><span class="pn-sep">|</span><span class="pn-dim">Told once, not every time</span></div>`],
+  publicWifi: () => ['alert', `<div class="pn-alert"><div class="pn-alert__txt"><span class="pn-small">${ic('warn', 'pn-ic--warn')} Public Wi-Fi</span><b class="pn-big">"Cafe Free WiFi" is open</b><span class="pn-small pn-dim">Anyone nearby can see what isn't encrypted.</span></div><div class="pn-alert__btns"><span class="pn-btn">OK</span></div></div>`],
+  data: () => ['alert', `<div class="pn-alert"><div class="pn-alert__txt"><span class="pn-small">${ic('chart')} Data Usage Today</span><b class="pn-big">↓ 2.41 GB · ↑ 318 MB</b><span class="pn-small pn-dim">Since midnight, every Wi-Fi and hotspot</span></div></div>`],
+  download: () => ['toast', `<div class="pn-line">${ic('down')}<b>Download complete</b><span class="pn-sep">|</span><span class="pn-dim">Report-Q3.pdf · 4.2 MB</span></div>`],
+  camera: () => ['toast', `<div class="pn-line">${ic('cam', 'pn-ic--green')}<b>Camera in use</b><span class="pn-sep">|</span><span class="pn-dim">Zoom started it</span></div>`],
+  mic: () => ['toast', `<div class="pn-line"><span class="pn-pill pn-pill--red">Mic</span><b>Microphone in use</b><span class="pn-sep">|</span><span class="pn-dim">Voice Memos</span></div>`],
+  remote: () => ['meetingLine', `<div class="pn-wings"><span class="pn-small">${ic('remote', 'pn-ic--warn')} <b>Remote Active</b></span><span class="pn-cam"></span><span class="pn-small pn-dim">by Budi · AnyDesk</span></div>`],
+  locked: () => ['toast', `<div class="pn-line">${ic('lock')}<b>Chrome</b><span class="pn-sep">|</span><span class="pn-dim">Locked by App Lock</span></div>`],
   timer: (t = '24:59') => ['timer', `<div class="pn-wings"><span class="pn-ring" aria-hidden="true"></span><span class="pn-cam"></span><span class="pn-mono">${t}</span></div>`],
   focusDone: () => ['alert', `<div class="pn-alert"><div class="pn-alert__txt"><span class="pn-small">Timer</span><b class="pn-big">Focus done: 25 minutes</b><span class="pn-small pn-dim">Take five. The next one starts when you say.</span></div><div class="pn-alert__btns"><span class="pn-btn pn-btn--go">Start break</span></div></div>`],
+  todo: () => ['alert', `<div class="pn-alert"><div class="pn-alert__txt"><span class="pn-small">${ic('check')} To-do, due now</span><b class="pn-big">Send the invoice to Dimas</b><span class="pn-small pn-dim">Reminder you set this morning</span></div><div class="pn-alert__btns"><span class="pn-btn pn-btn--go">Done</span><span class="pn-btn">In 10 min</span></div></div>`],
+  prayer: () => ['alert', `<div class="pn-alert"><div class="pn-alert__txt"><span class="pn-small">${ic('moon')} Prayer Times · Jakarta</span><b class="pn-big">Asr, 15:12</b><span class="pn-small pn-dim">Kemenag RI times for your city</span></div><div class="pn-alert__btns"><span class="pn-btn pn-btn--go">Done</span><span class="pn-btn">In 10 min</span></div></div>`],
+  ambient: () => ['wings', `<div class="pn-wings">${ic('rain')}<span class="pn-cam"></span><span class="pn-small">Rain · 60%</span></div>`],
   shot: () => ['toast', `<div class="pn-line"><svg class="pn-ic" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="5" width="15" height="11" rx="2.5" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="10" cy="10.5" r="3" stroke="currentColor" stroke-width="1.6" fill="none"/></svg><b>Screenshot</b><span class="pn-sep">|</span><span>Copied and saved</span></div>`],
+  ocr: () => ['toast', `<div class="pn-line">${ic('text')}<b>Text copied</b><span class="pn-sep">|</span><span class="pn-dim">3 lines, ready to paste</span></div>`],
+  rec: (t = '00:03') => ['wings', `<div class="pn-wings">${ic('rec')}<span class="pn-cam"></span><span class="pn-mono">${t}</span></div>`],
+  recDone: () => ['toast', `<div class="pn-line">${ic('rec')}<b>Recording saved</b><span class="pn-sep">|</span><span class="pn-dim">MP4 · 0:06 · copied</span></div>`],
+  clip: () => ['open', `<div class="pn-panel"><b class="pn-panel__h">${ic('clip')} Clipboard</b><ul class="pn-list"><li>Jl. Merdeka 1, Jakarta 10110<span>now</span></li><li>https://polaricdev.github.io<span>2 min</span></li><li>Meeting notes, Friday<span>9 min</span></li><li>BCA 123 456 7890<span>1 h</span></li></ul></div>`],
+  snap: () => ['open', `<div class="pn-snap"><b class="pn-panel__h">Drop the window into a layout</b><div class="pn-snap__grid"><i class="is-on"><b></b><b></b></i><i><b></b><b></b><b></b></i><i><b></b><b></b><b></b><b></b></i><i><b></b><b></b></i><i><b></b></i><i><b></b><b></b><b></b></i></div></div>`],
+  game: () => ['toast', `<div class="pn-line">${ic('game')}<b>Game</b><span class="pn-sep">·</span><span class="pn-mono">144 FPS</span><img class="pn-mascot pn-mascot--sm" src="assets/img/mascots/${mascotChoice}.webp" alt=""></div>`],
+  clock: () => ['open', `<div class="pn-clock"><b class="pn-clock__t">10:42</b><span class="pn-dim">Wednesday 11 November</span><img class="pn-mascot" src="assets/img/mascots/${mascotChoice}.webp" alt=""></div>`],
   prompter: () => ['prompter', `<div class="pn-prompter"><div class="pn-prompter__roll"><p>Good morning, everyone.</p><p>Three things today: the launch date,</p><p>the new pricing, and who owns the demo.</p><p>First, the launch moves to the 18th.</p><p>Marketing has the assets ready,</p><p>and support has the answers written.</p></div></div>`],
   autotext: () => ['toast', `<div class="pn-line"><svg class="pn-ic" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 15 9 4l5 11M6 11h6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><b>AutoText</b><span class="pn-sep">|</span><span class="pn-dim">.addr became your address</span></div>`],
-  memo: () => ['open', `<div class="pn-memo"><b>Today</b><p>Send the slides to Dimas</p><p>Book the dentist for Thursday</p><p>Ask Rina about the venue</p></div>`],
 };
 
 function put(n, key, ...args) {
@@ -68,13 +99,16 @@ function hero() {
   const scale = () => (stage.clientWidth < 600 ? 0.78 : stage.clientWidth < 900 ? 1 : 1.18);
   const n = new Notch(stage, { scale: scale(), palette: 'prism', mode: 'resting', top: 0 });
   window.addEventListener('resize', () => { n.scale = scale(); n.kick(); });
-  put(n, 'rest');
+  put(n, 'rest', 'kitsune');
   const r = runner();
   let paused = false;
+  // A different mascot greets each round.
+  const crew = ['kitsune', 'foxy', 'nyanko', 'aurora', 'mochi', 'draco'];
+  let round = 0;
   const loop = async () => {
     while (!paused) {
       const ok = await r.play([
-        w => (put(n, 'rest'), w(2200)),
+        w => (put(n, 'rest', crew[round++ % crew.length]), w(2400)),
         w => (put(n, 'music'), w(1500)),
         w => (put(n, 'song'), w(2300)),
         w => (put(n, 'whatsapp'), w(2400)),
@@ -115,77 +149,77 @@ function simulator() {
   const flash = $('.sim__flash', root);
   const field = $('.sim__type', root);
   const win = $('.sim__win', root);
+  const memo = $('.sim__memo', root);
+  const ocr = $('.sim__ocr', root);
+  const rec = $('.sim__rec', root);
+  const coverTxt = $('.sim__privacy-txt', root);
+  const unlock = $('.sim__unlock', root);
   const reset = () => {
-    cover.hidden = true; card.hidden = true; win.classList.remove('is-typing');
+    cover.hidden = true; card.hidden = true; win.classList.remove('is-typing', 'is-snapped', 'is-dragging');
+    memo.classList.remove('is-open'); ocr.classList.remove('is-on'); rec.classList.remove('is-on');
+    root.classList.remove('is-locked');
     n.setGlow({ palette: currentGlow() });
   };
   const type = async (w, alive, text, speed = 55) => {
     for (const ch of text) { if (!alive()) return; field.textContent += ch; await w(speed); }
   };
+  const rest = w => (put(n, 'rest'), w(10));
+  const say = (key, ms, ...args) => w => (put(n, key, ...args), w(ms));
+  const glow = p => w => (n.setGlow({ palette: p }), w(0));
 
   const scenes = {
-    music: [
-      w => (put(n, 'music'), w(1400)),
-      w => (put(n, 'song'), w(2200)),
-      w => (put(n, 'lyric', 'City lights are calling out my name'), w(2000)),
-      w => (put(n, 'lyric', 'Driving slow so I can feel the rain'), w(2000)),
-      w => (put(n, 'volume', 0.4), w(900)),
-      w => (put(n, 'volume', 0.7), w(1100)),
-      w => (put(n, 'music'), w(10)),
-    ],
-    messages: [
-      w => (put(n, 'whatsapp'), w(1500)),
-      w => (put(n, 'whatsapp', 2), w(1500)),
-      w => (put(n, 'whatsapp', 3), w(1700)),
-      w => (put(n, 'email'), w(2600)),
-      w => (put(n, 'slack'), w(2200)),
-      w => (put(n, 'rest'), w(10)),
-    ],
-    meeting: [
-      w => (put(n, 'meeting'), w(3200)),
-      w => (put(n, 'inCall'), w(3600)),
-      w => (put(n, 'rest'), w(10)),
-    ],
-    ai: [
-      w => (n.setGlow({ palette: 'blueViolet' }), put(n, 'aiWorking'), w(1400)),
-      w => (put(n, 'aiWorking', 'Checking the answer'), w(1100)),
-      w => (n.setGlow({ palette: 'green' }), put(n, 'aiDone'), w(4200)),
-      w => (n.setGlow({ palette: currentGlow() }), put(n, 'rest'), w(10)),
-    ],
+    music: [say('music', 1400), say('song', 2200), say('lyric', 2000, 'City lights are calling out my name'), say('lyric', 2000, 'Driving slow so I can feel the rain'), say('music', 10)],
+    hud: [say('volume', 900, 0.35), say('volume', 900, 0.7), say('bright', 900, 0.4), say('bright', 1100, 0.8), say('caps', 1800), rest],
+    messages: [say('whatsapp', 1400), say('whatsapp', 1400, 2), say('telegram', 2000), say('teams', 2000), say('slack', 2000), rest],
+    email: [say('email', 3200), rest],
+    meeting: [say('meeting', 3200), say('inCall', 3600), rest],
+    ai: [glow('blueViolet'), say('aiWorking', 1400), say('aiWorking', 1100, 'Checking the answer'), glow('green'), say('aiDone', 4200), glow('prism'), rest],
+    aitask: [say('aiAsk', 2400), glow('green'), say('aiTask', 3600), glow('prism'), rest],
+    ailimit: [say('aiLimit', 3200), rest],
     privacy: [
-      w => (cover.hidden = false, cover.classList.remove('is-open'), put(n, 'closed'), w(50)),
+      w => (coverTxt.innerHTML = 'Polaric <b>Privacy</b>', unlock.textContent = 'Unlock with ⌥⇧U', cover.hidden = false, cover.classList.remove('is-open'), put(n, 'closed'), w(50)),
       w => (cover.classList.add('is-open'), w(10)),
     ],
+    applock: [
+      w => (root.classList.add('is-locked'), coverTxt.innerHTML = 'Chrome <b>Locked</b>', unlock.textContent = 'Unlock with Touch ID', cover.hidden = false, cover.classList.remove('is-open'), put(n, 'locked'), w(50)),
+      w => (cover.classList.add('is-open'), w(10)),
+    ],
+    remote: [say('remote', 4600), rest],
+    cammic: [say('camera', 2400), say('mic', 2400), say('inCall', 2600), rest],
     autotext: [
       w => (win.classList.add('is-typing'), field.textContent = '', put(n, 'rest'), w(300)),
       (w, a) => type(w, a, 'Send the package to .addr'),
       w => w(350),
       w => (field.textContent = 'Send the package to Jl. Merdeka 1, Jakarta 10110', put(n, 'autotext'), w(2600)),
       (w, a) => type(w, a, '. Thanks!', 70),
-      w => (put(n, 'rest'), w(10)),
+      rest,
     ],
+    ocr: [w => (ocr.classList.add('is-on'), w(1500)), w => (ocr.classList.remove('is-on'), put(n, 'ocr'), w(2600)), rest],
     shot: [
       w => (flash.classList.remove('is-on'), void flash.offsetWidth, flash.classList.add('is-on'), w(120)),
       w => (put(n, 'shot'), card.hidden = false, w(3400)),
       w => (card.hidden = true, put(n, 'rest'), w(10)),
     ],
-    timer: [
-      w => (put(n, 'timer', '00:05'), w(1000)),
-      w => (put(n, 'timer', '00:04'), w(1000)),
-      w => (put(n, 'timer', '00:03'), w(1000)),
-      w => (put(n, 'timer', '00:02'), w(1000)),
-      w => (put(n, 'timer', '00:01'), w(1000)),
-      w => (put(n, 'focusDone'), w(3600)),
-      w => (put(n, 'rest'), w(10)),
+    record: [w => (rec.classList.add('is-on'), put(n, 'rec', '00:01'), w(1000)), say('rec', 1000, '00:02'), say('rec', 1000, '00:03'), say('rec', 1000, '00:04'), say('rec', 1000, '00:05'), w => (rec.classList.remove('is-on'), put(n, 'recDone'), w(2600)), rest],
+    snap: [
+      w => (win.classList.add('is-dragging'), w(700)),
+      say('snap', 1700),
+      w => (win.classList.remove('is-dragging'), win.classList.add('is-snapped'), put(n, 'rest'), w(10)),
     ],
-    prompter: [
-      w => (put(n, 'prompter'), w(9000)),
-      w => (put(n, 'rest'), w(10)),
-    ],
-    memo: [
-      w => (put(n, 'memo'), w(4200)),
-      w => (put(n, 'rest'), w(10)),
-    ],
+    clipboard: [say('clip', 4200), rest],
+    memo: [w => (put(n, 'closed'), memo.classList.add('is-open'), w(10))],
+    prompter: [say('prompter', 9000), rest],
+    timer: [say('timer', 1000, '00:05'), say('timer', 1000, '00:04'), say('timer', 1000, '00:03'), say('timer', 1000, '00:02'), say('timer', 1000, '00:01'), say('focusDone', 3600), rest],
+    todo: [say('todo', 4000), rest],
+    prayer: [say('prayer', 4200), rest],
+    ambient: [say('ambient', 4200), rest],
+    battery: [say('pods', 2600), say('battery', 2600), rest],
+    network: [say('wifi', 2400), say('unstable', 2600), rest],
+    publicwifi: [say('publicWifi', 4000), rest],
+    data: [say('data', 4000), rest],
+    download: [say('download', 3000), rest],
+    game: [say('game', 4200), rest],
+    clock: [say('clock', 4200), rest],
   };
 
   const tabs = $$('[data-play]', root);
@@ -197,7 +231,9 @@ function simulator() {
     window.gtag?.('event', 'notch_preview_select', { moment: id });
   };
   tabs.forEach(t => t.addEventListener('click', () => play(t.dataset.play)));
-  $('.sim__unlock', root)?.addEventListener('click', () => { cover.classList.remove('is-open'); setTimeout(() => (cover.hidden = true, put(n, 'rest')), 380); });
+  unlock.addEventListener('click', () => { cover.classList.remove('is-open'); root.classList.remove('is-locked'); setTimeout(() => (cover.hidden = true, put(n, 'rest')), 380); });
+  $('.sim__memo-close', root)?.addEventListener('click', () => { memo.classList.remove('is-open'); put(n, 'rest'); });
+  window.addEventListener('pn:mascot', () => { if (n.mode === 'toast' && n.content.querySelector('.pn-mascot')) put(n, 'rest'); });
 
   // Mac notch or the Windows island (no camera: it floats, round, at the top centre).
   $$('[data-os]', root).forEach(b => b.addEventListener('click', () => {
@@ -225,7 +261,7 @@ function customise() {
   const n = new Notch(stage, { scale: big(), palette: 'prism', mode: 'toast', top: 0 });
   window.addEventListener('resize', () => { n.scale = big(); n.kick(); });
   const mascot = name => n.show('toast', `<img class="pn-mascot" src="assets/img/mascots/${name}.webp" alt="" width="150" height="56">`);
-  mascot('foxy');
+  mascot(mascotChoice);
 
   const grid = $('.cz__swatches', root);
   grid.innerHTML = Object.keys(GLOWS).map(k => {
@@ -250,6 +286,8 @@ function customise() {
   $$('[data-mascot]', root).forEach(b => b.addEventListener('click', () => {
     $$('[data-mascot]', root).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
     mascot(b.dataset.mascot);
+    mascotChoice = b.dataset.mascot;
+    window.dispatchEvent(new CustomEvent('pn:mascot'));
   }));
 }
 
@@ -284,16 +322,34 @@ function countDownload(platform) {
 }
 
 function downloads() {
-  // The page's main button takes this computer's file; elsewhere it goes to both.
-  $$('[data-download="auto"]').forEach(a => {
-    if (isMac) { a.href = DL.macos; a.dataset.platform = 'macos'; }
-    else if (isWindows) { a.href = DL.windows; a.dataset.platform = 'windows'; }
+  // "Download free" opens a choice: MacBook or Windows (this computer's comes first and is marked).
+  const close = except => $$('[data-dl-toggle][aria-expanded="true"]').forEach(t => {
+    if (t === except) return;
+    t.setAttribute('aria-expanded', 'false');
+    t.nextElementSibling.hidden = true;
   });
+  $$('[data-dl-toggle]').forEach(t => {
+    const menu = t.nextElementSibling;
+    const mine = isMac ? 'macos' : isWindows ? 'windows' : '';
+    const opt = mine && menu.querySelector(`[data-download="${mine}"]`);
+    if (opt) { opt.classList.add('is-mine'); menu.prepend(opt); }
+    t.addEventListener('click', e => {
+      e.preventDefault();
+      const open = t.getAttribute('aria-expanded') !== 'true';
+      close(t);
+      t.setAttribute('aria-expanded', String(open));
+      menu.hidden = !open;
+      if (open) menu.querySelector('a')?.focus({ preventScroll: true });
+    });
+  });
+  document.addEventListener('click', e => { if (!e.target.closest('.pn-dl')) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { const t = $('[data-dl-toggle][aria-expanded="true"]'); close(); t?.focus(); } });
   document.addEventListener('click', e => {
     const a = e.target.closest('a[data-download]');
     if (!a) return;
-    const p = a.dataset.platform || a.dataset.download;
+    const p = a.dataset.download;
     if (p === 'macos' || p === 'windows') countDownload(p);
+    if (a.closest('.pn-dl')) setTimeout(() => close(), 150);
   });
 }
 

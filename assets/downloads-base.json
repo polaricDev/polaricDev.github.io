@@ -8,8 +8,8 @@
   ],
   "snapshot": {
     "note": "Live releases' downloads when this was last updated; used only when GitHub's API can't be reached.",
-    "macos": 13,
-    "windows": 22,
-    "at": "2026-11-04"
+    "macos": 24,
+    "windows": 65,
+    "at": "2026-11-11"
   }
 }
