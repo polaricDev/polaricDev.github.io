@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 340" role="img" aria-label="Polaric's mascot, waving and presenting">
+  <!-- Polaric's app icon as a character: the visor head with its happy eyes, the orbit ring and the two
+       sparkles, on a small glass body. Floats, waves, blinks; still under reduced motion. -->
+  <style>
+    .float { animation: float 3.6s ease-in-out infinite; transform-origin: 130px 200px; }
+    .wave { animation: wave 1.8s ease-in-out infinite; transform-origin: 178px 192px; }
+    .present { animation: present 3.6s ease-in-out infinite; transform-origin: 82px 184px; }
+    .eyes { animation: blink 4.4s infinite; transform-origin: 130px 118px; }
+    .ring { animation: tilt 5.2s ease-in-out infinite; transform-origin: 130px 116px; }
+    .spark { animation: twinkle 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .spark.b { animation-delay: -1.2s; }
+    .shadow { animation: shadow 3.6s ease-in-out infinite; transform-origin: 130px 318px; }
+    .belly { animation: belly 3s linear infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+    @keyframes shadow { 0%, 100% { transform: scaleX(1); opacity: .55; } 50% { transform: scaleX(.86); opacity: .35; } }
+    @keyframes wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-16deg); } 75% { transform: rotate(10deg); } }
+    @keyframes present { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-5deg); } }
+    @keyframes blink { 0%, 90%, 100% { transform: scaleY(1); } 94% { transform: scaleY(.15); } }
+    @keyframes tilt { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(3deg); } }
+    @keyframes twinkle { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.6); opacity: .55; } }
+    @keyframes belly { to { stroke-dashoffset: -120; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+  <defs>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="0.2">
+      <stop offset="0" stop-color="#f3a6ff"/><stop offset=".5" stop-color="#9b86ff"/><stop offset="1" stop-color="#9fc4ff"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#e8a2ff"/><stop offset=".55" stop-color="#6f5cff"/><stop offset="1" stop-color="#c9a8ff"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1c1240"/><stop offset="1" stop-color="#07051a"/>
+    </linearGradient>
+    <linearGradient id="visor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1a1530"/><stop offset=".35" stop-color="#05040c"/><stop offset="1" stop-color="#020208"/>
+    </linearGradient>
+    <linearGradient id="prism" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3d8bff"/><stop offset=".2" stop-color="#22d3ee"/><stop offset=".4" stop-color="#34d399"/>
+      <stop offset=".6" stop-color="#ffd25a"/><stop offset=".8" stop-color="#ff8a4c"/><stop offset="1" stop-color="#ff5f7e"/>
+    </linearGradient>
+    <radialGradient id="aura" cx=".5" cy=".45" r=".55">
+      <stop offset="0" stop-color="#7c5cff" stop-opacity=".45"/><stop offset="1" stop-color="#7c5cff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6"/></filter>
+  </defs>
+
+  <ellipse class="shadow" cx="130" cy="318" rx="58" ry="9" fill="#000" opacity=".55" filter="url(#soft)"/>
+
+  <g class="float">
+    <ellipse cx="130" cy="160" rx="120" ry="130" fill="url(#aura)"/>
+
+    <!-- legs and feet -->
+    <g filter="url(#glow)">
+      <rect x="100" y="246" width="22" height="46" rx="11" fill="url(#glass)" stroke="url(#rim)" stroke-width="4"/>
+      <rect x="138" y="246" width="22" height="46" rx="11" fill="url(#glass)" stroke="url(#rim)" stroke-width="4"/>
+      <ellipse cx="108" cy="294" rx="18" ry="9" fill="url(#glass)" stroke="url(#rim)" stroke-width="4"/>
+      <ellipse cx="152" cy="294" rx="18" ry="9" fill="url(#glass)" stroke="url(#rim)" stroke-width="4"/>
+    </g>
+
+    <!-- the arm that presents (left), the arm that waves (right) -->
+    <g class="present" filter="url(#glow)">
+      <path d="M84 192 C 62 200, 44 206, 26 210" fill="none" stroke="url(#rim)" stroke-width="15" stroke-linecap="round"/>
+      <path d="M84 192 C 62 200, 44 206, 26 210" fill="none" stroke="#120c2c" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="22" cy="210" r="13" fill="url(#glass)" stroke="url(#rim)" stroke-width="4"/>
+    </g>
+    <g class="wave" filter="url(#glow)">
+      <path d="M178 192 C 198 186, 214 170, 224 150" fill="none" stroke="url(#rim)" stroke-width="15" stroke-linecap="round"/>
+      <path d="M178 192 C 198 186, 214 170, 224 150" fill="none" stroke="#120c2c" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="226" cy="144" r="13" fill="url(#glass)" stroke="url(#rim)" stroke-width="4"/>
+    </g>
+
+    <!-- body: a glass capsule with Polaric's notch glowing on its chest -->
+    <g filter="url(#glow)">
+      <rect x="78" y="160" width="104" height="100" rx="42" fill="url(#glass)" stroke="url(#rim)" stroke-width="5"/>
+    </g>
+    <path d="M110 196 h40 v6 a8 8 0 0 1 -8 8 h-24 a8 8 0 0 1 -8 -8 z" fill="#000"/>
+    <path class="belly" d="M106 214 h48" stroke="url(#prism)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="40 20" filter="url(#glow)"/>
+
+    <!-- the orbit ring, back half behind the head -->
+    <g class="ring">
+      <path d="M36 146 C 44 112, 150 78, 228 88" fill="none" stroke="url(#ring)" stroke-width="10" stroke-linecap="round" opacity=".9" filter="url(#glow)"/>
+    </g>
+
+    <!-- head: the visor -->
+    <g filter="url(#glow)">
+      <rect x="50" y="70" width="160" height="94" rx="47" fill="url(#visor)" stroke="url(#rim)" stroke-width="9"/>
+    </g>
+    <path d="M70 98 C 74 86, 88 82, 102 82" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="5" stroke-linecap="round"/>
+    <g class="eyes" filter="url(#glow)">
+      <path d="M92 128 a16 16 0 0 1 32 0" fill="none" stroke="#fbf4ff" stroke-width="9" stroke-linecap="round"/>
+      <path d="M140 128 a16 16 0 0 1 32 0" fill="none" stroke="#fbf4ff" stroke-width="9" stroke-linecap="round"/>
+    </g>
+    <ellipse cx="96" cy="146" rx="9" ry="5" fill="#ff7ad9" opacity=".35"/>
+    <ellipse cx="168" cy="146" rx="9" ry="5" fill="#ff7ad9" opacity=".35"/>
+
+    <!-- the orbit ring, front half over the head -->
+    <g class="ring">
+      <path d="M228 88 C 246 100, 210 150, 150 168 C 98 184, 30 182, 36 146" fill="none" stroke="url(#ring)" stroke-width="10" stroke-linecap="round" filter="url(#glow)"/>
+    </g>
+
+    <!-- sparkles -->
+    <path class="spark" d="M206 18 l5 13 13 5 -13 5 -5 13 -5 -13 -13 -5 13 -5z" fill="#d9c8ff" filter="url(#glow)"/>
+    <path class="spark b" d="M184 52 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3z" fill="#c9b6ff" filter="url(#glow)"/>
+  </g>
+</svg>

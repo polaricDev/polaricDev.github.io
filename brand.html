@@ -32,13 +32,13 @@
   --display-weight: 500; --display-tracking: -0.03em; --display-tracking-xl: -0.04em; --ly-scale: 0.98;
 }
 </style>
-<link rel="stylesheet" href="assets/polaric/polaric.css?v=3">
+<link rel="stylesheet" href="assets/polaric/polaric.css?v=4">
 <style>
 .br-hero h1 { max-width: 14ch; }
 .br-hero .hero-text { display: flex; flex-direction: column; height: 100%; }
 .br-heroart { position: relative; border-radius: 28px; border: 1px solid var(--pn-line); overflow: hidden; flex: 1 1 0; min-height: 200px; margin-top: var(--s-6);
   background: radial-gradient(70% 70% at 50% 120%, rgb(16 44 108 / .9), transparent 70%), linear-gradient(180deg, #050a1d, #071233 60%, #0a1d4f); }
-.br-heroart__stage { position: absolute; inset: 0; }
+.br-heroart .pn-rec { width: min(90%, 1000px); } .pn-avatar--brand { position: absolute; left: 4%; bottom: -4px; width: 140px; } .br-glow .pn-rec { width: 92%; }
 
 .br-logo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-5); }
 .br-tile { border-radius: var(--r-lg); border: 1px solid var(--pn-line); min-height: 240px; display: grid; place-items: center; gap: var(--s-3); padding: var(--s-6); }
@@ -89,7 +89,7 @@
       <h1 id="hero-h">One black shape, lit from behind</h1>
       <p class="hero__lead">Polaric is drawn from the notch at the top of the screen: a black shape on a night that fades from black into deep blue, with one moving light. Everything else stays quiet so that light can speak.</p>
       <div class="btn-row"><a class="btn btn--primary" href="index.html#download">Download free</a><a class="btn btn--secondary" href="https://github.com/polaricDev/polaricDev.github.io/blob/main/docs/brand-guidelines.md">Read the full guide</a></div>
-      <div class="br-heroart" role="img" aria-label="The Polaric notch, lit by its glow"><div class="br-heroart__stage" data-pn="brand-hero"></div></div>
+      <div class="br-heroart" role="img" aria-label="The Polaric notch, lit by its glow"><video class="pn-rec pn-rec--brand" muted playsinline loop autoplay preload="auto" aria-hidden="true"><source src="assets/rec/hero.mov" type='video/mp4; codecs="hvc1"'><source src="assets/rec/hero.webm" type="video/webm"></video><img class="pn-avatar pn-avatar--brand" src="assets/img/polaric-avatar.svg" alt="" width="260" height="340"></div>
     </div></div>
   </section>
 
@@ -144,7 +144,7 @@
   <section class="section" id="glow" aria-labelledby="glow-h">
     <div class="wrap">
       <div class="section-head"><h2 id="glow-h">The glow is the signature. <span class="muted">Drawn the way the app draws it.</span></h2></div>
-      <div class="br-glow fill" role="img" aria-label="Polaric's notch with its Prism glow, live"><div class="br-glow__stage" data-pn="brand"></div></div>
+      <div class="br-glow fill" role="img" aria-label="A real recording of Polaric's notch going through its glow colours"><video class="pn-rec pn-rec--brandglow" data-brand-glow muted playsinline loop preload="auto" aria-hidden="true"><source src="assets/rec/mac.mov" type='video/mp4; codecs="hvc1"'><source src="assets/rec/mac.webm" type="video/webm"></video></div>
       <div class="br-rules">
         <p><b>Outline</b>A blurred stroke along the notch, its colours turning 30° a second.</p>
         <p><b>Foot</b>Six soft lights wander along the bottom edge and breathe, screen-blended.</p>
@@ -168,15 +168,14 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module">
-import { Notch } from './assets/polaric/notch.js';
-const stage = document.querySelector('[data-pn="brand"]');
-const scale = () => (stage.clientWidth < 520 ? 1.1 : 1.7);
-const n = new Notch(stage, { scale: scale(), palette: 'prism', mode: 'resting' });
-n.show('resting', '<div class="pn-wings"><span class="pn-eye"></span><span class="pn-cam"></span><span class="pn-eye"></span></div>');
-const hs = document.querySelector('[data-pn="brand-hero"]');
-const h = new Notch(hs, { scale: hs.clientWidth < 520 ? 1 : 1.5, palette: 'polaric', mode: 'toast', amount: 1.4 });
-h.show('toast', '<div class="pn-line"><img class="pn-logo" src="assets/img/polaric-icon.png" alt=""><b>Polaric</b><span class="pn-sep">|</span><span class="pn-dim">Your notch, alive.</span></div>');
-addEventListener('resize', () => { n.scale = scale(); n.kick(); });
+// The glow section loops the real recording of the glow colours.
+const v = document.querySelector('[data-brand-glow]');
+fetch('assets/rec/segments.json').then(r => r.json()).then(seg => {
+  const s = seg.mac.glow; if (!s || !v) return;
+  const loop = () => { if (v.currentTime >= s[1] || v.currentTime < s[0]) v.currentTime = s[0]; requestAnimationFrame(loop); };
+  v.addEventListener('loadedmetadata', () => { v.currentTime = s[0]; v.play().catch(() => {}); loop(); }, { once: true });
+  if (v.readyState >= 1) v.dispatchEvent(new Event('loadedmetadata'));
+}).catch(() => {});
 </script>
 </body>
 </html>

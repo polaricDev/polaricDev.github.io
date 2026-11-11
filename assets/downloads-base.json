@@ -1,15 +1,174 @@
 {
-  "note": "Downloads of releases that were replaced (their files are gone from GitHub). Added to the live counts.",
-  "macos": 20,
-  "windows": 17,
-  "releases": [
-    "v1.1.0",
-    "v1.1.1"
-  ],
-  "snapshot": {
-    "note": "Live releases' downloads when this was last updated; used only when GitHub's API can't be reached.",
-    "macos": 24,
-    "windows": 65,
-    "at": "2026-11-11"
+ "note": "Downloads of releases that were replaced (their files are gone from GitHub). Added to the live counts.",
+ "macos": 20,
+ "windows": 17,
+ "releases": [
+  "v1.1.0",
+  "v1.1.1"
+ ],
+ "snapshot": {
+  "note": "Live releases' downloads when this was last updated; used only when GitHub's API can't be reached.",
+  "macos": 24,
+  "windows": 69,
+  "at": "2026-11-11"
+ },
+ "releasesSnapshot": [
+  {
+   "assets": [
+    {
+     "n": 1,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 1,
+     "name": "Polaric-Promo.mp4"
+    },
+    {
+     "n": 29,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.4.2.1"
+  },
+  {
+   "assets": [
+    {
+     "n": 4,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 1,
+     "name": "Polaric-Promo.mp4"
+    },
+    {
+     "n": 2,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.4.2"
+  },
+  {
+   "assets": [
+    {
+     "n": 1,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 1,
+     "name": "Polaric-Promo.mp4"
+    },
+    {
+     "n": 5,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.4.1"
+  },
+  {
+   "assets": [
+    {
+     "n": 1,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 1,
+     "name": "Polaric-Promo.mp4"
+    },
+    {
+     "n": 5,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.4.0"
+  },
+  {
+   "assets": [
+    {
+     "n": 2,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 5,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.3.2"
+  },
+  {
+   "assets": [
+    {
+     "n": 5,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 7,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.3.1"
+  },
+  {
+   "assets": [
+    {
+     "n": 4,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 5,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.3.0"
+  },
+  {
+   "assets": [
+    {
+     "n": 2,
+     "name": "Polaric-Notch-Panduan-Pengguna-ID.docx"
+    },
+    {
+     "n": 1,
+     "name": "Polaric-Notch-User-Guide-EN.docx"
+    },
+    {
+     "n": 2,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 1,
+     "name": "Polaric-Promo.mp4"
+    },
+    {
+     "n": 7,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.2.0"
+  },
+  {
+   "assets": [
+    {
+     "n": 1,
+     "name": "Polaric-Notch-Panduan-Pengguna-ID.docx"
+    },
+    {
+     "n": 0,
+     "name": "Polaric-Notch-User-Guide-EN.docx"
+    },
+    {
+     "n": 4,
+     "name": "Polaric-Notch.dmg"
+    },
+    {
+     "n": 0,
+     "name": "Polaric-Promo.mp4"
+    },
+    {
+     "n": 4,
+     "name": "Polaric-Setup.exe"
+    }
+   ],
+   "tag": "v1.1.2"
   }
+ ]
 }
