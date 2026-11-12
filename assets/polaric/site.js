@@ -402,6 +402,63 @@ function sky() {
   tick();
 }
 
+/* ---------- Rating Polaric: five stars beside the puppy, kept on the counter (no GitHub) ---------- */
+// One counter per star (rate-1 … rate-5); a browser rates once (localStorage), the card shows the average.
+function rating() {
+  const root = $('[data-pn="rate"]');
+  if (!root) return;
+  const stars = $$('.pn-rate__star', root), msg = $('.pn-rate__msg', root);
+  const MARK = 'pn-rated';
+  let mine = 0;
+  try { mine = +localStorage.getItem(MARK) || 0; } catch {}
+  let counts = [0, 0, 0, 0, 0];
+  const light = n => stars.forEach((b, i) => { b.classList.toggle('is-lit', i < n); b.setAttribute('aria-checked', String(i + 1 === n)); });
+  const show = () => {
+    const total = counts.reduce((a, b) => a + b, 0);
+    const avg = total ? counts.reduce((a, c, i) => a + c * (i + 1), 0) / total : 0;
+    $('[data-rate="avg"]', root).textContent = total ? avg.toFixed(1) : '–';
+    root.toggleAttribute('data-empty', !total);
+    $('[data-rate="count"]', root).textContent = total ? `${fmt(total)} ${total === 1 ? 'rating' : 'ratings'}` : 'Be the first to rate';
+    if (!mine) light(Math.round(avg));
+  };
+  const done = n => {
+    root.dataset.state = 'done';
+    light(n);
+    msg.textContent = `Thank you! You gave Polaric ${n} star${n > 1 ? 's' : ''}.`;
+    stars.forEach(b => b.setAttribute('aria-disabled', 'true'));
+  };
+  if (mine >= 1 && mine <= 5) done(mine);
+  Promise.all([1, 2, 3, 4, 5].map(i => fetch(`${COUNTER}/get/${NS}/rate-${i}`, { cache: 'no-store' })
+    .then(r => r.json()).then(j => +j.value || 0).catch(() => 0)))
+    .then(v => { counts = v.map((x, i) => Math.max(x, mine === i + 1 ? 1 : 0)); show(); });
+  const open = () => root.dataset.state === 'open';
+  stars.forEach((b, i) => {
+    b.addEventListener('pointerenter', () => open() && light(i + 1));
+    b.addEventListener('focus', () => open() && light(i + 1));
+    b.addEventListener('click', () => {
+      if (!open()) return;
+      const n = i + 1;
+      mine = n;
+      try { localStorage.setItem(MARK, String(n)); } catch {}
+      done(n);
+      // Each lit star pops in turn and throws a few sparks.
+      if (!reduced()) stars.slice(0, n).forEach((s, k) => {
+        s.classList.remove('is-pop'); void s.offsetWidth;
+        s.style.setProperty('--d', `${k * 0.07}s`); s.classList.add('is-pop');
+        s.querySelectorAll('i').forEach(x => x.remove());
+        for (let a = 0; a < 6; a++) { const sp = document.createElement('i'); sp.style.setProperty('--a', `${a * 60 + k * 12}deg`); sp.style.setProperty('--d', `${k * 0.07 + 0.12}s`); s.append(sp); }
+      });
+      const pup = $('.pn-puppy');
+      if (pup && !reduced()) { pup.classList.remove('is-hop'); void pup.offsetWidth; pup.classList.add('is-hop'); }
+      counts[n - 1]++; show();
+      fetch(`${COUNTER}/hit/${NS}/rate-${n}`, { keepalive: true, cache: 'no-store' }).catch(() => {});
+      window.gtag?.('event', 'rate_polaric', { stars: n });
+    });
+  });
+  root.addEventListener('pointerleave', () => { if (open()) show(); });
+  root.addEventListener('focusout', e => { if (open() && !root.contains(e.relatedTarget)) show(); });
+}
+
 /* ---------- Small things: links that report, the GitHub star count ---------- */
 
 function links() {
@@ -421,3 +478,4 @@ world();
 sky();
 mascot();
 links();
+rating();
