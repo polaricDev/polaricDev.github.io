@@ -527,7 +527,6 @@ footer.closing { background: linear-gradient(180deg, transparent, rgb(10 41 115 
 /* the avatar: Polaric's icon as a character */
 .pn-avatar { display: block; height: auto; pointer-events: none; }
 .pn-avatar--support { position: absolute; left: 50%; bottom: 4%; transform: translateX(-50%); width: min(460px, 80%); }
-.pn-avatar--close { width: 150px; margin-top: var(--s-4); }
 .pn-support__art { display: block; }
 
 /* downloads: the two platforms, the split, by release, by country */
@@ -819,3 +818,11 @@ body { background: transparent !important; }
 @media (prefers-reduced-motion: reduce) {
   .pn-rating__pup, .pn-rate__star svg, .pn-rate__star.is-pop svg { animation: none !important; } .pn-rate__star i { display: none; }
 }
+
+/* Disclaimer: nine cards are taller than one screen, so the section grows with them (never over the next) */
+main > section.pn-disc { height: auto; min-height: 100vh; min-height: 100svh; }
+main > section.pn-disc > .wrap { height: auto; }
+/* the footer is only its links now: as tall as they are */
+footer.closing.pn-foot { height: auto; min-height: 0; padding-top: var(--s-8); }
+footer.closing.pn-foot > .wrap { height: auto; display: block; }
+@media (min-width: 1024px) { .pn-disc__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }

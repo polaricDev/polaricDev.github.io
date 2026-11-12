@@ -42,7 +42,7 @@
   --ly-scale: 0.98;
 }
 </style>
-<link rel="stylesheet" href="assets/polaric/polaric.css?v=14">
+<link rel="stylesheet" href="assets/polaric/polaric.css?v=15">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>setTimeout(()=>document.documentElement.classList.add('pn-shown'),2600)</script>
 <script src="assets/backgrounds/backgrounds.js"></script>
@@ -279,7 +279,7 @@
   <section class="section pn-alive" id="alive" data-moment="letters-assemble" aria-labelledby="alive-h">
     <div class="wrap">
       <h2 class="mo-la__type" id="alive-h">Your notch, alive.</h2>
-      <p class="mo-la__sub">No account. The app only counts installs and updates by city and country. What Polaric keeps on your computer is encrypted, and updates install themselves.</p>
+      <p class="mo-la__sub">No account. The app only counts installs and updates by country. What Polaric keeps on your computer is encrypted, and updates install themselves.</p>
     </div>
   </section>
 
@@ -344,7 +344,7 @@
       </div>
       <div class="pn-disc__grid">
         <article class="pn-disc__card"><h3>Update check</h3><p>Finds a newer Polaric on its official releases page, downloads it and checks its signature before it installs quietly.</p><dl><dt>Sends</dt><dd>A request for the latest release, with Polaric's version in it. Nothing about you or your computer.</dd><dt>When</dt><dd>At most once every 12 hours.</dd><dt>To</dt><dd>api.github.com, github.com and GitHub's download servers</dd></dl></article>
-        <article class="pn-disc__card"><h3>Install and update count</h3><p>Shows on this website's map which cities and countries install and update Polaric.</p><dl><dt>Sends</dt><dd>Only the country and the city of your internet connection (its position rounded to about 10 km), install or update, and Mac or Windows. No name, no device id, no address, no settings.</dd><dt>When</dt><dd>Once after installing and once after each update.</dd><dt>To</dt><dd>get.geojs.io (the place) and abacus.jasoncameron.dev (the count)</dd></dl></article>
+        <article class="pn-disc__card"><h3>Install and update count</h3><p>Shows on this website's map which countries install and update Polaric.</p><dl><dt>Sends</dt><dd>Only the country of your internet connection, install or update, and Mac or Windows. No city, no name, no device id, no address, no settings.</dd><dt>When</dt><dd>Once after installing and once after each update.</dd><dt>To</dt><dd>get.geojs.io (the country) and abacus.jasoncameron.dev (the count)</dd></dl></article>
         <article class="pn-disc__card"><h3>AI Assistant</h3><p>Answers the text you selected when you press the AI Assistant shortcut.</p><dl><dt>Sends</dt><dd>The selected text (or the box you drew) and your own key.</dd><dt>When</dt><dd>Only when you press the shortcut. No key, no connection.</dd><dt>To</dt><dd>Only the AI your key belongs to: Gemini, ChatGPT or Claude</dd></dl></article>
         <article class="pn-disc__card"><h3>Lyrics</h3><p>Synced lyrics for the song that's playing.</p><dl><dt>Sends</dt><dd>The song's title, artist and length.</dd><dt>When</dt><dd>When a new song starts and lyrics are on.</dd><dt>To</dt><dd>lrclib.net</dd></dl></article>
         <article class="pn-disc__card"><h3>Prayer Times</h3><p>This month's five daily prayer times for your city.</p><dl><dt>Sends</dt><dd>Your city's name, or its coordinates to about a kilometre outside Indonesia.</dd><dt>When</dt><dd>Once a month, only with Prayer Times on.</dd><dt>To</dt><dd>api.myquran.com (Kemenag RI), api.aladhan.com elsewhere</dd></dl></article>
@@ -393,15 +393,8 @@
   </section>
 </main>
 
-<footer class="footer closing g2m" id="contact" aria-labelledby="close-h">
+<footer class="footer closing pn-foot" id="contact">
   <div class="wrap">
-    <div class="closing__cta close--type">
-      <div class="section-head">
-        <h2 id="close-h">See you in the notch</h2>
-        <p>Polaric 1.5.0 is free for MacBook (macOS 14 or later) and Windows 10 and 11. The download button is at the top of the page.</p>
-      </div>
-      <img class="pn-avatar pn-avatar--close" src="assets/img/polaric-puppy.svg" alt="Polaric's puppy astronaut waving goodbye" width="300" height="300">
-    </div>
     <div class="closing__links">
       <div class="grid">
         <div class="span-4 stack-4">
@@ -424,6 +417,6 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
-<script type="module" src="assets/polaric/site.js?v=14"></script>
+<script type="module" src="assets/polaric/site.js?v=15"></script>
 </body>
 </html>

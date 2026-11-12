@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Polaric 1.3.2 — User Guide</title>
+<title>Polaric 1.5.0 — User Guide</title>
 <meta name="description" content="Polaric user guide">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
@@ -41,7 +41,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <body>
 <nav class="bar"><a href="./">Polaric</a><span class="lang"><a href="guide-en.html" aria-current="page">English</a><a href="guide-id.html">Bahasa Indonesia</a></span></nav>
 <main>
-<h1 id="polaric-132-user-guide">Polaric 1.3.2 — User Guide</h1>
+<h1 id="polaric-150-user-guide">Polaric 1.5.0 — User Guide</h1>
 <p>Polaric turns the top of your screen into a living notch: music with synced lyrics, your meetings, messages and email at a glance, tasks, timers, ambient sound, <strong>Text capture</strong> (copy text from anything on screen), <strong>Screenshots</strong>, <strong>Privacy &amp; Network</strong>, <strong>Privacy Mode</strong> (a frosted cover for your screens), window snapping, AutoText and a small mascot that keeps you company. It shows your <strong>camera and microphone during calls</strong>, tells you when an <strong>AI finishes a task</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), and speaks <strong>English or Bahasa Indonesia</strong>. On Windows it also shows your <strong>game's FPS</strong> and a small <strong>idle clock</strong>. It runs on <strong>macOS 14 or later on a Mac with Apple silicon</strong> (MacBook with or without a notch) and on <strong>Windows 10 and 11</strong> (64-bit).</p>
 <blockquote>
 <p>🇮🇩 Versi Bahasa Indonesia: <a href="guide-id.html">Bahasa Indonesia</a></p>
@@ -75,8 +75,17 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><a href="#24-ai-task-alerts">AI task alerts</a></li>
 <li><a href="#25-language-and-help-in-settings">Language and help in Settings</a></li>
 <li><a href="#26-privacy-mode">Privacy Mode</a> — new</li>
-<li><a href="#27-troubleshooting">Troubleshooting</a></li>
-<li><a href="#28-whats-new-in-132">What's new in 1.3.2</a></li>
+<li><a href="#27-ai-assistant">AI Assistant</a></li>
+<li><a href="#28-more-screenshots-and-screen-recording">More screenshots and screen recording</a></li>
+<li><a href="#29-teleprompter">Teleprompter</a></li>
+<li><a href="#30-sticky-memo">Sticky memo</a></li>
+<li><a href="#31-prayer-times">Prayer Times</a></li>
+<li><a href="#32-app-lock">App Lock</a></li>
+<li><a href="#33-remote-active">Remote Active</a></li>
+<li><a href="#34-public-wi-fi-and-data-usage-today">Public Wi-Fi and Data Usage Today</a></li>
+<li><a href="#35-quiet-updates-and-locked-backups">Quiet updates and locked backups</a></li>
+<li><a href="#36-troubleshooting">Troubleshooting</a></li>
+<li><a href="#37-whats-new-in-150">What's new in 1.5.0</a></li>
 </ol>
 <hr />
 <h2 id="1-install-or-update">1. Install or update</h2>
@@ -91,8 +100,8 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li>Run <code>Polaric-Setup.exe</code>. If SmartScreen appears, click <strong>More info › Run anyway</strong>.</li>
 <li>If Polaric is already installed, the setup <strong>updates it in place</strong>: same folder, your data and choices kept, and Polaric starts again by itself. No uninstall needed.</li>
 </ol>
-<p><strong>Updates are automatic.</strong> Polaric checks for a new version 30 seconds after it starts, every 6 hours and when the internet comes back. A new version is downloaded, its signature is checked, and the notch counts down 20 seconds before Polaric installs it and restarts. Your settings and data stay.</p>
-<p>After an update, the notch says <strong>Updated to Polaric 1.3.1</strong> once. The full list of changes is in <strong>Settings › About › What's new</strong>.</p>
+<p><strong>Updates are automatic and quiet.</strong> Polaric checks for a new version once every 12 hours. A new version is downloaded, its signature is checked, and it installs in the background: the notch shows a short line for 3 seconds and Polaric restarts by itself. Nothing to press, and your settings and data stay.</p>
+<p>After an update, the notch says so once. The full list of changes is in <strong>Settings › About › What's new</strong>.</p>
 <h2 id="2-set-up-polaric-so-every-feature-works">2. Set up Polaric so every feature works</h2>
 <p>Polaric needs a few permissions from macOS or Windows, and your apps must be allowed to show notifications. Do this once, right after installing. It takes about five minutes.</p>
 <h3 id="21-on-a-mac">2.1 On a Mac</h3>
@@ -751,7 +760,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p><img src="guide/media/win-disclaimer.png" alt="Polaric Disclaimer" loading="lazy"></p>
 <p><strong>Privacy &amp; Data</strong>:</p>
 <ul>
-<li><strong>Export backup…</strong>: one sealed <code>.polaric</code> file with every setting, templates and variables, to-dos, meetings and calendar links. It <strong>restores on both Mac and Windows</strong>. (The screenshot folder stays with each computer.)</li>
+<li><strong>Export backup…</strong>: one sealed <code>.polaric</code> file, locked with <strong>a password you choose</strong> (you need it to restore), with every setting, templates and variables, to-dos, meetings and calendar links. It <strong>restores on both Mac and Windows</strong>. (The screenshot folder stays with each computer.)</li>
 <li><strong>Restore from backup…</strong>: checked completely first; if anything goes wrong your current setup is put back.</li>
 <li><strong>Reset settings to default</strong>: settings only; your data stays.</li>
 <li><strong>Delete saved Polaric data</strong>: templates, to-dos, meetings, calendar links, notification history, clipboard history and the list of screenshots Polaric took (the pictures themselves stay in their folder). Settings stay.</li>
@@ -881,7 +890,108 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p><strong>Good to know:</strong> Privacy Mode is visual privacy, <strong>not a secure lock</strong>. It doesn't stop screenshots, screen recording or apps with special access. For real security, lock your computer.</p>
 </blockquote>
 <p>If Polaric was quitting or restarted while the cover was up, it comes back covered.</p>
-<h2 id="27-troubleshooting">27. Troubleshooting</h2>
+<h2 id="27-ai-assistant">27. AI Assistant</h2>
+<p>Select a question anywhere (a chat, a PDF, a web page) and press <strong>⌥⇧A</strong> on a Mac or <strong>Alt + Shift + A</strong> on Windows. The answer and a short explanation show in the notch. Nothing selected? Drag a box over the question instead, and Polaric reads it from the screen.</p>
+<p><strong>Set it up:</strong> <strong>Settings › AI Assistant › AI service</strong>. Paste your own <strong>Gemini</strong>, <strong>ChatGPT</strong> or <strong>Claude</strong> key and press <strong>Save</strong>. Polaric tells whose key it is and tests the connection. Then pick a model, or leave it on <strong>Automatic</strong>.</p>
+<ul>
+<li><strong>Answer</strong>: how long the answer stays in the notch, in seconds or <strong>Until I close it</strong>. Pointing at the answer always keeps it.</li>
+<li>You choose the service and pay it directly. Your question goes only to that AI, never to a Polaric server. No key, no connection.</li>
+</ul>
+<h2 id="28-more-screenshots-and-screen-recording">28. More screenshots and screen recording</h2>
+<p>Everything from <a href="#15-screenshots-save-any-part-of-the-screen">Screenshots</a> still works, with much more around it. Every shortcut can be changed in <strong>Settings › Shortcuts</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>What</th>
+<th>Mac</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>An area</td>
+<td>⌥⇧S</td>
+<td>Alt + Shift + S</td>
+</tr>
+<tr>
+<td>A window</td>
+<td>⌥⇧W</td>
+<td>Alt + Shift + W</td>
+</tr>
+<tr>
+<td>The whole screen</td>
+<td>⌥⇧F</td>
+<td>Alt + Shift + F</td>
+</tr>
+<tr>
+<td>The capture bar (every way in one bar)</td>
+<td>⌥S</td>
+<td>Alt + S</td>
+</tr>
+<tr>
+<td>Scrolling capture: one tall picture of a whole page or chat</td>
+<td>⌥⇧D</td>
+<td>Alt + Shift + D</td>
+</tr>
+<tr>
+<td>Record the screen as a video (MP4)</td>
+<td>⌥⇧R</td>
+<td>Alt + Shift + R</td>
+</tr>
+<tr>
+<td>Record the screen as a GIF</td>
+<td>⌥⇧G</td>
+<td>Alt + Shift + G</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>The capture bar</strong> also has the last area again, an area <strong>pinned on top</strong> of your windows, a <strong>self-timer</strong>, and the screen <strong>held still</strong> while you pick (so a menu or tooltip stays put).</li>
+<li><strong>The editor</strong>: blur, draw, box, circle, arrow and text. <strong>Save</strong> also copies the picture.</li>
+<li><strong>File names</strong> carry the app and the window title, so you can find a picture later.</li>
+<li>Pictures are always as sharp as the screen. <strong>Keep screenshots</strong> cleans up old ones after the days you pick (Polaric's own pictures only), or keeps them forever.</li>
+<li>While recording, a small pill shows the time with <strong>Stop</strong> and <strong>Cancel</strong>. Pressing the shortcut again stops it too.</li>
+</ul>
+<h2 id="29-teleprompter">29. Teleprompter</h2>
+<p>Your script rolls up <strong>right under the camera</strong>, so you read your words while you look at the person on the call, the recording or the audience.</p>
+<ol>
+<li><strong>Settings › Teleprompter</strong>: turn it on and write your script (or use the notch's <strong>Teleprompter</strong> page). It's saved as you type and goes into your backups.</li>
+<li>Press <strong>Play</strong>. Point at the prompter for its buttons: pause, from the start, text size (<strong>A−</strong> / <strong>A+</strong>), speed (the tortoise and the hare), edit and close.</li>
+</ol>
+<p><img src="guide/media/mac-prompter.webp" alt="The teleprompter under the camera" loading="lazy"></p>
+<p><strong>Moving</strong>: <strong>Follow my voice</strong> rolls while you speak and waits when you stop (allow the microphone once; if it stops mid-sentence, move <strong>Sensitivity</strong> toward <strong>Soft voice</strong>). <strong>Roll by itself</strong> goes at your speed. <strong>I scroll myself</strong> stays still until you scroll. <strong>Prompter</strong> sets the size (Small, Medium, Large) and the text size.</p>
+<h2 id="30-sticky-memo">30. Sticky memo</h2>
+<p>Sticky notes that come <strong>out of the notch</strong> with <strong>⌥M</strong> (Windows: <strong>Alt + M</strong>) and go back with the same keys. Write, change a note's colour and size, and drag it anywhere on the screen. Notes are kept until you delete them, encrypted with the rest of your data, and go into your backups.</p>
+<p><img src="guide/media/mac-memo.webp" alt="Sticky memos out of the notch" loading="lazy"></p>
+<h2 id="31-prayer-times">31. Prayer Times</h2>
+<p>The five daily prayers for your city in the notch, with a notice at each one. Turn it on in <strong>Settings › Prayer Times › Use Prayer Times</strong>.</p>
+<ul>
+<li><strong>Schedule:</strong> Indonesia uses <strong>Kemenag RI</strong>'s official schedule; elsewhere, your country's own authority.</li>
+<li><strong>City:</strong> keep <strong>Use my location</strong> on, or turn it off, search your city or regency and press <strong>Use</strong>.</li>
+<li><strong>Prayer time notice:</strong> a notice like a message, then your mascot asks with <strong>Done</strong> and <strong>Remind me in 10 min</strong>. Pick a chime, nothing, or your own sound such as an adhan.</li>
+</ul>
+<h2 id="32-app-lock">32. App Lock</h2>
+<p>Chosen apps open only after <strong>Touch ID</strong> (Windows Hello on Windows) or a password. When a locked app comes to the front, a frosted cover hides it until you unlock it.</p>
+<ol>
+<li><strong>Settings › Privacy Mode › App Lock</strong>: turn it on and press <strong>Add app</strong> for each app (chats, photos, work).</li>
+<li><strong>Unlocking</strong>: the computer's own sign-in, or <strong>My own App Lock password</strong> (type it twice and save). With your own password, someone who knows the computer's password still can't open them. Touch ID can stay as a shortcut.</li>
+</ol>
+<h2 id="33-remote-active">33. Remote Active</h2>
+<p>While someone controls or watches your computer from elsewhere (AnyDesk, TeamViewer, RustDesk…), the notch says <strong>Remote Active</strong> with the remote app's logo and who is connected. The line stays until the session ends and can't be closed.</p>
+<p>Scammers posing as bank or support staff ask people to install these apps: with Remote Active you always see when your screen is being controlled. Leave it on; turn it off in <strong>Settings › Privacy &amp; Network › Remote access</strong> only if you never want it.</p>
+<h2 id="34-public-wi-fi-and-data-usage-today">34. Public Wi-Fi and Data Usage Today</h2>
+<ul>
+<li><strong>Public Wi-Fi:</strong> a few seconds after you join a Wi-Fi network, the notch warns you when it has <strong>no password</strong>, uses weak <strong>WEP</strong>, is <strong>Enhanced Open</strong> (encrypted, but anyone can join), or sits behind a <strong>login page</strong> (hotels, cafés, airports). Use a VPN or your phone's hotspot for anything private there.</li>
+<li><strong>Data Usage Today:</strong> how much you downloaded and uploaded today, from 00:00 to 23:59 local time, on the notch's <strong>Privacy &amp; Network</strong> page.</li>
+</ul>
+<h2 id="35-quiet-updates-and-locked-backups">35. Quiet updates and locked backups</h2>
+<ul>
+<li><strong>Updates</strong> are checked once every 12 hours and install quietly: the notch shows a short line for 3 seconds and Polaric restarts by itself. Nothing to press, and the same version is never downloaded twice. Every update is checked against Polaric's own signature.</li>
+<li><strong>Backups</strong> (<strong>Settings › Privacy &amp; Data › Export backup…</strong>) are locked with <strong>a password you choose</strong>. You need it to restore, on a Mac or on Windows. Keep it somewhere safe: without it the backup can't be opened.</li>
+<li><strong>Everything Polaric keeps</strong> on your computer is encrypted.</li>
+<li><strong>The website map</strong> counts installs and updates by <strong>country only</strong>: no city, no name, no device id. Every connection is listed in <strong>About › Polaric Disclaimer</strong>.</li>
+</ul>
+<h2 id="36-troubleshooting">36. Troubleshooting</h2>
 <table>
 <thead>
 <tr>
@@ -972,7 +1082,37 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 </tbody>
 </table>
-<h2 id="28-whats-new-in-132">28. What's new in 1.3.2</h2>
+<h2 id="37-whats-new-in-150">37. What's new in 1.5.0</h2>
+<p><strong>New</strong></p>
+<ul>
+<li>AI Assistant: select a question anywhere (or drag a box over it) and press ⌥⇧A. The answer and a short explanation show in the notch. Works with your own Gemini, ChatGPT or Claude key</li>
+<li>Screenshots can do much more: a capture bar (⌥S), a window, the whole screen, the last area again, an area pinned on top, a self-timer, the screen held still while you pick, and file names with the app and the window title</li>
+<li>Scrolling capture: one tall picture of a whole page or chat</li>
+<li>Screenshot editor: blur, draw, box, circle, arrow and text. Save also copies it</li>
+<li>Record your screen as a video (MP4) or a GIF</li>
+<li>App Lock: chosen apps open only after Touch ID or your own password</li>
+<li>Remote Active: while someone controls this Mac (AnyDesk, TeamViewer, RustDesk…), the notch says so and who it is</li>
+</ul>
+<p><strong>Improved</strong></p>
+<ul>
+<li>Updates are checked once every 12 hours and install quietly in the background. No banner, and the same version is never downloaded again and again</li>
+<li>Polaric's website map shows the countries where Polaric is used (only the country, see About › Polaric Disclaimer)</li>
+<li>Updates are quiet: a short line in the notch for 3 seconds instead of a banner, and Polaric restarts by itself, nothing to press</li>
+<li>Backups are locked with a password you choose, on a Mac and on Windows</li>
+<li>Everything Polaric keeps on this Mac is encrypted</li>
+<li>Screenshots are always as sharp as the screen, and every screenshot shortcut can be changed</li>
+<li>Prayer Times: your location, or a city you choose</li>
+<li>Permission Tests show real things Polaric reads, like your Wi-Fi name</li>
+</ul>
+<p><strong>Fixed</strong></p>
+<ul>
+<li>A recent update could leave your settings and AutoText unreadable. Fixed, and anything set aside comes back</li>
+<li>No more Keychain prompt after each update</li>
+<li>AutoText works everywhere again: an app left holding Secure Keyboard Entry in the background no longer stops it, and Polaric tells you which app it is</li>
+<li>Text capture works again on macOS 27</li>
+<li>Updates are checked again just before they install</li>
+</ul>
+<h3 id="in-132">In 1.3.2</h3>
 <p><strong>New</strong></p>
 <ul>
 <li><strong>Privacy Mode</strong> (Mac and Windows): a dark frosted cover over every screen with <strong>⌥⇧L / Alt+Shift+L</strong>, with your own words or none. Everything keeps running underneath. Take it away with <strong>⌥⇧U / Alt+Shift+U</strong>, your hidden pattern, or by locking the computer and signing back in. See <a href="#26-privacy-mode">Privacy Mode</a>.</li>
@@ -1041,7 +1181,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li>Windows: the notch hides over browser tabs again; notifications and the playing song read in one line (1.1.2).</li>
 </ul>
 <hr />
-<p>Polaric 1.3.1 · Crafted by polaric.dev@gmail.com · Download only from <a href="https://polaricdev.github.io/">polaricdev.github.io</a></p>
+<p>Polaric 1.5.0 · Crafted by polaric.dev@gmail.com · Download only from <a href="https://polaricdev.github.io/">polaricdev.github.io</a></p>
 </main>
 <footer>Polaric · polaric.dev@gmail.com · <a href="./">polaricdev.github.io</a></footer>
 </body>

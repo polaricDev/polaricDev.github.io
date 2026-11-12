@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Polaric 1.3.2 — Panduan Pengguna</title>
+<title>Polaric 1.5.0 — Panduan Pengguna</title>
 <meta name="description" content="Panduan pengguna Polaric">
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preload" href="assets/fonts/BricolageGrotesque.woff2" as="font" type="font/woff2" crossorigin>
@@ -41,7 +41,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <body>
 <nav class="bar"><a href="./">Polaric</a><span class="lang"><a href="guide-en.html">English</a><a href="guide-id.html" aria-current="page">Bahasa Indonesia</a></span></nav>
 <main>
-<h1 id="polaric-132-panduan-pengguna">Polaric 1.3.2 — Panduan Pengguna</h1>
+<h1 id="polaric-150-panduan-pengguna">Polaric 1.5.0 — Panduan Pengguna</h1>
 <p>Polaric mengubah bagian atas layar kamu jadi notch yang hidup: musik dengan lirik yang sinkron, meeting, pesan dan email sekilas lihat, to-do, timer, suara ambient, <strong>Text capture</strong> (salin teks dari apa saja di layar), <strong>Screenshot</strong>, <strong>Privacy &amp; Network</strong>, window snap, AutoText, dan maskot kecil yang menemani. Notch juga menampilkan <strong>kamera dan mikrofon saat meeting</strong>, memberi tahu saat <strong>AI selesai mengerjakan tugas</strong> (Claude Code, Codex, Antigravity, Claude AI, ChatGPT, Gemini), dan bisa memakai <strong>English atau Bahasa Indonesia</strong>. Di Windows, notch juga menampilkan <strong>FPS game</strong> kamu dan <strong>jam kecil saat idle</strong>. Polaric jalan di <strong>macOS 14 atau lebih baru di Mac dengan Apple silicon</strong> (MacBook dengan atau tanpa notch) dan <strong>Windows 10 dan 11</strong> (64-bit).</p>
 <blockquote>
 <p>🇬🇧 English version: <a href="guide-en.html">English</a></p>
@@ -75,8 +75,17 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li><a href="#24-notifikasi-tugas-ai">Notifikasi tugas AI</a></li>
 <li><a href="#25-bahasa-dan-bantuan-di-settings">Bahasa dan bantuan di Settings</a></li>
 <li><a href="#26-privacy-mode">Privacy Mode</a> — baru</li>
-<li><a href="#27-kalau-ada-masalah">Kalau ada masalah</a></li>
-<li><a href="#28-yang-baru-di-132">Yang baru di 1.3.2</a></li>
+<li><a href="#27-ai-assistant">AI Assistant</a></li>
+<li><a href="#28-screenshot-lebih-lengkap-dan-rekam-layar">Screenshot lebih lengkap dan rekam layar</a></li>
+<li><a href="#29-teleprompter">Teleprompter</a></li>
+<li><a href="#30-sticky-memo">Sticky memo</a></li>
+<li><a href="#31-jadwal-sholat">Jadwal Sholat</a></li>
+<li><a href="#32-kunci-aplikasi-app-lock">Kunci Aplikasi (App Lock)</a></li>
+<li><a href="#33-remote-aktif">Remote Aktif</a></li>
+<li><a href="#34-wi-fi-publik-dan-pemakaian-data-hari-ini">Wi-Fi publik dan Pemakaian Data Hari Ini</a></li>
+<li><a href="#35-update-diam-diam-dan-cadangan-terkunci">Update diam-diam dan cadangan terkunci</a></li>
+<li><a href="#36-kalau-ada-masalah">Kalau ada masalah</a></li>
+<li><a href="#37-yang-baru-di-150">Yang baru di 1.5.0</a></li>
 </ol>
 <hr />
 <h2 id="1-pasang-atau-update">1. Pasang atau update</h2>
@@ -91,8 +100,8 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li>Jalankan <code>Polaric-Setup.exe</code>. Kalau muncul SmartScreen, klik <strong>More info › Run anyway</strong>.</li>
 <li>Kalau Polaric sudah terpasang, setup <strong>memperbarui di tempat</strong>: folder sama, data dan pilihan kamu tetap, dan Polaric jalan lagi sendiri. Tidak perlu uninstall.</li>
 </ol>
-<p><strong>Update berjalan otomatis.</strong> Polaric mengecek versi baru 30 detik setelah jalan, setiap 6 jam, dan saat internet tersambung lagi. Versi baru diunduh, tanda tangannya dicek, lalu notch menghitung mundur 20 detik sebelum Polaric memasangnya dan jalan ulang. Pengaturan dan data kamu tetap.</p>
-<p>Setelah update, notch menampilkan <strong>Updated to Polaric 1.3.1</strong> sekali. Daftar lengkap perubahannya ada di <strong>Settings › About › What's new</strong>.</p>
+<p><strong>Update berjalan otomatis dan diam-diam.</strong> Polaric mengecek versi baru sekali tiap 12 jam. Versi baru diunduh, tanda tangannya dicek, lalu dipasang di latar belakang: notch menampilkan satu baris singkat selama 3 detik dan Polaric jalan ulang sendiri. Tidak ada yang perlu ditekan, dan pengaturan serta data kamu tetap.</p>
+<p>Setelah update, notch memberi tahu sekali. Daftar lengkap perubahannya ada di <strong>Settings › About › What's new</strong>.</p>
 <h2 id="2-atur-polaric-supaya-semua-fitur-berfungsi">2. Atur Polaric supaya semua fitur berfungsi</h2>
 <p>Polaric butuh beberapa izin dari macOS atau Windows, dan aplikasi kamu harus boleh menampilkan notifikasi. Lakukan sekali saja setelah memasang. Kira-kira lima menit.</p>
 <h3 id="21-di-mac">2.1 Di Mac</h3>
@@ -751,7 +760,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p><img src="guide/media/win-disclaimer.png" alt="Polaric Disclaimer" loading="lazy"></p>
 <p><strong>Privacy &amp; Data</strong>:</p>
 <ul>
-<li><strong>Export backup…</strong>: satu file <code>.polaric</code> tersegel berisi semua pengaturan, template dan variabel, to-do, meeting, dan link kalender. Bisa <strong>dipulihkan di Mac maupun Windows</strong>. (Folder screenshot tetap milik masing-masing komputer.)</li>
+<li><strong>Export backup…</strong>: satu file <code>.polaric</code> tersegel, dikunci dengan <strong>kata sandi pilihanmu</strong> (dibutuhkan untuk memulihkan), berisi semua pengaturan, template dan variabel, to-do, meeting, dan link kalender. Bisa <strong>dipulihkan di Mac maupun Windows</strong>. (Folder screenshot tetap milik masing-masing komputer.)</li>
 <li><strong>Restore from backup…</strong>: dicek utuh dulu; kalau ada yang gagal, pengaturan kamu yang sekarang dikembalikan.</li>
 <li><strong>Reset settings to default</strong>: hanya pengaturan; data kamu tetap.</li>
 <li><strong>Delete saved Polaric data</strong>: template, to-do, meeting, link kalender, riwayat notifikasi, riwayat clipboard, dan daftar screenshot yang diambil Polaric (gambarnya sendiri tetap di foldernya). Pengaturan tetap.</li>
@@ -881,7 +890,108 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <p><strong>Perlu diingat:</strong> Privacy Mode itu privasi tampilan, <strong>bukan kunci pengaman</strong>. Ia tidak mencegah screenshot, perekaman layar, atau aplikasi dengan akses khusus. Untuk keamanan sungguhan, kunci komputermu.</p>
 </blockquote>
 <p>Kalau Polaric tertutup atau di-restart saat penutup aktif, layarnya langsung tertutup lagi.</p>
-<h2 id="27-kalau-ada-masalah">27. Kalau ada masalah</h2>
+<h2 id="27-ai-assistant">27. AI Assistant</h2>
+<p>Blok sebuah pertanyaan di mana saja (chat, PDF, halaman web), lalu tekan <strong>⌥⇧A</strong> di Mac atau <strong>Alt + Shift + A</strong> di Windows. Jawaban dan penjelasan singkatnya muncul di notch. Tidak ada yang diblok? Tarik kotak di atas pertanyaannya, Polaric membacanya dari layar.</p>
+<p><strong>Cara pasang:</strong> <strong>Settings › AI Assistant › Layanan AI</strong>. Tempel key <strong>Gemini</strong>, <strong>ChatGPT</strong>, atau <strong>Claude</strong> milikmu sendiri lalu tekan <strong>Simpan</strong>. Polaric mengenali AI-nya dan mengetes koneksinya. Lalu pilih model, atau biarkan <strong>Otomatis</strong>.</p>
+<ul>
+<li><strong>Jawaban</strong>: berapa lama jawaban tampil di notch, dalam detik atau <strong>Sampai saya tutup</strong>. Mengarahkan pointer ke jawaban selalu menahannya.</li>
+<li>Kamu memilih layanannya dan membayar langsung. Pertanyaanmu hanya dikirim ke AI itu, tidak pernah ke server Polaric. Tanpa key, tidak ada koneksi.</li>
+</ul>
+<h2 id="28-screenshot-lebih-lengkap-dan-rekam-layar">28. Screenshot lebih lengkap dan rekam layar</h2>
+<p>Semua yang ada di <a href="#15-screenshot-simpan-bagian-mana-pun-dari-layar">Screenshot</a> tetap jalan, ditambah banyak hal baru. Semua shortcut bisa diganti di <strong>Settings › Shortcuts</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Apa</th>
+<th>Mac</th>
+<th>Windows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Satu area</td>
+<td>⌥⇧S</td>
+<td>Alt + Shift + S</td>
+</tr>
+<tr>
+<td>Satu jendela</td>
+<td>⌥⇧W</td>
+<td>Alt + Shift + W</td>
+</tr>
+<tr>
+<td>Seluruh layar</td>
+<td>⌥⇧F</td>
+<td>Alt + Shift + F</td>
+</tr>
+<tr>
+<td>Capture bar (semua cara dalam satu bar)</td>
+<td>⌥S</td>
+<td>Alt + S</td>
+</tr>
+<tr>
+<td>Scrolling capture: satu gambar panjang dari seluruh halaman atau chat</td>
+<td>⌥⇧D</td>
+<td>Alt + Shift + D</td>
+</tr>
+<tr>
+<td>Rekam layar jadi video (MP4)</td>
+<td>⌥⇧R</td>
+<td>Alt + Shift + R</td>
+</tr>
+<tr>
+<td>Rekam layar jadi GIF</td>
+<td>⌥⇧G</td>
+<td>Alt + Shift + G</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Capture bar</strong> juga punya area terakhir lagi, area yang <strong>disematkan di atas</strong> jendela lain, <strong>timer</strong>, dan layar yang <strong>dibekukan</strong> saat kamu memilih (jadi menu atau tooltip tidak hilang).</li>
+<li><strong>Editor</strong>: blur, coret, kotak, lingkaran, panah, dan teks. <strong>Simpan</strong> sekaligus menyalin gambarnya.</li>
+<li><strong>Nama file</strong> berisi nama aplikasi dan judul jendela, jadi gampang dicari nanti.</li>
+<li>Gambarnya selalu setajam layar. <strong>Simpan screenshot</strong> membersihkan yang lama setelah jumlah hari yang kamu pilih (hanya gambar milik Polaric), atau menyimpannya selamanya.</li>
+<li>Saat merekam, pil kecil menampilkan durasi dengan <strong>Stop</strong> dan <strong>Batal</strong>. Menekan shortcut-nya lagi juga menghentikannya.</li>
+</ul>
+<h2 id="29-teleprompter">29. Teleprompter</h2>
+<p>Naskahmu bergulir <strong>tepat di bawah kamera</strong>, jadi kamu membaca sambil tetap menatap lawan bicara, kamera rekaman, atau penonton.</p>
+<ol>
+<li><strong>Settings › Teleprompter</strong>: nyalakan dan tulis naskahmu (atau pakai halaman <strong>Teleprompter</strong> di notch). Tersimpan otomatis saat mengetik dan ikut masuk cadangan.</li>
+<li>Tekan <strong>Putar</strong>. Arahkan kursor ke prompter untuk tombolnya: jeda, dari awal, ukuran teks (<strong>A−</strong> / <strong>A+</strong>), kecepatan (kura-kura dan kelinci), edit, dan tutup.</li>
+</ol>
+<p><img src="guide/media/mac-prompter.webp" alt="Teleprompter di bawah kamera" loading="lazy"></p>
+<p><strong>Gerakan</strong>: <strong>Ikuti suaraku</strong> berjalan saat kamu bicara dan menunggu saat kamu berhenti (izinkan mikrofon sekali; kalau berhenti di tengah kalimat, geser <strong>Kepekaan</strong> ke <strong>Suara pelan</strong>). <strong>Jalan sendiri</strong> berjalan dengan kecepatanmu. <strong>Aku scroll sendiri</strong> diam sampai kamu scroll. <strong>Prompter</strong> mengatur ukurannya (Kecil, Sedang, Besar) dan ukuran teks.</p>
+<h2 id="30-sticky-memo">30. Sticky memo</h2>
+<p>Catatan tempel yang <strong>keluar dari notch</strong> dengan <strong>⌥M</strong> (Windows: <strong>Alt + M</strong>) dan masuk lagi dengan tombol yang sama. Tulis, ganti warna dan ukuran catatan, lalu seret ke mana saja di layar. Catatan tersimpan sampai kamu hapus, terenkripsi bersama data lainnya, dan ikut masuk cadangan.</p>
+<p><img src="guide/media/mac-memo.webp" alt="Sticky memo keluar dari notch" loading="lazy"></p>
+<h2 id="31-jadwal-sholat">31. Jadwal Sholat</h2>
+<p>Lima waktu sholat untuk kotamu di notch, dengan notifikasi di tiap waktu. Nyalakan di <strong>Settings › Jadwal Sholat › Pakai Jadwal Sholat</strong>.</p>
+<ul>
+<li><strong>Jadwal:</strong> Indonesia memakai jadwal resmi <strong>Kemenag RI</strong>; di luar negeri, lembaga resmi negaramu.</li>
+<li><strong>Kota:</strong> biarkan <strong>Pakai lokasiku</strong> menyala, atau matikan, cari kota atau kabupatenmu lalu tekan <strong>Pakai</strong>.</li>
+<li><strong>Notifikasi waktu sholat:</strong> notifikasi seperti pesan masuk, lalu maskot bertanya dengan <strong>Selesai</strong> dan <strong>Ingatkan 10 mnt lagi</strong>. Pilih lonceng, tanpa suara, atau suaramu sendiri seperti adzan.</li>
+</ul>
+<h2 id="32-kunci-aplikasi-app-lock">32. Kunci Aplikasi (App Lock)</h2>
+<p>Aplikasi pilihanmu hanya terbuka setelah <strong>Touch ID</strong> (Windows Hello di Windows) atau kata sandi. Saat aplikasi yang dikunci dibuka, penutup buram menyembunyikannya sampai kamu membukanya.</p>
+<ol>
+<li><strong>Settings › Privacy Mode › Kunci Aplikasi</strong>: nyalakan, lalu tekan <strong>Tambah aplikasi</strong> untuk tiap aplikasi (chat, foto, kerjaan).</li>
+<li><strong>Membuka kunci</strong>: pakai login komputer, atau <strong>Kata sandi Kunci Aplikasi sendiri</strong> (ketik dua kali lalu simpan). Dengan kata sandi sendiri, orang yang tahu kata sandi komputer pun tetap tidak bisa membukanya. Touch ID bisa tetap jadi jalan pintas.</li>
+</ol>
+<h2 id="33-remote-aktif">33. Remote Aktif</h2>
+<p>Saat ada yang mengendalikan atau melihat komputermu dari jauh (AnyDesk, TeamViewer, RustDesk…), notch menampilkan <strong>Remote Aktif</strong> dengan logo aplikasi remote-nya dan siapa yang tersambung. Barisnya tetap ada sampai sesi selesai dan tidak bisa ditutup.</p>
+<p>Penipu yang mengaku petugas bank atau teknisi sering menyuruh orang memasang aplikasi ini: dengan Remote Aktif kamu selalu tahu saat layarmu sedang dikendalikan. Biarkan menyala; matikan di <strong>Settings › Privacy &amp; Network › Akses jarak jauh</strong> hanya kalau kamu tidak pernah membutuhkannya.</p>
+<h2 id="34-wi-fi-publik-dan-pemakaian-data-hari-ini">34. Wi-Fi publik dan Pemakaian Data Hari Ini</h2>
+<ul>
+<li><strong>Wi-Fi publik:</strong> beberapa detik setelah tersambung ke Wi-Fi, notch memperingatkan kalau jaringannya <strong>tanpa kata sandi</strong>, memakai <strong>WEP</strong> yang lemah, <strong>Enhanced Open</strong> (terenkripsi tapi siapa saja bisa masuk), atau ada <strong>halaman login</strong> (hotel, kafe, bandara). Pakai VPN atau hotspot HP untuk hal yang pribadi di sana.</li>
+<li><strong>Pemakaian Data Hari Ini:</strong> berapa banyak yang kamu unduh dan unggah hari ini, dari 00:00 sampai 23:59 waktu setempat, di halaman <strong>Privacy &amp; Network</strong> di notch.</li>
+</ul>
+<h2 id="35-update-diam-diam-dan-cadangan-terkunci">35. Update diam-diam dan cadangan terkunci</h2>
+<ul>
+<li><strong>Update</strong> dicek sekali tiap 12 jam dan terpasang diam-diam: notch menampilkan satu baris singkat selama 3 detik lalu Polaric jalan ulang sendiri. Tidak ada yang perlu ditekan, dan versi yang sama tidak pernah diunduh dua kali. Setiap update dicek dengan tanda tangan resmi Polaric.</li>
+<li><strong>Cadangan</strong> (<strong>Settings › Privacy &amp; Data › Ekspor cadangan…</strong>) dikunci dengan <strong>kata sandi pilihanmu</strong>. Kata sandi itu dibutuhkan untuk memulihkan, di Mac maupun Windows. Simpan baik-baik: tanpa itu cadangannya tidak bisa dibuka.</li>
+<li><strong>Semua yang disimpan Polaric</strong> di komputermu terenkripsi.</li>
+<li><strong>Peta di website</strong> menghitung instalasi dan update <strong>per negara saja</strong>: tanpa kota, tanpa nama, tanpa ID perangkat. Semua koneksi tercantum di <strong>About › Polaric Disclaimer</strong>.</li>
+</ul>
+<h2 id="36-kalau-ada-masalah">36. Kalau ada masalah</h2>
 <table>
 <thead>
 <tr>
@@ -972,7 +1082,37 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 </tr>
 </tbody>
 </table>
-<h2 id="28-yang-baru-di-132">28. Yang baru di 1.3.2</h2>
+<h2 id="37-yang-baru-di-150">37. Yang baru di 1.5.0</h2>
+<p><strong>Baru</strong></p>
+<ul>
+<li>AI Assistant: pilih pertanyaan di mana saja (atau tarik kotak di atasnya) lalu tekan ⌥⇧A. Jawaban dan penjelasan singkat muncul di notch. Pakai key Gemini, ChatGPT atau Claude milikmu</li>
+<li>Screenshot jauh lebih lengkap: bar tangkap (⌥S), jendela, seluruh layar, area terakhir lagi, area yang disematkan di atas, timer, layar diam saat memilih, dan nama file berisi aplikasi dan judul jendela</li>
+<li>Tangkap gulir: satu gambar panjang seluruh halaman atau chat</li>
+<li>Editor screenshot: blur, coret, kotak, lingkaran, panah dan teks. Simpan sekaligus menyalin</li>
+<li>Rekam layar sebagai video (MP4) atau GIF</li>
+<li>App Lock: aplikasi pilihan hanya terbuka setelah Touch ID atau password milikmu</li>
+<li>Remote Active: saat seseorang mengendalikan Mac ini (AnyDesk, TeamViewer, RustDesk…), notch memberi tahu dan siapa orangnya</li>
+</ul>
+<p><strong>Lebih baik</strong></p>
+<ul>
+<li>Pembaruan dicek sekali setiap 12 jam dan terpasang diam-diam di latar belakang. Tanpa banner, dan versi yang sama tidak diunduh berulang-ulang</li>
+<li>Peta di situs Polaric menampilkan negara tempat Polaric dipakai (hanya negaranya, lihat Tentang › Disclaimer Polaric)</li>
+<li>Pembaruan kini senyap: baris singkat di notch selama 3 detik, bukan banner, dan Polaric mulai ulang sendiri tanpa perlu menekan apa pun</li>
+<li>Backup dikunci dengan password pilihanmu, di Mac maupun Windows</li>
+<li>Semua yang disimpan Polaric di Mac ini dienkripsi</li>
+<li>Screenshot selalu setajam layar, dan semua shortcut screenshot bisa diganti</li>
+<li>Jadwal Salat: lokasimu, atau kota yang kamu pilih</li>
+<li>Tes izin menampilkan hal nyata yang dibaca Polaric, seperti nama Wi-Fi</li>
+</ul>
+<p><strong>Diperbaiki</strong></p>
+<ul>
+<li>Update sebelumnya bisa membuat pengaturan dan AutoText-mu tidak terbaca. Sudah diperbaiki, dan data yang sempat tersisih dikembalikan</li>
+<li>Tidak ada lagi pop-up Keychain setiap habis update</li>
+<li>AutoText jalan di mana saja lagi: aplikasi yang menahan Secure Keyboard Entry di belakang tidak lagi menghentikannya, dan Polaric memberi tahu aplikasi mana</li>
+<li>Ambil teks dari layar berfungsi lagi di macOS 27</li>
+<li>Update dicek ulang tepat sebelum dipasang</li>
+</ul>
+<h3 id="di-132">Di 1.3.2</h3>
 <p><strong>Baru</strong></p>
 <ul>
 <li><strong>Privacy Mode</strong> (Mac dan Windows): penutup kaca buram gelap di setiap layar dengan <strong>⌥⇧L / Alt+Shift+L</strong>, dengan kata-katamu sendiri atau tanpa kata. Semua tetap jalan di baliknya. Buka lagi dengan <strong>⌥⇧U / Alt+Shift+U</strong>, pola rahasiamu, atau dengan mengunci komputer lalu masuk lagi. Lihat <a href="#26-privacy-mode">Privacy Mode</a>.</li>
@@ -1041,7 +1181,7 @@ footer { text-align: center; color: var(--soft); font-size: 14px; padding: 32px 
 <li>Windows: notch kembali sembunyi di atas tab browser; notifikasi dan lagu yang diputar dibaca dalam satu baris (1.1.2).</li>
 </ul>
 <hr />
-<p>Polaric 1.3.1 · Dibuat oleh polaric.dev@gmail.com · Download hanya dari <a href="https://polaricdev.github.io/">polaricdev.github.io</a></p>
+<p>Polaric 1.5.0 · Dibuat oleh polaric.dev@gmail.com · Download hanya dari <a href="https://polaricdev.github.io/">polaricdev.github.io</a></p>
 </main>
 <footer>Polaric · polaric.dev@gmail.com · <a href="./">polaricdev.github.io</a></footer>
 </body>
