@@ -42,7 +42,7 @@
   --ly-scale: 0.98;
 }
 </style>
-<link rel="stylesheet" href="assets/polaric/polaric.css?v=13">
+<link rel="stylesheet" href="assets/polaric/polaric.css?v=14">
 <script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
 <script>setTimeout(()=>document.documentElement.classList.add('pn-shown'),2600)</script>
 <script src="assets/backgrounds/backgrounds.js"></script>
@@ -153,13 +153,7 @@
           </ul>
         </div>
         <div class="pn-hero__art">
-          <div class="pn-mascot__stage pn-puppy" title="Click me" aria-hidden="true"><img src="assets/img/polaric-puppy-point.svg" alt="" width="640" height="640"></div>
-          <div class="pn-rate" data-pn="rate" data-state="open" data-empty>
-            <p class="pn-rate__t">Rating Polaric</p>
-            <p class="pn-rate__avg"><span class="pn-rate__n" data-rate="avg">–</span><span class="pn-rate__of">/ 5</span><span class="pn-rate__c" data-rate="count">Be the first to rate</span></p>
-            <div class="pn-rate__stars" role="radiogroup" aria-label="Rate Polaric from 1 to 5 stars"><button type="button" class="pn-rate__star" data-star="1" style="--i:0" role="radio" aria-checked="false" aria-label="1 star"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button><button type="button" class="pn-rate__star" data-star="2" style="--i:1" role="radio" aria-checked="false" aria-label="2 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button><button type="button" class="pn-rate__star" data-star="3" style="--i:2" role="radio" aria-checked="false" aria-label="3 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button><button type="button" class="pn-rate__star" data-star="4" style="--i:3" role="radio" aria-checked="false" aria-label="4 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button><button type="button" class="pn-rate__star" data-star="5" style="--i:4" role="radio" aria-checked="false" aria-label="5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button></div>
-            <p class="pn-rate__msg" aria-live="polite">Tap a star to rate</p>
-          </div>
+          <div class="pn-mascot__stage pn-puppy" title="Click me" aria-hidden="true"><img src="assets/img/polaric-puppy.svg" alt="" width="640" height="640"></div>
         </div>
       </div>
       <div class="hero__window pn-screen" role="img" aria-label="A real recording of Polaric on a MacBook: the notch glows and shows music, messages, an AI answer and its mascots">
@@ -306,16 +300,36 @@
 
   <section class="section pn-world" id="countries" data-pn="world" aria-labelledby="world-h">
     <div class="wrap">
-      <div class="section-head"><h2 id="world-h">Where Polaric lives. <span class="muted">The cities and countries that download, install and update it.</span></h2></div>
+      <div class="section-head"><h2 id="world-h">Where Polaric lives. <span class="muted">The countries that download, install and update it.</span></h2></div>
       <div class="grid grid--top fill">
-        <div class="span-8 pn-map" role="img" aria-label="World map with a dot on each city where Polaric was downloaded, installed or updated">
+        <div class="span-8 pn-map" role="img" aria-label="World map with a dot on each country where Polaric was downloaded, installed or updated">
           <svg class="pn-map__svg" viewBox="0 0 1000 480" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path class="pn-map__land" d=""/><g class="pn-map__pins"></g></svg>
           <p class="pn-map__tip" hidden></p>
         </div>
         <div class="span-4 pn-legend">
           <p class="pn-legend__total"><span class="pn-legend__n" data-count="world-total">0</span> downloads, installs and updates<span class="pn-legend__cs" hidden> in <span data-count="places">0 countries</span></span></p>
           <ol class="st__countries" data-state="loading" aria-live="polite"></ol>
-          <p class="st__empty">Each download from this page, and each install and update of Polaric 1.5.0 or later, adds its city and country. The map catches up within the hour. <a href="#disclaimer">What is counted</a></p>
+          <p class="st__empty">Each download from this page, and each install and update of Polaric 1.5.0 or later, adds its country. The map catches up within the hour. <a href="#disclaimer">What is counted</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pn-rating" id="rate" aria-labelledby="rate-h">
+    <div class="wrap">
+      <div class="section-head"><h2 id="rate-h">Rate Polaric. <span class="muted">One tap, no account. Every star helps us.</span></h2></div>
+      <div class="pn-rating__panel" data-pn="rate" data-state="open" data-empty>
+        <div class="pn-rating__score">
+          <p class="pn-rating__big"><span class="pn-rating__n" data-rate="avg">0.0</span><span class="pn-rating__of">/ 5</span></p>
+          <div class="pn-rating__mini" aria-hidden="true"><span class="pn-rating__mini-base"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></span><span class="pn-rating__mini-fill" style="--p:0%"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></span></div>
+          <p class="pn-rating__c" data-rate="count">No ratings yet. Be the first.</p>
+          <ol class="pn-rating__dist" aria-label="Ratings by stars"><li data-row="5"><span class="pn-rating__k">5<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></span><span class="pn-rating__bar"><i></i></span><span class="pn-rating__v">0</span></li><li data-row="4"><span class="pn-rating__k">4<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></span><span class="pn-rating__bar"><i></i></span><span class="pn-rating__v">0</span></li><li data-row="3"><span class="pn-rating__k">3<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></span><span class="pn-rating__bar"><i></i></span><span class="pn-rating__v">0</span></li><li data-row="2"><span class="pn-rating__k">2<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></span><span class="pn-rating__bar"><i></i></span><span class="pn-rating__v">0</span></li><li data-row="1"><span class="pn-rating__k">1<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></span><span class="pn-rating__bar"><i></i></span><span class="pn-rating__v">0</span></li></ol>
+        </div>
+        <div class="pn-rating__ask">
+          <img class="pn-rating__pup" src="assets/img/polaric-puppy.svg" alt="" width="200" height="200">
+          <p class="pn-rating__q">How do you like Polaric?</p>
+          <div class="pn-rate__stars" role="radiogroup" aria-label="Rate Polaric from 1 to 5 stars"><button type="button" class="pn-rate__star" style="--i:0" data-star="1" data-label="Not for me" role="radio" aria-checked="false" aria-label="1 star: Not for me"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button><button type="button" class="pn-rate__star" style="--i:1" data-star="2" data-label="It's okay" role="radio" aria-checked="false" aria-label="2 stars: It's okay"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button><button type="button" class="pn-rate__star" style="--i:2" data-star="3" data-label="Good" role="radio" aria-checked="false" aria-label="3 stars: Good"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button><button type="button" class="pn-rate__star" style="--i:3" data-star="4" data-label="Great" role="radio" aria-checked="false" aria-label="4 stars: Great"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button><button type="button" class="pn-rate__star" style="--i:4" data-star="5" data-label="Love it!" role="radio" aria-checked="false" aria-label="5 stars: Love it!"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg></button></div>
+          <p class="pn-rate__msg" aria-live="polite">Tap a star</p>
         </div>
       </div>
     </div>
@@ -337,7 +351,7 @@
         <article class="pn-disc__card"><h3>Speed and connection checks</h3><p>Wi-Fi speed, the Privacy &amp; Network internet check and the Network Unstable alerts.</p><dl><dt>Sends</dt><dd>Test data only. Nothing about you.</dd><dt>When</dt><dd>When Wi-Fi connects, on the schedule you set, or when you press Test now. Each can be turned off.</dd><dt>To</dt><dd>Apple's or Cloudflare's test servers, captive.apple.com</dd></dl></article>
         <article class="pn-disc__card"><h3>Calendars and AI usage</h3><p>Meetings from a shared calendar link and your own AI usage limits.</p><dl><dt>Sends</dt><dd>A request for that link; for AI usage, the tool's own sign-in, sent only to that tool.</dd><dt>When</dt><dd>Every few minutes while it is on. Off unless you turn it on.</dd><dt>To</dt><dd>Only the calendar links and AI tools you add or turn on</dd></dl></article>
         <article class="pn-disc__card"><h3>ShareZone</h3><p>Sends the files you drop to the phone you pick.</p><dl><dt>Sends</dt><dd>Those files, encrypted, straight to the phone. No server in between.</dd><dt>When</dt><dd>Only when you send.</dd><dt>To</dt><dd>Your phone, on your own Wi-Fi or through AirDrop</dd></dl></article>
-        <article class="pn-disc__card"><h3>This website</h3><p>Counts visits, the Download and Try buttons, keeps the star rating, and puts each download on the map.</p><dl><dt>Sends</dt><dd>The rough country and device type Google sees (it sets its own cookies). A star rating sends only the number of stars, once per browser. For the map, a download sends only its country, its city rounded to about 10 km and Mac or Windows, once per browser; get.geojs.io finds the place, abacus.jasoncameron.dev keeps the count.</dd><dt>When</dt><dd>On each visit. Block it with any content blocker; the page works the same.</dd><dt>To</dt><dd>Google Analytics; get.geojs.io and abacus.jasoncameron.dev for the map</dd></dl></article>
+        <article class="pn-disc__card"><h3>This website</h3><p>Counts visits, the Download and Try buttons, keeps the star rating, and puts each download on the map.</p><dl><dt>Sends</dt><dd>The rough country and device type Google sees (it sets its own cookies). A star rating sends only the number of stars, once per browser. For the map, a download sends only its country and Mac or Windows, once per browser; get.geojs.io finds the country, abacus.jasoncameron.dev keeps the count.</dd><dt>When</dt><dd>On each visit. Block it with any content blocker; the page works the same.</dd><dt>To</dt><dd>Google Analytics; get.geojs.io and abacus.jasoncameron.dev for the map</dd></dl></article>
       </div>
     </div>
   </section>
@@ -372,7 +386,7 @@
           <p class="muted">No pressure at all. Using Polaric and telling us what you think already helps: <a class="link" href="https://github.com/polaricDev/polaricDev.github.io" target="_blank" rel="noopener" data-ga="github_star_click">star it on GitHub</a> or <a class="link" href="https://github.com/polaricDev/polaricDev.github.io/discussions/1" target="_blank" rel="noopener" data-ga="write_review_click">write a review</a>.</p>
         </div>
         <div class="span-7 start-6 pn-support__art" role="img" aria-label="Polaric's mascot waving thank you">
-          <img class="pn-avatar pn-avatar--support" src="assets/img/polaric-puppy-point.svg" alt="" width="300" height="300">
+          <img class="pn-avatar pn-avatar--support" src="assets/img/polaric-puppy.svg" alt="" width="300" height="300">
         </div>
       </div>
     </div>
@@ -386,7 +400,7 @@
         <h2 id="close-h">See you in the notch</h2>
         <p>Polaric 1.5.0 is free for MacBook (macOS 14 or later) and Windows 10 and 11. The download button is at the top of the page.</p>
       </div>
-      <img class="pn-avatar pn-avatar--close" src="assets/img/polaric-puppy-point.svg" alt="Polaric's puppy astronaut waving goodbye" width="300" height="300">
+      <img class="pn-avatar pn-avatar--close" src="assets/img/polaric-puppy.svg" alt="Polaric's puppy astronaut waving goodbye" width="300" height="300">
     </div>
     <div class="closing__links">
       <div class="grid">
@@ -410,6 +424,6 @@
 <script type="module" src="assets/system.js"></script>
 <script type="module" src="assets/motion/motion.js"></script>
 <script type="module" src="assets/layout/layout.js"></script>
-<script type="module" src="assets/polaric/site.js?v=13"></script>
+<script type="module" src="assets/polaric/site.js?v=14"></script>
 </body>
 </html>
