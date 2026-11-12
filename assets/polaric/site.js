@@ -160,9 +160,33 @@ function customise() {
 /* ---------- Downloads: the right file for this computer, counted by platform and by country ---------- */
 
 
-// The website counts download clicks only in Google Analytics (see #analytics); countries come from the app.
+// A download started from this page counts in Google Analytics and, with its city and country, on the
+// map: one write-once note on the same counter the app uses (event 3 = website download; same number
+// layout, see scripts/places.mjs). Once per platform per browser, so repeated clicks don't inflate it.
+const COUNTER = 'https://abacus.jasoncameron.dev', NS = 'polaric-site';
+function noteCode(platform, cc, lat, lon) {
+  if (!/^[A-Z]{2}$/.test(cc)) return null;
+  let la = 9999, lo = 9999;
+  if (Number.isFinite(lat) && Number.isFinite(lon) && Math.abs(lat) <= 90 && Math.abs(lon) <= 180 && !(lat === 0 && lon === 0)) {
+    la = Math.round((lat + 90) * 10); lo = Math.round((lon + 180) * 10);
+  }
+  const c = (cc.charCodeAt(0) - 65) * 26 + (cc.charCodeAt(1) - 65);
+  return (platform === 'macos' ? 1 : 2) * 1e12 + 3 * 1e11 + c * 1e8 + la * 1e4 + lo;
+}
+async function noteDownload(platform) {
+  const mark = `pn-dl-noted-${platform}`;
+  try { if (localStorage.getItem(mark)) return; localStorage.setItem(mark, '1'); } catch {}
+  try {
+    const g = await fetch('https://get.geojs.io/v1/ip/geo.json', { cache: 'no-store' }).then(r => r.json());
+    const code = noteCode(platform, String(g.country_code || '').toUpperCase(), parseFloat(g.latitude), parseFloat(g.longitude));
+    if (!code) return;
+    const n = (await fetch(`${COUNTER}/hit/${NS}/app-seq`, { cache: 'no-store' }).then(r => r.json())).value;
+    if (n > 0) await fetch(`${COUNTER}/create/${NS}/app-log-${n}?initializer=${code}`, { keepalive: true, cache: 'no-store' });
+  } catch {}
+}
 function countDownload(platform) {
   window.gtag?.('event', platform === 'macos' ? 'download_macos' : 'download_windows', { platform, app_version: VERSION, transport_type: 'beacon' });
+  noteDownload(platform);
 }
 
 function downloads() {
@@ -247,15 +271,15 @@ async function placeCounts() {
   const base = await fetch('assets/places.json', { cache: 'no-cache' }).then(r => (r.ok ? r.json() : {})).catch(() => ({}));
   const rows = [];
   const left = {};
-  for (const [cc, [i, u]] of Object.entries(base.countries || {})) left[cc] = [+i || 0, +u || 0];
+  for (const [cc, [i, u, d]] of Object.entries(base.countries || {})) left[cc] = [+i || 0, +u || 0, +d || 0];
   for (const [key, c] of Object.entries(base.cities || {})) {
     const [cc, city] = key.split('|');
-    const [i, u] = (c.n || []).map(x => +x || 0);
-    rows.push({ key: key.toLowerCase().replace(/[^a-z0-9]+/g, '-'), cc, city, i, u, at: c.at });
-    if (left[cc]) { left[cc][0] -= i; left[cc][1] -= u; }
+    const [i = 0, u = 0, d = 0] = (c.n || []).map(x => +x || 0);
+    rows.push({ key: key.toLowerCase().replace(/[^a-z0-9]+/g, '-'), cc, city, i, u, d, at: c.at });
+    if (left[cc]) { left[cc][0] -= i; left[cc][1] -= u; left[cc][2] -= d; }
   }
   // Older notes knew only the country.
-  for (const [cc, [i, u]] of Object.entries(left)) if (i > 0 || u > 0) rows.push({ key: cc.toLowerCase(), cc, city: null, i: Math.max(0, i), u: Math.max(0, u), at: null });
+  for (const [cc, [i, u, d]] of Object.entries(left)) if (i > 0 || u > 0 || d > 0) rows.push({ key: cc.toLowerCase(), cc, city: null, i: Math.max(0, i), u: Math.max(0, u), d: Math.max(0, d), at: null });
   return rows;
 }
 
@@ -265,7 +289,8 @@ function flag(cc) {
 }
 
 function stats() {
-  const root = $('[data-pn="stats"]');
+  // The counts sit in the hero (.pn-counts); the old download section is gone.
+  const root = $('[data-pn="stats"]') || $('.pn-counts');
   if (!root) return;
   platformCounts().then(n => {
     if (!n.total) return;
@@ -311,12 +336,12 @@ function world() {
     const W = map?.w || 1000, H = map?.h || 480, T = map?.top ?? 84, B = map?.bottom ?? -60;
     const xy = ([lat, lon]) => [((lon + 180) / 360) * W, ((T - lat) / (T - B)) * H];
     const [places, mid] = await Promise.all([placeCounts().catch(() => []), centres()]);
-    const rows = places.map(r => ({ ...r, v: r.i + r.u, at: r.at || CENTRE[r.cc] || mid[r.cc] })).filter(r => r.v > 0).sort((a, b) => b.v - a.v);
+    const rows = places.map(r => ({ ...r, v: r.i + r.u + r.d, at: r.at || CENTRE[r.cc] || mid[r.cc] })).filter(r => r.v > 0).sort((a, b) => b.v - a.v);
     const total = rows.reduce((s, r) => s + r.v, 0);
     const country = r => names?.of(r.cc) || r.cc;
     const label = r => (r.city ? `${r.city}, ${country(r)}` : country(r));
     const plural = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
-    const detail = r => [r.i && plural(r.i, 'install', 'installs'), r.u && plural(r.u, 'update', 'updates')].filter(Boolean).join(' · ');
+    const detail = r => [r.d && plural(r.d, 'download', 'downloads'), r.i && plural(r.i, 'install', 'installs'), r.u && plural(r.u, 'update', 'updates')].filter(Boolean).join(' · ');
     const nCountries = new Set(rows.map(r => r.cc)).size, nCities = rows.filter(r => r.city).length;
     $$('[data-count="world-total"]', root).forEach(el => (el.textContent = fmt(total)));
     $$('[data-count="places"]', root).forEach(el => (el.textContent = [nCities && plural(nCities, 'city', 'cities'), plural(nCountries, 'country', 'countries')].filter(Boolean).join(' · ')));

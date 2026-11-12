@@ -1,4 +1,4 @@
-// Sums the app's install/update notes (app-log-1..app-seq on the counter service) into assets/places.json:
+// Sums the app's install/update notes and the website's download notes (event 3) (app-log-1..app-seq on the counter service) into assets/places.json:
 // { seq, countries: { CC: [installs, updates] }, cities: { "CC|City": { at: [lat, lon], n: [installs, updates] } } }.
 // A note (13 digits, from 1.5.0) = platform × 10¹² + event × 10¹¹ + country letters × 10⁸ + (lat + 90) × 10 × 10⁴
 // + (lon + 180) × 10; older notes (below 10¹²) = platform × 10000 + event × 1000 + country letters.
@@ -51,12 +51,13 @@ while (seq < n && Date.now() - started < BUDGET) {
     if (la !== 9999 && lo !== 9999) { lat = la / 10 - 90; lon = lo / 10 - 180; }
   } else { ev = Math.floor((v % 10000) / 1000); c = v % 1000; }
   const cc = String.fromCharCode(65 + Math.floor(c / 26), 65 + (c % 26));
-  if (c > 675 || (ev !== 1 && ev !== 2)) continue;
-  (countries[cc] ||= [0, 0])[ev - 1]++;
+  if (c > 675 || ev < 1 || ev > 3) continue; // 1 install, 2 update (app), 3 download (website)
+  const row = (countries[cc] ||= [0, 0, 0]); while (row.length < 3) row.push(0); row[ev - 1]++;
   if (lat != null) {
     const near = nearest(cc, lat, lon);
     const key = `${cc}|${near ? near[0] : `${lat.toFixed(1)}, ${lon.toFixed(1)}`}`;
-    (cityCounts[key] ||= { at: near ? [+near[1].toFixed(2), +near[2].toFixed(2)] : [lat, lon], n: [0, 0] }).n[ev - 1]++;
+    const place = (cityCounts[key] ||= { at: near ? [+near[1].toFixed(2), +near[2].toFixed(2)] : [lat, lon], n: [0, 0, 0] });
+    while (place.n.length < 3) place.n.push(0); place.n[ev - 1]++;
   }
   await sleep(600);
 }
