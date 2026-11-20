@@ -1,7 +1,7 @@
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const reduced = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
-const VERSION = '1.5.1';
+const VERSION = '1.5.2';
 const REPO = 'polaricDev/polaricDev.github.io';
 const isWindows = /Win/i.test(navigator.userAgentData?.platform || navigator.platform || '');
 const isMac = /Mac/i.test(navigator.userAgentData?.platform || navigator.platform || '') && !('ontouchend' in document && navigator.maxTouchPoints > 1);
@@ -171,7 +171,7 @@ function noteCode(platform, cc, lat, lon) {
     la = Math.round((lat + 90) * 10); lo = Math.round((lon + 180) * 10);
   }
   const c = (cc.charCodeAt(0) - 65) * 26 + (cc.charCodeAt(1) - 65);
-  return (platform === 'macos' ? 1 : 2) * 1e12 + 3 * 1e11 + c * 1e8 + la * 1e4 + lo;
+  return ({ macos: 1, windows: 2, android: 3 }[platform] || 2) * 1e12 + 3 * 1e11 + c * 1e8 + la * 1e4 + lo;
 }
 async function noteDownload(platform) {
   const mark = `pn-dl-noted-${platform}`;
@@ -186,7 +186,7 @@ async function noteDownload(platform) {
   } catch {}
 }
 function countDownload(platform) {
-  window.gtag?.('event', platform === 'macos' ? 'download_macos' : 'download_windows', { platform, app_version: VERSION, transport_type: 'beacon' });
+  window.gtag?.('event', 'download_' + platform, { platform, app_version: VERSION, transport_type: 'beacon' });
   noteDownload(platform);
 }
 
@@ -217,7 +217,7 @@ function downloads() {
     const a = e.target.closest('a[data-download]');
     if (!a) return;
     const p = a.dataset.download;
-    if (p === 'macos' || p === 'windows') countDownload(p);
+    if (p === 'macos' || p === 'windows' || p === 'android') countDownload(p);
     if (a.closest('.pn-dl')) setTimeout(() => close(), 150);
   });
 }
@@ -242,14 +242,15 @@ async function platformCounts() {
       return (await r.json()).map(rel => ({ tag: rel.tag_name, assets: (rel.assets || []).map(a => ({ name: a.name, n: a.download_count })) }));
     });
   } catch {}
-  const n = { macos: +base.macos || 0, windows: +base.windows || 0 };
+  const n = { macos: +base.macos || 0, windows: +base.windows || 0, android: 0 };
   if (!releases && Array.isArray(base.releasesSnapshot)) releases = base.releasesSnapshot;
   const list = releases || [{ assets: [{ name: 'x.dmg', n: +(base.snapshot?.macos) || 0 }, { name: 'x.exe', n: +(base.snapshot?.windows) || 0 }] }];
   for (const rel of list) for (const a of rel.assets) {
     if (/\.dmg$/i.test(a.name)) n.macos += a.n;
     else if (/\.exe$/i.test(a.name)) n.windows += a.n;
+    else if (/\.apk$/i.test(a.name)) n.android += a.n;
   }
-  n.total = n.macos + n.windows;
+  n.total = n.macos + n.windows + n.android;
   // Per release, oldest first; the releases that were replaced count as one column.
   n.releases = (releases || []).map(rel => {
     const r = { tag: rel.tag.replace(/^v/, ''), macos: 0, windows: 0 };
@@ -285,8 +286,8 @@ function stats() {
   if (!root) return;
   platformCounts().then(n => {
     if (!n.total) return;
-    for (const k of ['total', 'macos', 'windows']) $$(`[data-count="${k}"]`).forEach(el => (el.textContent = fmt(n[k])));
-    const mac = Math.round((n.macos / n.total) * 100);
+    for (const k of ['total', 'macos', 'windows', 'android']) $$(`[data-count="${k}"]`).forEach(el => (el.textContent = fmt(n[k])));
+    const mac = Math.round((n.macos / Math.max(1, n.macos + n.windows)) * 100);
     root.style.setProperty('--mac', mac + '%');
     $$('[data-share="macos"]').forEach(el => (el.textContent = mac + '%'));
     $$('[data-share="windows"]').forEach(el => (el.textContent = 100 - mac + '%'));

@@ -546,7 +546,7 @@ footer.closing { background: linear-gradient(180deg, transparent, rgb(10 41 115 
   .pn-counts { flex-wrap: wrap; row-gap: 12px; }
   .pn-count--total { flex-basis: 100%; }
   .pn-count + .pn-count { border-left: 0; }
-  .pn-count:last-child { border-left: 1px solid rgb(238 243 255 / .14); }
+  .pn-count--total + .pn-count ~ .pn-count { border-left: 1px solid rgb(238 243 255 / .14); }
   .pn-rec--hero { width: 140%; }
   .sim__rec-wrap .pn-rec { width: 100%; }
 }
