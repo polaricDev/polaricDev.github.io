@@ -1,130 +1,214 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-label="Polaric's puppy astronaut waving from the clouds">
-  <!-- Polaric's puppy astronaut, drawn from the app icon. Floats, ears flop, blinks ^^, tongue wiggles,
-       the star on the helmet wobbles, the orbit's light runs round, sparkles twinkle.
-       Still under reduced motion. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="Polaric's puppy astronaut on the clouds, holding a star">
+  <!-- Polaric's puppy astronaut, traced from the app icon (Resources/AppIcon.png): white-lilac helmet with a
+       star, dark glass visor, black face with a white muzzle, happy ^^ eyes, pink cheeks and tongue,
+       lilac ears out of the helmet, purple scarf, white paws holding a big star, purple clouds, the orbit
+       ring, Saturn, the moon and a shooting star.
+       Moves: floats, ears flop, eyes squeeze, tongue wags, scarf flutters, stars wobble, the orbit's light
+       runs round, the visor glints, a star shoots now and then. Still under reduced motion. -->
   <style>
     .float { animation: float 5.6s ease-in-out infinite; }
-    .head { animation: tilt 7s ease-in-out infinite; transform-origin: 330px 300px; }
-    .ear-l { animation: flopL 3.2s ease-in-out infinite; transform-origin: 210px 196px; }
-    .ear-r { animation: flopR 3.2s ease-in-out -1.6s infinite; transform-origin: 458px 196px; }
-    .eyes { animation: blink 4.6s infinite; transform-origin: 345px 268px; }
-    .tongue { animation: lick 1.4s ease-in-out infinite; transform-origin: 352px 330px; }
-    .crown { animation: wobble 3s ease-in-out infinite; transform-origin: 336px 96px; }
-    .bigstar { animation: bob 3.4s ease-in-out infinite; transform-origin: 452px 520px; }
-    .lines { animation: pop 1.6s ease-in-out infinite; transform-origin: 150px 150px; }
-    .shine { animation: run 4s linear infinite; }
-    .tail { animation: wave 2.6s ease-in-out infinite; transform-origin: 230px 420px; }
-    .tw1 { animation: tw 2.2s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-    .tw2 { animation: tw 2.2s ease-in-out -1.1s infinite; transform-box: fill-box; transform-origin: center; }
-    .cloud { animation: drift 9s ease-in-out infinite alternate; }
-    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
-    @keyframes tilt { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
-    @keyframes flopL { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(9deg); } }
-    @keyframes flopR { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-9deg); } }
-    @keyframes blink { 0%, 88%, 100% { transform: scaleY(1); } 92% { transform: scaleY(.15); } }
-    @keyframes lick { 0%, 100% { transform: scaleY(.85) rotate(-4deg); } 50% { transform: scaleY(1.12) rotate(4deg); } }
-    @keyframes wobble { 0%, 100% { transform: rotate(-12deg) scale(1); } 50% { transform: rotate(6deg) scale(1.06); } }
-    @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-8deg); } 50% { transform: translateY(-10px) rotate(6deg); } }
-    @keyframes pop { 0%, 100% { transform: scale(.85); opacity: .7; } 50% { transform: scale(1.1); opacity: 1; } }
-    @keyframes run { to { stroke-dashoffset: -1400; } }
-    @keyframes wave { 0%, 100% { transform: skewY(0deg) rotate(0deg); } 50% { transform: skewY(-6deg) rotate(4deg); } }
-    @keyframes tw { 0%, 100% { transform: scale(.55); opacity: .5; } 50% { transform: scale(1.15); opacity: 1; } }
-    @keyframes drift { from { transform: translateX(-8px); } to { transform: translateX(10px); } }
-    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+    .head { animation: tilt 7s ease-in-out infinite; transform-origin: 500px 560px; }
+    .ear-l { animation: flopL 3.4s ease-in-out infinite; transform-origin: 262px 330px; }
+    .ear-r { animation: flopR 3.4s ease-in-out -1.7s infinite; transform-origin: 712px 280px; }
+    .eyes { animation: squeeze 4.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .tongue { animation: lick 1.5s ease-in-out infinite; transform-origin: 586px 500px; }
+    .crown { animation: wobble 3.2s ease-in-out infinite; transform-origin: 462px 175px; }
+    .bigstar { animation: bob 3.6s ease-in-out infinite; transform-origin: 595px 745px; }
+    .scarf-tail { animation: flutter 1.8s ease-in-out infinite; transform-origin: 340px 620px; }
+    .glint { animation: glint 6s ease-in-out infinite; }
+    .orbit-run { animation: run 5s linear infinite; }
+    .cloud-a { animation: drift 9s ease-in-out infinite alternate; }
+    .cloud-b { animation: drift 11s ease-in-out -4s infinite alternate-reverse; }
+    .saturn { animation: hover 8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .moon { animation: hover 10s ease-in-out -3s infinite; transform-box: fill-box; transform-origin: center; }
+    .tw { animation: tw 2.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+    .tw.d1 { animation-delay: -.6s; } .tw.d2 { animation-delay: -1.2s; } .tw.d3 { animation-delay: -1.8s; }
+    .shoot { animation: shoot 7s ease-in infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-18px); } }
+    @keyframes tilt { 0%, 100% { transform: rotate(-2.5deg); } 50% { transform: rotate(2.5deg); } }
+    @keyframes flopL { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-7deg); } }
+    @keyframes flopR { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(8deg); } }
+    @keyframes squeeze { 0%, 84%, 100% { transform: scale(1, 1); } 89% { transform: scale(1.06, .55); } 94% { transform: scale(1, 1); } }
+    @keyframes lick { 0%, 100% { transform: rotate(-8deg) scaleY(.9); } 50% { transform: rotate(8deg) scaleY(1.1); } }
+    @keyframes wobble { 0%, 100% { transform: rotate(-8deg) scale(1); } 50% { transform: rotate(7deg) scale(1.06); } }
+    @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-6deg); } 50% { transform: translateY(-12px) rotate(6deg); } }
+    @keyframes flutter { 0%, 100% { transform: skewY(0deg) rotate(0deg); } 50% { transform: skewY(-6deg) rotate(4deg); } }
+    @keyframes glint { 0%, 55% { transform: translateX(-260px); opacity: 0; } 62% { opacity: .9; } 78%, 100% { transform: translateX(300px); opacity: 0; } }
+    @keyframes run { to { stroke-dashoffset: -1000; } }
+    @keyframes drift { from { transform: translateX(-10px); } to { transform: translateX(12px); } }
+    @keyframes hover { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(-4deg); } }
+    @keyframes tw { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(.45); opacity: .45; } }
+    @keyframes shoot { 0%, 70% { transform: translate(0, 0); opacity: 0; } 74% { opacity: 1; } 88%, 100% { transform: translate(-220px, 120px); opacity: 0; } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } .shoot { opacity: 0; } }
   </style>
   <defs>
-    <linearGradient id="helmet" x1=".2" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#fbf8ff"/><stop offset=".55" stop-color="#e2d6ff"/><stop offset="1" stop-color="#a88cf0"/></linearGradient>
-    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#c7b4ff"/></linearGradient>
-    <radialGradient id="visor" cx=".42" cy=".38" r=".75"><stop offset="0" stop-color="#3a2878"/><stop offset=".55" stop-color="#140c33"/><stop offset="1" stop-color="#07041a"/></radialGradient>
-    <linearGradient id="ear" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9c9ff"/><stop offset="1" stop-color="#9f80ee"/></linearGradient>
-    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff1a0"/><stop offset=".5" stop-color="#ffd43b"/><stop offset="1" stop-color="#f5a312"/></linearGradient>
-    <linearGradient id="scarf" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b2fd6"/><stop offset=".6" stop-color="#8b5cf6"/><stop offset="1" stop-color="#6d3fe6"/></linearGradient>
-    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7c5cff"/><stop offset=".45" stop-color="#e9d5ff"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
-    <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cdb8ff"/><stop offset=".45" stop-color="#9b7bf2"/><stop offset=".75" stop-color="#6d45dc" stop-opacity=".9"/><stop offset="1" stop-color="#5b33c9" stop-opacity="0"/></linearGradient>
-    <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#a78bfa" stop-opacity=".55"/><stop offset="1" stop-color="#a78bfa" stop-opacity="0"/></radialGradient>
-    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-    <filter id="shade" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#2a0f6b" flood-opacity=".45"/></filter>
-    <clipPath id="back"><rect x="0" y="0" width="640" height="330"/></clipPath>
-    <clipPath id="front"><rect x="0" y="330" width="640" height="310"/></clipPath>
+    <radialGradient id="helmet" cx="38%" cy="28%" r="78%">
+      <stop offset="0" stop-color="#fbf9ff"/><stop offset=".4" stop-color="#e2d8fd"/><stop offset=".78" stop-color="#b8a2f3"/><stop offset="1" stop-color="#8d70e2"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f0ff"/><stop offset="1" stop-color="#b7a5f2"/>
+    </linearGradient>
+    <radialGradient id="visor" cx="62%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#3b2a8f"/><stop offset=".35" stop-color="#1b1350"/><stop offset=".8" stop-color="#08061c"/><stop offset="1" stop-color="#050414"/>
+    </radialGradient>
+    <radialGradient id="fur" cx="55%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#2b2550"/><stop offset=".6" stop-color="#121027"/><stop offset="1" stop-color="#0a0818"/>
+    </radialGradient>
+    <radialGradient id="muzzle" cx="45%" cy="35%" r="70%">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#f1ecff"/><stop offset="1" stop-color="#cfc3f5"/>
+    </radialGradient>
+    <radialGradient id="ear" cx="40%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#e6dcff"/><stop offset=".55" stop-color="#c2acf6"/><stop offset="1" stop-color="#8f74e0"/>
+    </radialGradient>
+    <radialGradient id="paw" cx="40%" cy="30%" r="80%">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#eee8ff"/><stop offset="1" stop-color="#bfaef3"/>
+    </radialGradient>
+    <linearGradient id="scarf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9b5cff"/><stop offset=".5" stop-color="#7a35ea"/><stop offset="1" stop-color="#5320c4"/>
+    </linearGradient>
+    <radialGradient id="star" cx="40%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#fff6b0"/><stop offset=".35" stop-color="#ffe14d"/><stop offset=".8" stop-color="#ffc21a"/><stop offset="1" stop-color="#f0990b"/>
+    </radialGradient>
+    <linearGradient id="cloud" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a68bff"/><stop offset=".45" stop-color="#7356ef"/><stop offset="1" stop-color="#3f2bb8"/>
+    </linearGradient>
+    <linearGradient id="cloud2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8f74fa"/><stop offset="1" stop-color="#3a27a8"/>
+    </linearGradient>
+    <linearGradient id="orbit" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#e2b8ff" stop-opacity=".95"/><stop offset=".5" stop-color="#a77bff" stop-opacity=".75"/><stop offset="1" stop-color="#7aa2ff" stop-opacity=".5"/>
+    </linearGradient>
+    <radialGradient id="planet" cx="35%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#c9b2ff"/><stop offset=".6" stop-color="#8a62ee"/><stop offset="1" stop-color="#5a36c8"/>
+    </radialGradient>
+    <radialGradient id="moon" cx="38%" cy="30%" r="75%">
+      <stop offset="0" stop-color="#c7a8ff"/><stop offset=".6" stop-color="#9a72f2"/><stop offset="1" stop-color="#6a45d6"/>
+    </radialGradient>
+    <radialGradient id="glowP" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#a855f7" stop-opacity=".45"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="streak" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/><stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+    <linearGradient id="fadeDown" x1="0" y1="0" x2="0" y2="1"><stop offset=".72" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <mask id="cloudFade" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="1000"><rect width="1000" height="1000" fill="url(#fadeDown)"/></mask>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="10"/></filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <clipPath id="visorClip"><ellipse cx="505" cy="428" rx="232" ry="172" transform="rotate(-9 505 428)"/></clipPath>
+    <path id="sparkle" d="M0 -1 C.12 -.12 .12 -.12 1 0 C.12 .12 .12 .12 0 1 C-.12 .12 -.12 .12 -1 0 C-.12 -.12 -.12 -.12 0 -1Z"/>
+    <path id="starShape" d="M0 -100 C14 -100 22 -60 32 -42 C52 -40 96 -38 100 -26 C104 -14 70 12 54 24 C58 46 72 88 62 96 C52 104 16 80 0 70 C-16 80 -52 104 -62 96 C-72 88 -58 46 -54 24 C-70 12 -104 -14 -100 -26 C-96 -38 -52 -40 -32 -42 C-22 -60 -14 -100 0 -100Z"/>
   </defs>
 
-  <circle cx="330" cy="300" r="280" fill="url(#glow)"/>
-
-  <!-- the orbit, back half -->
-  <g transform="rotate(-16 330 330)">
-    <ellipse cx="330" cy="330" rx="285" ry="92" fill="none" stroke="url(#ring)" stroke-width="11" opacity=".6" clip-path="url(#back)" filter="url(#soft)"/>
+  <!-- sky bits -->
+  <g class="shoot"><path d="M300 70 L160 150" stroke="url(#streak)" stroke-width="7" stroke-linecap="round" filter="url(#glow)"/><circle cx="160" cy="150" r="8" fill="#fff" filter="url(#glow)"/></g>
+  <g class="saturn">
+    <circle cx="800" cy="140" r="68" fill="url(#glowP)" transform="scale(1.6)" transform-origin="800 140"/>
+    <path d="M700 172 C690 150 760 118 830 106 C892 96 918 104 912 120" fill="none" stroke="#b79cff" stroke-width="9" stroke-linecap="round" opacity=".9"/>
+    <circle cx="800" cy="140" r="62" fill="url(#planet)"/>
+    <path d="M748 116 C770 104 800 102 822 112" stroke="#d9c9ff" stroke-width="6" fill="none" stroke-linecap="round" opacity=".55"/>
+    <path d="M912 120 C922 140 860 172 790 186 C730 198 700 190 700 172" fill="none" stroke="#c9b2ff" stroke-width="9" stroke-linecap="round"/>
   </g>
+  <g class="moon">
+    <circle cx="165" cy="845" r="98" fill="url(#moon)"/>
+    <circle cx="128" cy="815" r="17" fill="#7c55e0" opacity=".7"/><circle cx="196" cy="868" r="24" fill="#7c55e0" opacity=".6"/><circle cx="208" cy="800" r="10" fill="#7c55e0" opacity=".6"/><circle cx="140" cy="890" r="9" fill="#7c55e0" opacity=".55"/>
+  </g>
+  <g transform="translate(100 230) scale(42)"><use href="#sparkle" class="tw" fill="#ffe27a" filter="url(#glow)"/></g>
+  <g transform="translate(880 635) scale(28)"><use href="#sparkle" class="tw d2" fill="#ffe27a" filter="url(#glow)"/></g>
+  <g transform="translate(620 85) scale(36)"><use href="#sparkle" class="tw d1" fill="#e9dcff"/></g>
+  <g transform="translate(885 238) scale(15)"><use href="#sparkle" class="tw d3" fill="#e9dcff"/></g>
+  <g transform="translate(65 320) scale(20)"><use href="#sparkle" class="tw d2" fill="#e9dcff"/></g>
+  <g transform="translate(243 720) scale(11)"><use href="#sparkle" class="tw d1" fill="#e9dcff"/></g>
+  <g transform="translate(295 858) scale(9)"><use href="#sparkle" class="tw" fill="#e9dcff"/></g>
+
+  <!-- orbit ring, back half (behind the puppy) -->
+  <ellipse cx="500" cy="520" rx="470" ry="190" transform="rotate(-27 500 520)" fill="none" stroke="url(#orbit)" stroke-width="16" opacity=".55"/>
 
   <g class="float">
-    <!-- excitement lines -->
-    <g class="lines" stroke="#ffd43b" stroke-width="11" stroke-linecap="round">
-      <path d="M150 112 L132 88"/><path d="M128 150 L98 142"/><path d="M146 186 L118 196"/>
+    <!-- clouds behind -->
+    <g class="cloud-b" mask="url(#cloudFade)">
+      <path d="M520 900 C500 840 560 800 610 815 C625 760 700 745 735 790 C760 740 850 745 865 805 C915 800 955 840 945 900Z" fill="url(#cloud2)"/>
     </g>
 
-    <!-- scarf tail behind -->
-    <path class="tail" d="M236 412 C 190 404, 140 424, 92 452 C 140 462, 196 452, 248 436 Z" fill="url(#scarf)" filter="url(#shade)"/>
+    <!-- scarf + body -->
+    <path d="M330 600 C400 640 560 650 720 610 C735 640 720 665 690 672 C560 690 420 680 340 650Z" fill="url(#scarf)"/>
+    <g class="scarf-tail">
+      <path d="M350 615 C300 600 230 610 160 640 C130 652 115 664 120 668 C160 660 190 675 175 700 C230 690 290 668 340 652Z" fill="url(#scarf)"/>
+      <path d="M180 650 C230 636 280 630 330 632" stroke="#b892ff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".6"/>
+    </g>
 
     <g class="head">
-      <!-- floppy ears -->
-      <g class="ear-l"><path d="M214 186 C 132 162, 62 246, 66 340 C 70 404, 138 426, 176 384 C 208 348, 236 258, 214 186 Z" fill="url(#ear)" filter="url(#shade)"/><path d="M196 218 C 140 214, 104 276, 110 336 C 114 368, 146 376, 164 352" fill="none" stroke="#8a6ae0" stroke-opacity=".45" stroke-width="8" stroke-linecap="round"/></g>
-      <g class="ear-r"><path d="M454 186 C 536 162, 606 246, 602 340 C 598 404, 530 426, 492 384 C 460 348, 432 258, 454 186 Z" fill="url(#ear)" filter="url(#shade)"/><path d="M472 218 C 528 214, 564 276, 558 336 C 554 368, 522 376, 504 352" fill="none" stroke="#8a6ae0" stroke-opacity=".45" stroke-width="8" stroke-linecap="round"/></g>
-      <!-- helmet -->
-      <ellipse cx="334" cy="262" rx="178" ry="168" fill="url(#helmet)" filter="url(#shade)"/>
-      <path d="M200 190 C 230 120, 300 96, 360 98" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="10" stroke-linecap="round"/>
-      <path d="M190 250 C 186 220, 194 196, 206 178" fill="none" stroke="#b39af2" stroke-width="5" stroke-linecap="round"/>
-      <!-- visor -->
-      <ellipse cx="344" cy="282" rx="142" ry="120" fill="url(#rim)"/>
-      <ellipse cx="344" cy="284" rx="127" ry="106" fill="url(#visor)"/>
-      <path d="M248 238 C 262 206, 296 188, 336 186" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="9" stroke-linecap="round"/>
-      <!-- the puppy's face -->
-      <g class="eyes" stroke="#fff" stroke-width="14" stroke-linecap="round" fill="none" filter="url(#soft)">
-        <path d="M268 272 q26 -32 52 0"/><path d="M372 272 q26 -32 52 0"/>
+      <!-- ears out of the helmet -->
+      <g class="ear-l">
+        <path d="M268 318 C210 290 120 330 70 400 C25 465 40 560 105 578 C170 596 230 540 262 470 C285 420 292 360 268 318Z" fill="url(#ear)"/>
+        <path d="M230 340 C170 335 110 380 85 440" stroke="#f3edff" stroke-width="10" fill="none" stroke-linecap="round" opacity=".5"/>
       </g>
-      <ellipse cx="262" cy="310" rx="20" ry="12" fill="#ff8fb8" opacity=".9"/>
-      <ellipse cx="430" cy="310" rx="20" ry="12" fill="#ff8fb8" opacity=".9"/>
-      <ellipse cx="346" cy="326" rx="54" ry="42" fill="#fbf7ff"/>
-      <g class="tongue"><path d="M338 330 h28 v18 a14 14 0 0 1 -28 0 z" fill="#ff6f9c"/><path d="M352 334 v14" stroke="#d94b7c" stroke-width="3" stroke-linecap="round"/></g>
-      <path d="M322 324 q14 14 30 0 q16 14 30 0" fill="none" stroke="#1a1030" stroke-width="5" stroke-linecap="round"/>
-      <path d="M334 296 q12 -8 24 0 q-2 14 -12 16 q-10 -2 -12 -16 z" fill="#140c24"/>
-      <ellipse cx="342" cy="299" rx="4" ry="2.5" fill="#fff" opacity=".8"/>
-      <!-- gold star on the helmet -->
-      <g class="crown"><path d="M336 42 l17 35 38 5 -28 26 7 38 -34 -18 -34 18 7 -38 -28 -26 38 -5z" fill="url(#gold)" stroke="#e89a0c" stroke-width="4" stroke-linejoin="round" filter="url(#shade)"/></g>
+      <g class="ear-r">
+        <path d="M712 272 C770 250 860 280 895 350 C925 410 905 485 860 498 C815 510 772 470 748 420 C728 380 705 310 712 272Z" fill="url(#ear)"/>
+        <path d="M748 290 C800 282 850 310 875 360" stroke="#f3edff" stroke-width="9" fill="none" stroke-linecap="round" opacity=".5"/>
+      </g>
+
+      <!-- helmet shell -->
+      <ellipse cx="492" cy="398" rx="300" ry="252" transform="rotate(-9 492 398)" fill="url(#helmet)"/>
+      <path d="M262 300 C300 220 400 170 500 165" stroke="#ffffff" stroke-width="14" fill="none" stroke-linecap="round" opacity=".8"/>
+      <path d="M300 218 C330 250 340 280 336 300 M640 175 C620 210 612 238 616 258" stroke="#cfc0f7" stroke-width="6" fill="none" stroke-linecap="round" opacity=".7"/>
+      <!-- visor rim -->
+      <ellipse cx="505" cy="428" rx="252" ry="192" transform="rotate(-9 505 428)" fill="url(#rim)"/>
+      <ellipse cx="505" cy="428" rx="252" ry="192" transform="rotate(-9 505 428)" fill="none" stroke="#a892ee" stroke-width="3" opacity=".7"/>
+      <!-- visor glass + face -->
+      <g clip-path="url(#visorClip)">
+        <rect x="250" y="230" width="520" height="400" fill="url(#visor)"/>
+        <!-- black fur head -->
+        <path d="M330 640 C300 520 340 330 520 300 C680 280 780 380 760 520 C750 600 700 640 600 650Z" fill="url(#fur)"/>
+        <!-- white muzzle -->
+        <path d="M445 600 C420 540 450 455 525 430 C600 405 680 440 695 510 C710 580 660 625 570 630 C510 634 460 625 445 600Z" fill="url(#muzzle)"/>
+        <!-- glass glare -->
+        <path d="M290 420 C300 340 360 290 420 275" stroke="#a07bff" stroke-width="16" fill="none" stroke-linecap="round" opacity=".6"/>
+        <path d="M620 270 C690 285 740 330 752 380" stroke="#6a7cff" stroke-width="9" fill="none" stroke-linecap="round" opacity=".35"/>
+        <g transform="skewX(-22)"><rect class="glint" x="560" y="220" width="70" height="440" fill="#ffffff" opacity=".18"/></g>
+      </g>
+      <!-- eyes ^^ -->
+      <g class="eyes">
+        <path d="M388 452 C400 410 470 404 490 440" stroke="#ffffff" stroke-width="24" fill="none" stroke-linecap="round"/>
+        <path d="M618 400 C626 362 690 356 706 390" stroke="#ffffff" stroke-width="22" fill="none" stroke-linecap="round"/>
+      </g>
+      <!-- cheeks -->
+      <ellipse cx="386" cy="516" rx="34" ry="21" fill="#ff8fb3" opacity=".9"/>
+      <ellipse cx="722" cy="448" rx="28" ry="18" fill="#ff8fb3" opacity=".9"/>
+      <!-- nose -->
+      <ellipse cx="576" cy="447" rx="31" ry="21" fill="#0d0b1c"/>
+      <ellipse cx="566" cy="440" rx="10" ry="5" fill="#ffffff" opacity=".7"/>
+      <!-- mouth + tongue -->
+      <path d="M574 466 L574 478" stroke="#0d0b1c" stroke-width="6" stroke-linecap="round"/>
+      <g class="tongue"><path d="M566 490 C560 520 575 548 598 545 C620 542 626 515 612 488Z" fill="#ff7aa5"/><path d="M590 497 L594 528" stroke="#e05587" stroke-width="4" stroke-linecap="round"/></g>
+      <path d="M522 486 C540 500 560 496 574 478 C588 494 610 494 628 478" stroke="#0d0b1c" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- star on the helmet -->
+      <g class="crown">
+        <use href="#starShape" fill="url(#star)" transform="translate(462 175) rotate(-10) scale(.82)" filter="url(#glow)"/>
+        <path d="M430 150 C440 130 456 122 468 118" stroke="#fffbe0" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8"/>
+      </g>
     </g>
 
-    <!-- scarf round the neck, with a star brooch -->
-    <path d="M206 398 C 260 372, 420 370, 476 396 C 480 424, 440 444, 344 446 C 254 446, 210 428, 206 398 Z" fill="url(#scarf)" filter="url(#shade)"/>
-    <path d="M232 404 C 290 388, 400 386, 452 402" fill="none" stroke="#b79cff" stroke-opacity=".6" stroke-width="5" stroke-linecap="round"/>
-  </g>
+    <!-- paws -->
+    <ellipse cx="412" cy="705" rx="78" ry="60" fill="url(#paw)"/>
+    <path d="M385 670 L382 700 M418 668 L418 700 M448 674 L452 702" stroke="#c4b4f2" stroke-width="5" stroke-linecap="round"/>
+    <ellipse cx="682" cy="650" rx="64" ry="50" fill="url(#paw)"/>
+    <path d="M660 620 L658 646 M690 618 L692 646 M716 624 L720 648" stroke="#c4b4f2" stroke-width="5" stroke-linecap="round"/>
 
-  <!-- clouds it sits in -->
-  <g class="cloud" filter="url(#shade)">
-    <path d="M40 640 C 20 560, 90 520, 150 540 C 170 480, 260 470, 300 520 C 330 470, 430 470, 450 530 C 500 490, 600 510, 600 590 C 640 600, 640 640, 640 640 Z" fill="url(#cloud)"/>
-    <path d="M150 548 C 176 506, 240 498, 276 530" fill="none" stroke="#e9ddff" stroke-opacity=".7" stroke-width="8" stroke-linecap="round"/>
-    <path d="M330 520 C 360 490, 420 494, 440 530" fill="none" stroke="#e9ddff" stroke-opacity=".6" stroke-width="8" stroke-linecap="round"/>
-  </g>
-
-  <!-- paws on the cloud's edge -->
-  <g class="float">
-    <g filter="url(#shade)">
-      <ellipse cx="282" cy="470" rx="46" ry="36" fill="#fbf7ff"/>
-      <ellipse cx="398" cy="470" rx="46" ry="36" fill="#fbf7ff"/>
+    <!-- clouds in front -->
+    <g class="cloud-a" mask="url(#cloudFade)">
+      <path d="M190 930 C170 870 230 830 280 850 C300 790 380 780 410 830 C440 790 520 800 530 850 C580 830 630 860 625 930Z" fill="url(#cloud)"/>
+      <path d="M560 930 C545 880 590 850 630 862 C650 820 720 815 740 855 C770 830 840 840 850 880 C890 875 920 900 915 930Z" fill="url(#cloud)"/>
+      <path d="M236 860 C250 838 275 832 292 842 M318 816 C340 796 372 794 392 812 M600 872 C612 858 628 854 640 860 M664 836 C684 822 712 822 730 838" stroke="#c9b8ff" stroke-width="9" fill="none" stroke-linecap="round" opacity=".55"/>
     </g>
-    <g stroke="#cbbdf2" stroke-width="4" stroke-linecap="round"><path d="M266 488 v-14"/><path d="M282 492 v-16"/><path d="M298 488 v-14"/><path d="M382 488 v-14"/><path d="M398 492 v-16"/><path d="M414 488 v-14"/></g>
+
+    <!-- big star held in the paws -->
+    <g class="bigstar">
+      <use href="#starShape" fill="url(#star)" transform="translate(595 745) rotate(-14) scale(1.08)" filter="url(#glow)"/>
+      <path d="M548 690 C560 668 582 656 600 652" stroke="#fffbe0" stroke-width="9" fill="none" stroke-linecap="round" opacity=".8"/>
+    </g>
   </g>
 
-  <!-- the orbit, front half, with light running round it -->
-  <g transform="rotate(-16 330 330)">
-    <ellipse cx="330" cy="330" rx="285" ry="92" fill="none" stroke="url(#ring)" stroke-width="11" clip-path="url(#front)" filter="url(#soft)"/>
-    <ellipse class="shine" cx="330" cy="330" rx="285" ry="92" fill="none" stroke="#fff" stroke-width="4" stroke-dasharray="90 1310" stroke-linecap="round" clip-path="url(#front)"/>
-  </g>
-
-  <!-- the big star it holds -->
-  <g class="bigstar"><path d="M452 432 l25 52 57 8 -41 39 10 56 -51 -27 -51 27 10 -56 -41 -39 57 -8z" fill="url(#gold)" stroke="#e89a0c" stroke-width="5" stroke-linejoin="round" filter="url(#shade)"/>
-    <path d="M436 486 l10 -18" stroke="#fff8c8" stroke-width="7" stroke-linecap="round"/></g>
-
-  <!-- sparkles -->
-  <path class="tw1" d="M560 120 l7 20 20 7 -20 7 -7 20 -7 -20 -20 -7 20 -7z" fill="#ffd43b"/>
-  <path class="tw2" d="M90 330 l6 16 16 6 -16 6 -6 16 -6 -16 -16 -6 16 -6z" fill="#ffd43b"/>
-  <path class="tw2" d="M590 380 l5 14 14 5 -14 5 -5 14 -5 -14 -14 -5 14 -5z" fill="#fff"/>
-  <path class="tw1" d="M480 40 l4 11 11 4 -11 4 -4 11 -4 -11 -11 -4 11 -4z" fill="#e9ddff"/>
+  <!-- orbit ring, front arc (in front of the puppy) with its running light -->
+  <path d="M40 640 C20 720 160 800 360 800 C450 800 520 790 560 782" fill="none" stroke="url(#orbit)" stroke-width="16" stroke-linecap="round" opacity=".9"/>
+  <path class="orbit-run" d="M40 640 C20 720 160 800 360 800 C450 800 520 790 560 782" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-dasharray="70 930" opacity=".85" filter="url(#glow)" pathLength="1000"/>
 </svg>
